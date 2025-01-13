@@ -6,31 +6,52 @@
     <meta name="description" content="UI/UX Designer with a passion for creating user-centered, visually stunning digital experiences. Explore my portfolio showcasing web and mobile design projects.">
     <title>Li Wei Ji</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.1/css/boxicons.min.css" rel="stylesheet">
 </head>
 <body>
     <!-- 導航列 -->
-    <nav class="navbar">
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#certificates">Certificates</a></li>
-        </ul>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="hero-section">
-        <div class="hero-container">
-            <div class="hero-image">
-                <img src="https://via.placeholder.com/500" alt="Profile Picture">
+    <header class="header" id="header">
+        <nav class="navbar container">
+            <a href="#" class="brand">Li Wei Ji</a>
+            <div class="burger" id="burger">
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
             </div>
-            <div class="hero-text">
-                <h1>Hi, I'm Li Wei Ji</h1>
-                <p>I've gained experience in user experience and visual design, always focusing on real users with unique needs and motivations. This has helped me grow as a seasoned designer.</p>
-                <a href="#portfolio" class="cta-btn">查看作品集</a>
+            <div class="menu" id="menu">
+                <ul class="menu-inner">
+                    <li class="menu-item"><a href="#home" class="menu-link">Home</a></li>
+                    <li class="menu-item"><a href="#projects" class="menu-link">Projects</a></li>
+                    <li class="menu-item"><a href="#about" class="menu-link">About</a></li>
+                    <li class="menu-item"><a href="#certificates" class="menu-link">Certificates</a></li>
+                </ul>
             </div>
-        </div>
-    </section>
+            <button class="switch" id="switch">
+                <i class="switch-light bx bx-sun"></i>
+                <i class="switch-dark bx bx-moon"></i>
+            </button>
+        </nav>
+    </header>
 
+    <!-- 內容區域 -->
+    <main class="main">
+        <!-- Hero Section -->
+        <section class="section banner banner-section">
+            <div class="container banner-column">
+                <img class="banner-image" src="https://i.ibb.co/sVqYmS2/Illustration.png" alt="Illustration">
+                <div class="banner-inner">
+                    <h1 class="heading-xl">Hi, I'm Li Wei Ji.</h1>
+                    <p class="paragraph">
+                        a UX Designer in Taiwan. I specialize in turning complex business challenges into simple, delightful user experiences.
+                    </p>
+                    <button class="btn btn-darken btn-inline">
+                        Get Started<i class="bx bx-right-arrow-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="scripts.js"></script>
 </body>
 </html>
