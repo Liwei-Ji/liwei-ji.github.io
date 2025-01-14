@@ -189,3 +189,30 @@ body:not(.dark-mode) .hero-section {
 .theme-toggle-btn:hover {
     background-color: #0056b3;
 }
+
+/* 社交連結容器樣式 */
+.social-links {
+  display: flex;
+  gap: 20px; /* 圖標之間的間距 */
+  justify-content: left;/* 圖標靠左對齊 */
+  margin-top: 1rem; /* 與段落的間距調整 */
+}
+
+/* 單個社交連結樣式 */
+.social-link {
+  font-size: 2rem; /* 預設圖標大小 */
+  color: #ccc; /* 預設灰色 */
+  transition: color 0.3s, transform 0.3s; /* 平滑過渡效果 */
+}
+
+/* LinkedIn 懸停效果 */
+.social-link.linkedin:hover {
+  color: #0077b5; /* LinkedIn 藍色 */
+  transform: scale(1.2); /* 圖標放大 */
+}
+
+/* Medium 懸停效果 */
+.social-link.medium:hover {
+  color: #000000; /* Medium 黑色 */
+  transform: scale(1.2); /* 圖標放大 */
+}
