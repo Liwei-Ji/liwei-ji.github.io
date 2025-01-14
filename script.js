@@ -63,32 +63,32 @@ const cardContainer = document.getElementById('card-container');
 
 // 迭代數據並生成卡片
 cardData.forEach((card) => {
-    // 創建元素
+
+// 創建元素
     const cardElement = document.createElement('div');
     cardElement.classList.add('card'); // 加入 card 類別
 
-    // 填充內容
+ // 填充內容
     cardElement.innerHTML = `
         <img src="${card.imgSrc}" alt="Card Image" class="card-image">
         <div class="card-content">
             <h2 class="card-title">${card.title}</h2>
             ${card.tags.map(tag => `<span class="card-tag">${tag}</span>`).join('')}
-        </div>
-    `;
-
-    // 卡片元素添加到容器中
+        </div>`;
+    
+// 卡片元素添加到容器中
     cardContainer.appendChild(cardElement);
 
-    // 為每張卡片設置點擊事件，觸發彈出內頁
+// 為每張卡片設置點擊事件，觸發彈出內頁
     cardElement.addEventListener('click', () => {
         const popupTitle = document.getElementById('popupTitle');
         const popupContent = document.getElementById('popupContent');
 
-        // 設置彈出內頁的標題和內容
+// 設置彈出內頁的標題和內容
         popupTitle.textContent = card.title;
         popupContent.textContent = card.content;
 
-        // 顯示彈出內頁
+// 顯示彈出內頁
         document.getElementById('popup').classList.add('show');
     });
 });
