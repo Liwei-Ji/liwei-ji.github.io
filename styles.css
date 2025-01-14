@@ -3,36 +3,29 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #1E1E1E; /* 預設背景黑色 */
-    color: #FFFFFF; /* 預設文字顏色白色 */
     transition: background-color 0.3s, color 0.3s; /* 平滑過渡效果 */
 }
 
-/* 黑白模式背景設定 */
-body.dark-mode {
-    background-color: #FFFFFF; /* 白色背景 */
-    color: #1E1E1E; /* 黑色文字 */
-}
-
-/* Navbar樣式 */
+/* Navbar */
 .navbar {
     padding: 30px;
     position: sticky;
     top: 0;
     z-index: 1000;
-    color: #fff; /* 預設文字顏色 */
+    color: #fff; /* 文字顏色 */
     transition: background-color 0.3s, color 0.3s; /* 平滑過渡 */
-    background-color: #333; /* 預設背景顏色 */
-    box-shadow: none; /* 去除陰影 */
 }
 
+/* Navbar background 黑暗模式*/
 body.dark-mode .navbar {
-    background-color: #1E1E1E; /* 黑暗模式導航列背景 */
+    background-color: #1E1E1E; /* 背景 */
+    color: #fff; /* 文字顏色 */
 }
 
+/* Navbar background 光亮模式*/
 body:not(.dark-mode) .navbar {
-    background-color: #FFFFFF; /* 白天模式導航列背景 */
-    color: #1E1E1E; /* 白天模式文字顏色 */
+    background-color: #FFFFFF; /* 背景 */
+    color: #1E1E1E; /* 文字顏色 */
 }
 
 .navbar ul {
@@ -49,7 +42,7 @@ body:not(.dark-mode) .navbar {
 }
 
 .navbar a {
-    color: white; /* 預設白色文字 */
+    color: white; /* 白色文字 */
     text-decoration: none;
     font-size: 18px;
     transition: color 0.3s; /* 文字顏色過渡 */
@@ -57,11 +50,45 @@ body:not(.dark-mode) .navbar {
 
 /* 黑暗模式時，navbar鏈接文字顏色 */
 body.dark-mode .navbar a {
-    color: #FFFFFF; /* 黑暗模式下的鏈接顏色 */
+    color: #FFFFFF; /* 黑暗模式 */
 }
 
 body:not(.dark-mode) .navbar a {
-    color: #1E1E1E; /* 白天模式下的鏈接顏色 */
+    color: #1E1E1E; /* 光亮模式 */
+}
+
+/* 黑暗模式下的卡片容器背景 */
+body.dark-mode #card-container {
+    background: #1e1e1e; /* 背景 */
+}
+
+/* 光亮模式下的卡片容器背景 */
+body:not(.dark-mode) #card-container {
+    background: #fffff; /* 光亮模式容器背景 */
+}
+
+/* 黑暗模式下的卡片背景 */
+body.dark-mode .card {
+    background: #333 !important; /* 黑暗模式卡片背景 */
+    color: #FFFFFF !important; /* 白色文字 */
+}
+
+/* 光亮模式下的卡片背景 */
+body:not(.dark-mode) .card {
+    background: #fff !important; /* 光亮模式卡片背景 */
+    color: #1E1E1E !important; /* 黑色文字 */
+}
+
+/* 設置卡片內部標題區域的背景顏色 */
+body.dark-mode .card-title {
+    background: #444444; /* 黑暗模式下標題區域的背景顏色 */
+    color: #FFFFFF; /* 白色文字 */
+}
+
+/* 光亮模式下標題區域的背景顏色 */
+body:not(.dark-mode) .card-title {
+    background: #fff; /* 光亮模式下標題區域的背景顏色 */
+    color: #1E1E1E; /* 黑色文字 */
 }
 
 /* 單獨放黑暗模式emoji的區域 */
@@ -98,11 +125,12 @@ body.dark-mode .hero-section {
     color: #FFFFFF; /* 白色文字 */
 }
 
-/* 白天模式的 Hero Section 背景 */
+/* 光亮模式的 Hero Section 背景 */
 body:not(.dark-mode) .hero-section {
     background: #FFFFFF; /* 白色背景 */
     color: #1E1E1E; /* 黑色文字 */
 }
+
 
 .hero-container {
     display: grid;
@@ -149,13 +177,11 @@ body:not(.dark-mode) .hero-section {
         margin-left: -30px; /* 調整外邊距讓文字靠左 */
     }
 }
-/* 單獨放黑暗模式按鈕的區域 */
 .mode-container {
     display: flex;
     align-items: center;
     margin-right: auto; /* 使emoji放在左邊 */
 }
-
 
 /* 揮手動畫 */
 .wave-emoji {
@@ -173,7 +199,7 @@ body:not(.dark-mode) .hero-section {
     100% { transform: rotate(0deg); }
 }
 
-/* 按鈕樣式 */
+/* 卡片按鈕樣式 */
 .theme-toggle-btn {
     margin-left: auto;
     padding: 0.5rem 1rem;
@@ -190,7 +216,7 @@ body:not(.dark-mode) .hero-section {
     background-color: #0056b3;
 }
 
-/* 社交連結容器樣式 */
+/* 連結樣式 */
 .social-links {
   display: flex;
   gap: 20px; /* 圖標之間的間距 */
@@ -198,21 +224,137 @@ body:not(.dark-mode) .hero-section {
   margin-top: 1rem; /* 與段落的間距調整 */
 }
 
-/* 單個社交連結樣式 */
+/* 單個連結樣式 */
 .social-link {
-  font-size: 2rem; /* 預設圖標大小 */
-  color: #ccc; /* 預設灰色 */
+  font-size: 2rem; /* 圖標尺寸 */
+  color: #ccc; /* 灰色 */
   transition: color 0.3s, transform 0.3s; /* 平滑過渡效果 */
 }
 
 /* LinkedIn 懸停效果 */
 .social-link.linkedin:hover {
-  color: #0077b5; /* LinkedIn 藍色 */
+  color: #0077b5; /* 藍色 */
   transform: scale(1.2); /* 圖標放大 */
 }
 
 /* Medium 懸停效果 */
 .social-link.medium:hover {
-  color: #000000; /* Medium 黑色 */
+  color: #5e5e5e; /* 黑色 */
   transform: scale(1.2); /* 圖標放大 */
+}
+
+/* 卡片容器的樣式 */
+#card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    transition: background-color 0.3s, color 0.3s; /* 平滑過渡 */
+    gap: 20px;
+}
+
+/* 單張卡片樣式 */
+.card {
+    width: 430px;
+    height: 300px;
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 20px auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 滑鼠懸停時卡片放大 */
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.card-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-content {
+    padding: 15px;
+}
+
+.card-title {
+    font-size: 18px;
+    color: #1E1E1E;
+    margin: 0 0 10px;
+}
+
+.card-tag {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 5px 5px 0 0;
+    font-size: 12px;
+    color: #1E1E1E;
+    background-color: #F0F0F0;
+    border-radius: 5px;
+}
+
+/* 彈出框樣式 */
+.popup {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.popup.show {
+    display: block;
+    opacity: 1;
+}
+
+.popup-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.popup-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 500px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    z-index: 1010;
+}
+
+.popup-content h2 {
+    margin: 0 0 10px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+    background: none;
+    font-size: 20px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.close-btn:hover {
+    color: #007bff;
+    transform: scale(1.2);
+}
+
+@media (max-width: 768px) {
+    .card {
+        width: 100%;
+        height: auto;
+    }
 }
