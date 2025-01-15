@@ -245,7 +245,7 @@ body:not(.dark-mode) .hero-section {
 
 /* 卡片容器的樣式 */
 #card-container {
-    margin: 200px; 
+    padding: 200px; 
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
