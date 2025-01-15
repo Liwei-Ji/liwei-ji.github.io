@@ -3,7 +3,13 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    transition: background-color 0.3s, color 0.3s; /* 平滑過渡效果 */
+    transition: background-color 0.3s, color 0.3s; /* 過渡效果 */
+}
+
+/* 黑暗模式下的 body 背景 */
+body.dark-mode {
+  background-color: #1E1E1E; /* 黑暗模式背景 */
+  transition: background-color 0.3s, color 0.3s; /* 過渡效果 */
 }
 
 /* Navbar */
@@ -64,7 +70,7 @@ body.dark-mode #card-container {
 
 /* 光亮模式下的卡片容器背景 */
 body:not(.dark-mode) #card-container {
-    background: #fffff; /* 光亮模式容器背景 */
+    background: #fffff; /* 背景 */
 }
 
 /* 黑暗模式下的卡片背景 */
@@ -245,11 +251,11 @@ body:not(.dark-mode) .hero-section {
 
 /* 卡片容器的樣式 */
 #card-container {
-    padding: 200px; 
+    /* padding: 200px; */
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    transition: background-color 0.3s, color 0.3s; /* 平滑過渡 */
+    transition: background-color 0.3s, color 0.3s; /* 過渡效果 */
     gap: 10px ;
 }
 
@@ -263,7 +269,30 @@ body:not(.dark-mode) .hero-section {
     margin: 20px auto;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: background-color 0.3s, color 0.3s; /* 過渡效果 */
+}
+
+/* 虛線邊框卡片樣式 */
+.dashed-card {
+    width: 700px; /* 寬度 */
+    height: 500px; /* 高度 */
+    border: 2px dashed #C9C9C9; /* 虛線邊框 */
+    border-radius: 10px; /* 圓角 */
+    display: flex; /* 使用彈性盒子來對齊文字 */
+    justify-content: center; /* 水平置中 */
+    align-items: center; /* 垂直置中 */
+    font-size: 30px; /* 字體大小 */
+    font-weight: bold; /* 字體加粗 */
+    color: #C9C9C9; /* 文字顏色 */
+    margin: 20px auto; /* 自動居中 */
+    background-color: #fff;
+}
+
+/* 黑暗模式的虛線卡片 */
+body.dark-mode .dashed-card {
+    border-color: #FFFFFF; /* 虛線變為白色 */
+    color: #FFFFFF; /* 文字變為白色 */
+    background-color: #1E1E1E; /* 黑暗模式 */
 }
 
 /* 滑鼠懸停時卡片放大 */
