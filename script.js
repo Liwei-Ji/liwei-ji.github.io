@@ -22,12 +22,13 @@ checkMode();
 
 // 手動切換模式
 modeEmoji.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-    if (document.body.classList.contains('dark-mode')) {
-        modeEmoji.textContent = '🌙';
-    } else {
-        modeEmoji.textContent = '🌞';
-    }
+    document.body.classList.toggle('dark-mode'); // 切換 dark-mode
+      // 設置正確的 emoji 圖示
+  if (document.body.classList.contains('dark-mode')) {
+    modeEmoji.textContent = '🌙';
+  } else {
+    modeEmoji.textContent = '🌞';
+  }
 });
 
 // 卡片數據
@@ -61,37 +62,52 @@ const cardData = [
 // 取得卡片容器
 const cardContainer = document.getElementById('card-container');
 
-// 迭代數據並生成卡片
-cardData.forEach((card) => {
 
-// 創建元素
-    const cardElement = document.createElement('div');
-    cardElement.classList.add('card'); // 加入 card 類別
+// 創建虛線卡片
+function createDashedCard() {
+  const dashedCard = document.createElement('div');
+  dashedCard.classList.add('dashed-card');
+    dashedCard.textContent = 'A new update is coming soon...'; // 根據需要修改文字
+  cardContainer.appendChild(dashedCard);
+}
 
- // 填充內容
-    cardElement.innerHTML = `
+// 創建卡片元素
+function createCard(card) {
+  const cardElement = document.createElement('div');
+  cardElement.classList.add('card');
+  cardElement.innerHTML = `
         <img src="${card.imgSrc}" alt="Card Image" class="card-image">
         <div class="card-content">
             <h2 class="card-title">${card.title}</h2>
             ${card.tags.map(tag => `<span class="card-tag">${tag}</span>`).join('')}
         </div>`;
-    
-// 卡片元素添加到容器中
-    cardContainer.appendChild(cardElement);
 
-// 為每張卡片設置點擊事件，觸發彈出內頁
-    cardElement.addEventListener('click', () => {
-        const popupTitle = document.getElementById('popupTitle');
-        const popupContent = document.getElementById('popupContent');
+  // 為每張卡片設置點擊事件，觸發彈出內頁
+  cardElement.addEventListener('click', () => {
+    const popupTitle = document.getElementById('popupTitle');
+    const popupContent = document.getElementById('popupContent');
 
-// 設置彈出內頁的標題和內容
-        popupTitle.textContent = card.title;
-        popupContent.textContent = card.content;
+    // 設置彈出內頁的標題和內容
+    popupTitle.textContent = card.title;
+    popupContent.textContent = card.content;
 
-// 顯示彈出內頁
-        document.getElementById('popup').classList.add('show');
-    });
+    // 顯示彈出內頁
+    document.getElementById('popup').classList.add('show');
+  });
+
+  return cardElement;
+}
+
+// 迭代數據並生成卡片
+cardData.forEach((card) => {
+   const cardElement = createCard(card);
+   cardContainer.appendChild(cardElement);
 });
+
+
+// 創建虛線卡片
+createDashedCard();
+
 
 // 彈出內頁關閉事件
 document.getElementById('closePopup').addEventListener('click', () => {
