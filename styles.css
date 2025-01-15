@@ -3,13 +3,11 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    transition: background-color 0.3s, color 0.3s; /* 過渡效果 */
 }
 
 /* 黑暗模式下的 body 背景 */
 body.dark-mode {
   background-color: #1E1E1E; /* 黑暗模式背景 */
-  transition: background-color 0.3s, color 0.3s; /* 過渡效果 */
 }
 
 /* Navbar */
@@ -19,7 +17,6 @@ body.dark-mode {
     top: 0;
     z-index: 1000;
     color: #fff; /* 文字顏色 */
-    transition: background-color 0.3s, color 0.3s; /* 平滑過渡 */
 }
 
 /* Navbar background 黑暗模式*/
@@ -119,7 +116,6 @@ body:not(.dark-mode) .card-title {
     padding: 2rem;
     color: var(--color-white-100);
     text-align: center;
-    transition: background-color 0.3s, color 0.3s; /* 平滑過渡 */
     background-color: #1E1E1E; /* 黑暗模式背景 */
     margin-top: -30px; /* 向上偏移，避免過大的間隔 */
     box-shadow: none; /* 去除陰影 */
@@ -255,7 +251,6 @@ body:not(.dark-mode) .hero-section {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    transition: background-color 0.3s, color 0.3s; /* 過渡效果 */
     gap: 10px ;
 }
 
@@ -269,7 +264,6 @@ body:not(.dark-mode) .hero-section {
     margin: 20px auto;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     cursor: pointer;
-    transition: background-color 0.3s, color 0.3s; /* 過渡效果 */
 }
 
 /* 虛線邊框卡片樣式 */
@@ -299,6 +293,7 @@ body.dark-mode .dashed-card {
 .card:hover {
     transform: scale(1.05);
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+    transition: color 0.3s, transform 0.3s; /* 平滑過渡效果 */
 }
 
 .card-image {
