@@ -1,21 +1,9 @@
-'use client'
-
-import { ThemeProvider } from 'next-themes'
-import Navbar from './components/Navbar'
-import Hero from './components/Hero'
-import Projects from './components/Projects'
-import Info from './components/Info'
+import '../styles/globals.css'
 
 export default function Home() {
-  return (
-    <ThemeProvider attribute="class">
-      <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
-        <Navbar />
-        <Hero />
-        <Projects />
-        <Info />
+    return (
+      <div>
+          <h1>Hello</h1>
       </div>
-    </ThemeProvider>
-  )
-}
-
+    );
+  }
