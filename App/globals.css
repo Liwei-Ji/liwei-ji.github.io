@@ -1,0 +1,22 @@
+@keyframes wave {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(15deg); }
+  50% { transform: rotate(0deg); }
+  75% { transform: rotate(-15deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.animate-wave {
+  animation: wave 1.5s infinite;
+}
+
+.wave-emoji {
+  animation: wave 1.5s infinite;
+  display: inline-block;
+}
+
+.wave-emoji:hover {
+  animation: none;
+  transform: scale(1.5);
+}
+
