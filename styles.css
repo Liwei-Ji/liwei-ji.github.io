@@ -72,8 +72,9 @@ body.light-mode .navbar a {
     color: #1E1E1E;
 }
 
+/* Mouse hover color*/
 .navbar a:hover {
-    color: #4CAF50;
+    color: #4CAF50; /*Green*/
 }
 
 /* Switch */
@@ -195,7 +196,7 @@ input:checked + .slider:before {
     margin: 0;
 }
 
-/* Projects Section */
+/* Projects */
 .projects-section {
     min-height: 100vh;
     padding: 80px 2rem;
@@ -322,7 +323,7 @@ body.light-mode .popup-content {
     color: inherit;
 }
 
-/* Info Section */
+/* Info */
 .info {
     min-height: 100vh;
     padding: 80px 2rem;
@@ -390,14 +391,27 @@ body.light-mode .info {
     100% { transform: rotate(0deg); }
 }
 
+/* Emoji Icon */
 .wave-emoji {
     display: inline-block;
     font-size: 1.5em;
     animation: wave 1.5s infinite;
 }
 
+/* Emoji Hover */
 .wave-emoji:hover {
     animation: none;
+}
+
+/* Emoji 平滑過渡效果 */
+.hover-effect {
+    transition: transform 0.2s ease-in-out; 
+}
+
+/* Emoji Hover Zoom */
+.hover-effect:hover {
+    transform: scale(4.5);
+    transition: color 0.3s, transform 0.3s;
 }
 
 /* Responsive Design */
