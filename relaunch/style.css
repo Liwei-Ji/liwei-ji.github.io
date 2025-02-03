@@ -1,0 +1,160 @@
+<style > * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Arial", sans-serif;
+}
+
+body {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f4f4f4; /* 背景顏色 */
+  font-size: 16px;
+  line-height: 1.6;
+  color: #555;
+}
+
+/* Box */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* 標題 */
+.hero {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.hero h2 {
+  font-size: 3.5rem;
+  color: #666;
+  font-weight: 400;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Card */
+.card {
+  background-color: #f9f9f9;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  margin: 0 auto;
+  font-size: 20px;
+}
+
+.box {
+  padding: 40px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Title */
+.title {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 8px; /* 間距 */
+}
+
+.text {
+  font-size: 20px;
+  border-radius: 8px;
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+
+/* 有序清單 */
+.note-content ol {
+  padding-left: 20px;
+  margin-top: 10px;
+}
+
+.note-content ol li {
+  margin-bottom: 12px;
+}
+
+/* 項目符號 */
+.note-content p {
+  margin-bottom: 16px;
+}
+
+/* Link */
+.link {
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 20px;
+  text-align: center;
+  font-size: 20px;
+}
+
+.link a {
+  font-size: 24px;
+  color: #0077b5; /* 藍色 */
+  text-decoration: none;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 4px;
+  background-color: #e9f3fb;
+  transition: background-color 0.3s;
+}
+
+.link a:hover {
+  background-color: #d0e7f7;
+}
+
+
+/* Data */
+.data-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 800px;
+}
+
+.data-card {
+  background-color: #fff;
+  padding: 1.5rem;
+  margin: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  flex: 1;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.data-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.data-card h3 {
+  font-size: 1rem;
+  color: #2c3e50;
+}
+
+.data-card p {
+  font-size: 2rem;
+  color: #2a96c4;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+/* Note */
+.note {
+    background-color: #ffeeba;
+    border-left: 5px solid #ffc107;
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 5px;
+}
