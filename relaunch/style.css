@@ -175,7 +175,7 @@ body {
 }
 
 .version-table th {
-  background-color: #f4f4f4;
+  background-color: #e6e6e6; /* 背景顏色 */
   font-weight: bold;
 }
 
