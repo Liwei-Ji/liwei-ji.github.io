@@ -154,7 +154,7 @@ body {
 
 /* 圖表 */
 .chart-container {
-  width: 60%; /* 可以調整這裡的數值來控制圖表大小 */
+  width: 60%; /* 調整數值來控制圖表大小 */
   margin: 20px auto; /* 讓容器居中 */
 }
 
@@ -191,4 +191,16 @@ canvas {
   background-color: #e6e6e6; /* 背景顏色 */
   font-weight: bold;
 }
+
+/* 淡入效果 */
+.fade-in {
+  opacity: 0;
+  transition: opacity 1.5s ease-out;
+}
+
+.fade-in.visible {
+  opacity: 1;
+}
+
+
 
