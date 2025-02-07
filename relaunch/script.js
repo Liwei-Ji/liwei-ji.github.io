@@ -1,3 +1,32 @@
+// 淡入效果
+document.addEventListener("DOMContentLoaded", function() {
+  // 選取所有需要淡入的元素
+  const faders = document.querySelectorAll('.fade-in');
+
+  // 設定觀察器的選項：當元素有 20% 進入視窗時觸發
+  const appearOptions = {
+    threshold: 0.2,
+    rootMargin: "0px 0px -50px 0px"
+  };
+
+  // 建立 IntersectionObserver
+  const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        // 若只希望觸發一次則取消觀察
+        observer.unobserve(entry.target);
+      }
+    });
+  }, appearOptions);
+
+  // 對每個元素進行監控
+  faders.forEach(fader => {
+    appearOnScroll.observe(fader);
+  });
+});
+
+
 // 獲取畫布元素
 const ctxTotal = document.getElementById('totalProgressChart').getContext('2d');
 const ctxFeature = document.getElementById('featureProgressChart').getContext('2d');
