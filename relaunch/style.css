@@ -74,6 +74,9 @@ body {
   margin: 0 auto;
 }
 
+.text .small-text {
+  font-size: 14px; 
+}
 
 /* 有序清單 */
 .note-content ol {
