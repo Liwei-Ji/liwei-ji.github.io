@@ -149,6 +149,16 @@ body {
   font-weight: bold;
   margin-top: 1rem;
 }
+/* 圖表 */
+.chart-container {
+  width: 60%; /* 可以調整這裡的數值來控制圖表大小 */
+  margin: 20px auto; /* 讓容器居中 */
+}
+
+canvas {
+  width: 100% !important;  /* 設置canvas寬度為容器的 100% */
+  height: auto !important; /* 設置高度自動 */
+}
 
 /* Note */
 .note {
