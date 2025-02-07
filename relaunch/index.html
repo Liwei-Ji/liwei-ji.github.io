@@ -9,6 +9,8 @@
 </head>
   <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-8WMNR1T1KL"></script>
+    <!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -72,7 +74,7 @@
     <iframe src="sitemap.html" width="800" height="700" frameborder="0"></iframe>
   </div>
 
-  <!-- Progress -->
+  <!-- Progress 
   <div class="box">
     <h3 class="title">Progress</h3>
     <div class="data-section">
@@ -117,6 +119,21 @@
         <p id="count-10">0</p>
       </div>
     </div>
+-->
+    <!-- Progress -->
+  <div class="text">
+    <h3 class="title">Progress</h3>
+     </div>
+    <div class="card"> 
+      <!-- 圖表顯示總進度 -->
+  <div class="chart-container">
+    <canvas id="totalProgressChart" width="400" height="400"></canvas>
+  </div>
+
+  <!-- 長條圖顯示每個進度 -->
+  <div class="chart-container">
+    <canvas id="featureProgressChart" width="400" height="400"></canvas>
+  
     <!-- Note -->
     <div class="note">
       <p>💡 I’m constantly working on fixing bugs, improving, and adding new features, so the timeline may change as I go.</p>
