@@ -102,7 +102,7 @@ body {
   font-size: 20px;
 }
 
-.link a {
+.button a {
   font-size: 24px;
   color: #0077b5; /* 藍色 */
   text-decoration: none;
@@ -113,7 +113,7 @@ body {
   transition: background-color 0.3s;
 }
 
-.link a:hover {
+.button a:hover {
   background-color: #d0e7f7;
 }
 
