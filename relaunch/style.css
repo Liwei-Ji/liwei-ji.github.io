@@ -206,5 +206,22 @@ canvas {
   opacity: 1;
 }
 
+/* Links */
+.links {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.link {
+    font-size: 1.8rem;
+    color: #666;
+    transition: color 0.3s, transform 0.3s;
+}
+
+.link:hover {
+    transform: scale(1.2);
+}
 
 
