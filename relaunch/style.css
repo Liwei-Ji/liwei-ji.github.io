@@ -115,14 +115,14 @@ body {
   background-color: #e9f3fb;
   transition: background-color 0.3s;
 }
-*/
+
 /*
 .button a:hover {
   background-color: #d0e7f7;
 }
 */
 
-/* Data 
+/* Data */
 .data-section {
   display: flex;
   flex-wrap: wrap;
