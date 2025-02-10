@@ -223,3 +223,99 @@ canvas {
 .link:hover {
     transform: scale(1.2);
 }
+
+/* 卡片容器排版 */
+.card-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* 卡片樣式 */
+.card {
+  display: inline-block;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  padding: 20px;
+  text-decoration: none;
+  color: #333;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 150px;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* 圖標與文字 */
+.card-icon {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+.card-text {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* Animating Icons */
+
+/* 1. Website 移動動畫 */
+.website-icon {
+  animation: move 4s infinite alternate;
+}
+@keyframes move {
+  from { transform: translateX(0); }
+  to { transform: translateX(100px); }
+}
+
+/* 2. Portfolio hover時曲線甩動 */
+.portfolio-icon {
+  transition: transform 0.3s ease;
+}
+.card:hover .portfolio-icon {
+  animation: swing-curve 0.8s ease-in-out;
+}
+
+/* 3. Email hover時搖晃 */
+.email-icon {
+  transition: transform 0.3s ease;
+}
+.card:hover .email-icon {
+  animation: shake 0.5s;
+}
+
+/* 搖晃動畫定義 */
+@keyframes shake {
+  0%   { transform: translateX(0); }
+  25%  { transform: translateX(-5px); }
+  50%  { transform: translateX(5px); }
+  75%  { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+
+/* 曲線甩動動畫定義 */
+@keyframes swing-curve {
+  0% {
+    transform: rotate(0deg) translate(0, 0);
+  }
+  20% {
+    transform: rotate(-15deg) translate(-5px, -5px);
+  }
+  40% {
+    transform: rotate(10deg) translate(5px, 5px);
+  }
+  60% {
+    transform: rotate(-10deg) translate(-4px, -4px);
+  }
+  80% {
+    transform: rotate(5deg) translate(2px, 2px);
+  }
+  100% {
+    transform: rotate(0deg) translate(0, 0);
+  }
+}
+
