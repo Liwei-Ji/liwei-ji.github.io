@@ -40,8 +40,8 @@ body {
   margin: 0 auto;
 }
 
-/* Card */
-.card {
+/* 進度卡片 */
+.block {
   background-color: #f9f9f9;
   border-radius: 16px;
   padding: 20px;
