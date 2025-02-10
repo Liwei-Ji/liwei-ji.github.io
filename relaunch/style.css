@@ -210,7 +210,7 @@ canvas {
   opacity: 1;
 }
 
-/* Links 
+/* Links */
 .links {
     display: flex;
     gap: 1.5rem;
@@ -227,7 +227,7 @@ canvas {
 .link:hover {
     transform: scale(1.2);
 }
-*/
+
 
 
 
