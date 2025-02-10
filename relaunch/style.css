@@ -162,6 +162,7 @@ body {
 /* 圖表 */
 .chart-container {
   width: 60%; /* 調整數值來控制圖表大小 */
+  max-width: 600px; 
   margin: 20px auto; /* 讓容器居中 */
 }
 
