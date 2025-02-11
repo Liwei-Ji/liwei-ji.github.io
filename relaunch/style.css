@@ -74,6 +74,13 @@ body {
   margin: 0 auto;
 }
 
+ /* 新加入 固定高度，視情況可調整 */
+.text iframe {
+  width: 100%;  
+  height: 700px; 
+  border: none;
+}
+
 .text .small-text {
   font-size: 16px; 
 }
@@ -327,8 +334,13 @@ canvas {
 
   .text {
     font-size: 16px;
-    padding: 10px;
+    padding: 15px;
   }
+  
+    .text iframe {
+    height: 400px;  
+  }
+}
 
   .title {
     font-size: 24px;
