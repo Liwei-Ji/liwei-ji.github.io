@@ -237,6 +237,7 @@ canvas {
   justify-content: center;
   gap: 20px;
   flex-wrap: wrap;
+  box-sizing: border-box;
 }
 
 /* 卡片樣式 */
@@ -252,6 +253,7 @@ canvas {
   color: #333;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   width: 150px;
+  box-sizing: border-box
 }
 .card:hover {
   transform: translateY(-5px);
@@ -357,7 +359,13 @@ canvas {
 
   .card {
     width: 100%; 
+    max-width: 200px;
     margin-bottom: 15px;
+  }
+
+  .card-container {
+    justify-content: flex-start; /* 將卡片置左 */
+    gap: 10px; /* 減少卡片之間的間距 */
   }
 
   .note {
