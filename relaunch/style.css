@@ -319,3 +319,36 @@ canvas {
   }
 }
 
+/* RWD Mobile */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .text {
+    font-size: 16px;
+    padding: 10px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .block {
+    font-size: 16px;
+    padding: 10px;
+  }
+
+  .chart-container {
+    width: 100%;
+  }
+
+  .card {
+    width: 100%; 
+    margin-bottom: 15px;
+  }
+
+  .note {
+    font-size: 14px;
+  }
+}
