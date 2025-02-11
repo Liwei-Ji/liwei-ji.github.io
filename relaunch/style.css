@@ -302,6 +302,18 @@ canvas {
     padding: 10px;
   }
 
+/* 圖表並排 */
+.charts-row {
+    display: flex;
+    justify-content: space-between; /* 左右對齊 */
+    gap: 30px; /* 間隔 */
+  }
+
+.chart-container {
+    width: 48%; /* 容器寬度 */
+    margin: 2; 
+  }
+
   .chart-container {
     width: 100%;
   }
