@@ -189,6 +189,7 @@ canvas {
   border-collapse: collapse;
   margin: 20px 0;
   font-family: Arial, sans-serif;
+  table-layout: fixed;
 }
 
 .version-table th,
@@ -196,6 +197,7 @@ canvas {
   padding: 12px;
   border: 1px solid #ddd;
   text-align: left;
+  word-wrap: break-word;
 }
 
 .version-table th {
@@ -370,5 +372,17 @@ canvas {
 
   .note {
     font-size: 14px;
+  }
+
+.version-table {
+    width: 100%;
+    overflow-x: auto; /* 啟用橫向滾動 */
+    display: block; /* 讓表格變成區塊元素 */
+  }
+
+  .version-table th,
+  .version-table td {
+    padding: 8px; /* 調整表格內邊距以適應小螢幕 */
+    font-size: 14px; /* 調整文字大小以適應小螢幕 */
   }
 }
