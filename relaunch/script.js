@@ -1,3 +1,13 @@
+// 監控滾動事件，顯示或隱藏 "Back to Top" 按鈕
+window.onscroll = function() {
+    var button = document.getElementById("back-to-top");
+    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        button.style.display = "block"; // 顯示按鈕
+    } else {
+        button.style.display = "none"; // 隱藏按鈕
+    }
+};
+
 // 淡入效果
 document.addEventListener("DOMContentLoaded", function() {
   // 選取所有需要淡入的元素
