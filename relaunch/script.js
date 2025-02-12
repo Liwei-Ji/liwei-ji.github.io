@@ -52,11 +52,11 @@ const totalProgress = (Object.values(featureData).reduce((a, b) => a + b, 0)) / 
 const totalProgressChart = new Chart(ctxTotal, {
   type: 'doughnut',
   data: {
-    labels: ['Completed', 'Incomplete'],
+    labels: ['Incomplete', 'Completed'],
     datasets: [{
       data: [totalProgress, 100 - totalProgress],
-      backgroundColor: ['rgba(76, 175, 80, 0.6)', 'rgba(255, 99, 132, 0.6)'],
-      borderColor: ['rgba(76, 175, 80, 1)', 'rgba(255, 99, 132, 1)'], 
+      backgroundColor: ['rgba(76, 175, 80, 0.6)', 'rgba(85, 85, 85, 0.6)'],
+      borderColor: ['rgba(76, 175, 80, 1)', 'rgba(85, 85, 85, 1)'], 
       borderWidth: 1
     }]
   },
