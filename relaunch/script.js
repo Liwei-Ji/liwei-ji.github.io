@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
   // 選取所有需要淡入的元素
   const faders = document.querySelectorAll('.fade-in');
 
-  // 設定觀察器的選項：當元素有 20% 進入視窗時觸發
+  // 設定觀察器：當元素有 20% 進入視窗時觸發
   const appearOptions = {
     threshold: 0.2,
     rootMargin: "0px 0px -50px 0px"
@@ -55,8 +55,8 @@ const totalProgressChart = new Chart(ctxTotal, {
     labels: ['Completed', 'Incomplete'],
     datasets: [{
       data: [totalProgress, 100 - totalProgress],
-      backgroundColor: ['rgba(76, 175, 80, 0.6)', 'rgba(255, 99, 132, 0.6)'],
-      borderColor: ['rgba(76, 175, 80, 1)', 'rgba(255, 99, 132, 1)'],
+      backgroundColor: ['rgba(85, 85, 85, 0.6)', 'rgba(200, 200, 200, 0.6)'], // 黑色、灰色
+      borderColor: ['rgba(85, 85, 85, 1)', 'rgba(200, 200, 200, 1)'], // 黑色、灰色
       borderWidth: 1
     }]
   },
@@ -86,14 +86,14 @@ const featureProgressChart = new Chart(ctxFeature, {
       label: '進度 (%)',
       data: Object.values(featureData), // 每個功能的進度
       backgroundColor: Object.values(featureData).map(progress => {
-        if (progress <= 50) return 'rgba(255, 99, 132, 0.6)'; // 紅色
-        if (progress <= 80) return 'rgba(255, 159, 64, 0.6)'; // 黃色
-        return 'rgba(76, 175, 80, 0.6)'; // 綠色
+        if (progress <= 50) return 'rgba(85, 85, 85, 0.6)'; // 深灰色
+        if (progress <= 80) return 'rgba(169, 169, 169, 0.6)'; // 灰色
+        return 'rgba(200, 200, 200, 0.6)'; // 淺灰色
       }),
       borderColor: Object.values(featureData).map(progress => {
-        if (progress <= 50) return 'rgba(255, 99, 132, 1)';
-        if (progress <= 80) return 'rgba(255, 159, 64, 1)';
-        return 'rgba(76, 175, 80, 1)';
+        if (progress <= 50) return 'rgba(85, 85, 85, 1)'; // 深灰色
+        if (progress <= 80) return 'rgba(169, 169, 169, 1)'; // 灰色
+        return 'rgba(200, 200, 200, 1)'; // 淺灰色
       }),
       borderWidth: 1
     }]
