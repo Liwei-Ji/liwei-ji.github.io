@@ -152,6 +152,27 @@ canvas {
   font-weight: bold;
 }
 
+/* Back to Top */
+#back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #141414;
+    color: white;
+    padding: 10px 12px;
+    border-radius: 24px;
+    font-size: 20px;
+    text-decoration: none;
+    display: none; /* 默認隱藏 */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
+}
+
+#back-to-top:hover {
+    background-color: #FFD700;
+    transform: scale(1.6);
+}
+
+
 /* 淡入效果 */
 .fade-in {
   opacity: 0;
