@@ -52,11 +52,11 @@ const totalProgress = (Object.values(featureData).reduce((a, b) => a + b, 0)) / 
 const totalProgressChart = new Chart(ctxTotal, {
   type: 'doughnut',
   data: {
-    labels: ['Incomplete', 'Completed'],
+    labels: ['Completed', 'Incomplete'],
     datasets: [{
       data: [totalProgress, 100 - totalProgress],
-      backgroundColor: ['rgba(76, 175, 80, 0.6)', 'rgba(85, 85, 85, 0.6)'],
-      borderColor: ['rgba(76, 175, 80, 1)', 'rgba(85, 85, 85, 1)'], 
+      backgroundColor: ['rgba(76, 175, 80, 0.6)', 'rgba(200, 200, 200, 0.6)'],
+      borderColor: ['rgba(76, 175, 80, 1)', 'rgba(200, 200, 200, 1)'], 
       borderWidth: 1
     }]
   },
@@ -84,16 +84,16 @@ const featureProgressChart = new Chart(ctxFeature, {
     labels: Object.keys(featureData), // 功能名稱
     datasets: [{
       label: '進度 (%)',
-      data: Object.values(featureData), // 每個功能的進度
+      data: Object.values(featureData), // 每個的進度
       backgroundColor: Object.values(featureData).map(progress => {
-        if (progress <= 50) return 'rgba(85, 85, 85, 0.6)'; // 深灰色
-        if (progress <= 80) return 'rgba(255, 159, 64, 0.6)'; // 黃色
-        return 'rgba(76, 175, 80, 0.6)'; // 綠色
+        if (progress <= 50) return 'rgba(200, 200, 200, 0.6)'; // 深灰
+        if (progress <= 80) return 'rgba(255, 159, 64, 0.6)'; // 黃
+        return 'rgba(76, 175, 80, 0.6)'; // 綠
       }),
       borderColor: Object.values(featureData).map(progress => {
-        if (progress <= 50) return 'rgba(85, 85, 85, 1)'; // 深灰色
-        if (progress <= 80) return 'rgba(255, 159, 64, 1)'; // 灰色
-        return 'rgba(76, 175, 80, 1)'; // 綠色
+        if (progress <= 50) return 'rgba(200, 200, 200, 1)'; // 深灰
+        if (progress <= 80) return 'rgba(255, 159, 64, 1)'; // 橙
+        return 'rgba(76, 175, 80, 1)'; // 綠
       }),
       borderWidth: 1
     }]
