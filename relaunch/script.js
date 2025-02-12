@@ -8,6 +8,16 @@ window.onscroll = function() {
     }
 };
 
+// 當按下 "Back to Top" 按鈕時，平滑滾動回頁面頂部
+document.getElementById("back-to-top").onclick = function(event) {
+    event.preventDefault(); // 阻止默認的錨點行為（不改變網址）
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth' // 使用平滑滾動
+    });
+};
+
+
 // 淡入效果
 document.addEventListener("DOMContentLoaded", function() {
   // 選取所有需要淡入的元素
