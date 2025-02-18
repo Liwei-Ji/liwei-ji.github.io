@@ -71,6 +71,52 @@ body {
   border: none;
 }
 
+/* 文字淡入效果 */
+.text p {
+  opacity: 0; /* 初始狀態為透明 */
+  transform: translateY(30px); /* 從下方進入 */
+  animation: fadeUp 1s ease-out forwards; /* 動畫效果 */
+  margin-bottom: 20px; /* 行與行之間的間距 */
+  animation-delay: var(--delay); /* 每一段文字的延遲時間 */
+}
+
+/* 設定動畫效果 */
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px); /* 從下方進入 */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0); /* 最終位置 */
+  }
+}
+
+/* 為每段文字設定不同的延遲時間 */
+.text p:nth-child(1) {
+  --delay: 0s; /* 第一段文字無延遲 */
+}
+
+.text p:nth-child(2) {
+  --delay: 0.2s; /* 第二段文字延遲 0.2 秒 */
+}
+
+.text p:nth-child(3) {
+  --delay: 0.4s; /* 第三段文字延遲 0.4 秒 */
+}
+
+.text p:nth-child(4) {
+  --delay: 0.6s; /* 第四段文字延遲 0.6 秒 */
+}
+
+.text p:nth-child(5) {
+  --delay: 0.8s; /* 第五段文字延遲 0.8 秒 */
+}
+
+.text p:nth-child(6) {
+  --delay: 1s; /* 第六段文字延遲 1 秒 */
+}
+
 
 /* 有序清單與段落間距 */
 .note-content ol {
