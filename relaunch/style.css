@@ -125,7 +125,7 @@ body {
   border-collapse: collapse;
   margin: 20px 0;
   font-family: Arial, sans-serif;
-  table-layout: fixed;
+  table-layout: auto;
 }
 
 .version-table th,.version-table td {
