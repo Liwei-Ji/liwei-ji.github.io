@@ -272,19 +272,6 @@ body {
     transform: rotate(0deg) translate(0, 0);
   }
 
-.footer {
-  text-align: center;  /* 文字居中 */
-  padding: 20px;  /* 內邊距 */
-  color: #555;  
-  font-size: 14px;  
-  font-weight: 300;  /* 輕微的字體粗細 */
-  letter-spacing: 1px;  /* 字母間距 */
-}
-
-.button:hover {
-  color: #d9d9d9; /* 文字變色 */
-}
-
 /* 響應式設計 */
 @media (max-width: 768px) {
   .hero h1 {
