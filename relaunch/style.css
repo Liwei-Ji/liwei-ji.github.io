@@ -212,7 +212,12 @@ canvas {
 
 /* 卡片樣式 */
 .card {
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border-radius: 10px;
   background-color: #ffffff;
   border: 1px solid #ddd;
   border-radius: 10px;
@@ -222,7 +227,8 @@ canvas {
   text-decoration: none;
   color: #333;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  width: 150px;
+  width: 22%;;
+  max-width: 100%;
   box-sizing: border-box
 }
 .card:hover {
