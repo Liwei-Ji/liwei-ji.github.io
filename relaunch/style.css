@@ -10,7 +10,7 @@ body {
   font-size: 16px;
   line-height: 1.6;
   background-color: #f4f4f4; /* 背景顏色 */
-  color: #555;
+  color: #808080;
 }
 
 
@@ -205,7 +205,7 @@ body {
   text-align: center;
   padding: 20px;
   text-decoration: none;
-  color: #333;
+  color: #808080;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   width: 22%;
   max-width: 100%;
