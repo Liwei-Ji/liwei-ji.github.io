@@ -87,27 +87,29 @@ body {
   margin-bottom: 16px;
 }
 
-/* Link */
+/* 超連結 */
 .link {
   padding: 20px;
   border-radius: 8px;
   margin-top: 20px;
   text-align: center;
   font-size: 20px;
+  transition: color 0.3s, transform 0.3s;
 }
 
-/* 圖表 */
+/* 圖表容器 */
 .chart-container {
-  width: 60%; /* 調整數值來控制圖表大小 */
-  margin: 20px auto; /* 讓容器居中 */
+  width: 60%; /* 控制圖表尺寸 */
+  margin: 20px auto; /* 容器居中 */
 }
 
 canvas {
-  width: 100% !important;  /* 設置canvas寬度為容器的 100% */
-  height: auto !important; /* 設置高度自動 */
+  width: 100% !important;  /* 
+  height: auto !important; /* 高度自動 */
 }
 
-/* Note */
+
+/* 提示框 */
 .note {
     background-color: #ffeeba;
     border-left: 5px solid #ffc107;
@@ -139,7 +141,7 @@ canvas {
   font-weight: bold;
 }
 
-/* Back to Top */
+/* 返回頂部按鈕 */
 #back-to-top {
     position: fixed;
     bottom: 20px;
