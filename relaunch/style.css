@@ -46,15 +46,7 @@ body {
   font-size: 20px;
 }
 
-/* Box 
-.box {
-  padding: 40px;
-  max-width: 800px;
-  margin: 0 auto;
-}
-*/
-
-/* Title */
+/* 標題與文字 */
 .title {
   font-size: 36px;
   font-weight: bold;
@@ -69,18 +61,18 @@ body {
   margin: 0 auto;
 }
 
- /* 文字 */
+.small-text {
+  font-size: 16px; 
+}
+
 .text iframe {
   width: 100%;  
   height: 700px; 
   border: none;
 }
 
-.text .small-text {
-  font-size: 16px; 
-}
 
-/* 有序清單 */
+/* 有序清單與段落間距 */
 .note-content ol {
   padding-left: 20px;
   margin-top: 10px;
