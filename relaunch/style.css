@@ -172,25 +172,8 @@ canvas {
   opacity: 1;
 }
 
-/* Links */
-.links {
-    display: flex;
-    gap: 1.5rem;
-    justify-content: center;
-    margin-top: 2rem;
-}
 
-.link {
-    font-size: 1.8rem;
-    color: #666;
-    transition: color 0.3s, transform 0.3s;
-}
-
-.link:hover {
-    transform: scale(1.2);
-}
-
-/* 卡片容器排版 */
+/* 卡片排版 */
 .card-container {
   display: flex;
   justify-content: center;
@@ -226,7 +209,6 @@ canvas {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* 圖標與文字 */
 .card-icon {
   font-size: 2.5rem;
   margin-bottom: 15px;
