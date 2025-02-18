@@ -128,8 +128,7 @@ canvas {
   table-layout: fixed;
 }
 
-.version-table th,
-.version-table td {
+.version-table th,.version-table td {
   padding: 12px;
   border: 1px solid #ddd;
   text-align: left;
@@ -137,7 +136,7 @@ canvas {
 }
 
 .version-table th {
-  background-color: #e6e6e6; /* 背景顏色 */
+  background-color: #e6e6e6;
   font-weight: bold;
 }
 
@@ -152,7 +151,7 @@ canvas {
     border-radius: 24px;
     font-size: 20px;
     text-decoration: none;
-    display: none; /* 默認隱藏 */
+    display: none;
     transition: transform 0.3s ease, box-shadow 0.3s ease; 
 }
 
@@ -219,16 +218,7 @@ canvas {
 }
 
 
-/* Website 移動動畫 */
-.website-icon {
-  animation: move 4s infinite alternate;
-}
-@keyframes move {
-  from { transform: translateX(0); }
-  to { transform: translateX(100px); }
-}
-
-/* Portfolio hover時曲線甩動 */
+/* 卡片停留時甩動 */
 .portfolio-icon {
   transition: transform 0.3s ease;
 }
@@ -236,7 +226,7 @@ canvas {
   animation: swing-curve 0.8s ease-in-out;
 }
 
-/* Email hover時搖晃 */
+/* 卡片停留時搖晃 */
 .email-icon {
   transition: transform 0.3s ease;
 }
@@ -253,7 +243,7 @@ canvas {
   100% { transform: translateX(0); }
 }
 
-/* 曲線甩動動畫定義 */
+/* 甩動動畫定義 */
 @keyframes swing-curve {
   0% {
     transform: rotate(0deg) translate(0, 0);
@@ -273,9 +263,8 @@ canvas {
   100% {
     transform: rotate(0deg) translate(0, 0);
   }
-}
 
-/* RWD Mobile */
+/* 響應式設計 */
 @media (max-width: 768px) {
   .hero h1 {
     font-size: 2rem;
@@ -289,7 +278,6 @@ canvas {
     .text iframe {
     height: 400px;  
   }
-}
 
   .title {
     font-size: 24px;
@@ -300,15 +288,14 @@ canvas {
     padding: 10px;
   }
 
-/* 圖表並排 */
 .charts-row {
     display: flex;
-    justify-content: space-between; /* 左右對齊 */
-    gap: 30px; /* 間隔 */
+    justify-content: space-between;
+    gap: 30px; 
   }
 
 .chart-container {
-    width: 48%; /* 容器寬度 */
+    width: 48%; 
     margin: 2; 
   }
 
@@ -323,8 +310,8 @@ canvas {
   }
 
   .card-container {
-    justify-content: flex-start; /* 將卡片置左 */
-    gap: 10px; /* 減少卡片之間的間距 */
+    justify-content: flex-start; 
+    gap: 10px; 
   }
 
   .note {
@@ -333,13 +320,12 @@ canvas {
 
 .version-table {
     width: 100%;
-    overflow-x: auto; /* 啟用橫向滾動 */
-    display: block; /* 讓表格變成區塊元素 */
+    overflow-x: auto; 
+    display: block; 
   }
 
-  .version-table th,
-  .version-table td {
-    padding: 8px; /* 調整表格內邊距以適應小螢幕 */
-    font-size: 14px; /* 調整文字大小以適應小螢幕 */
+  .version-table th, .version-table td {
+    padding: 8px; 
+    font-size: 14px; 
   }
 }
