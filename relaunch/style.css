@@ -99,7 +99,7 @@ body {
 
 /* 圖表容器 */
 .chart-container {
-  width: 60%; /* 控制圖表尺寸 */
+  width: 48%; /* 控制圖表尺寸 */
   margin: 20px auto; /* 容器居中 */
 }
 
