@@ -97,6 +97,14 @@ body {
   transition: color 0.3s, transform 0.3s;
 }
 
+/* 圖表並排 */
+.charts-row {
+    display: flex;
+    justify-content: space-between; /* 左右對齊 */
+    gap: 20px; /* 間隔 */
+    flex-wrap: wrap;
+  }
+
 /* 圖表容器 */
 .chart-container {
   width: 48%; /* 控制圖表尺寸 */
@@ -289,12 +297,6 @@ body {
     padding: 10px;
   }
 
-/* 圖表並排 */
-.charts-row {
-    display: flex;
-    justify-content: space-between; /* 左右對齊 */
-    gap: 30px; /* 間隔 */
-  }
 
 .chart-container {
     width: 48%; /* 容器寬度 */
