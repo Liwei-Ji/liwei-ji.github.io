@@ -247,7 +247,6 @@ canvas {
   font-weight: 600;
 }
 
-/* Animating Icons */
 
 /* Website 移動動畫 */
 .website-icon {
@@ -348,7 +347,7 @@ canvas {
 
   .card {
     width: 100%; 
-    max-width: 200px;
+    max-width: 180px;
     margin-bottom: 15px;
   }
 
