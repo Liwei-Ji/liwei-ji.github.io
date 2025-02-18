@@ -278,6 +278,7 @@ body {
     .text iframe {
     height: 400px;  
   }
+}
 
   .title {
     font-size: 24px;
@@ -288,14 +289,15 @@ body {
     padding: 10px;
   }
 
+/* 圖表並排 */
 .charts-row {
     display: flex;
-    justify-content: space-between;
-    gap: 30px; 
+    justify-content: space-between; /* 左右對齊 */
+    gap: 30px; /* 間隔 */
   }
 
 .chart-container {
-    width: 48%; 
+    width: 48%; /* 容器寬度 */
     margin: 2; 
   }
 
@@ -310,8 +312,8 @@ body {
   }
 
   .card-container {
-    justify-content: flex-start; 
-    gap: 10px; 
+    justify-content: flex-start; /* 將卡片置左 */
+    gap: 10px; /* 減少卡片之間的間距 */
   }
 
   .note {
@@ -320,13 +322,13 @@ body {
 
 .version-table {
     width: 100%;
-    overflow-x: auto; 
-    display: block; 
+    overflow-x: auto; /* 啟用橫向滾動 */
+    display: block; /* 讓表格變成區塊元素 */
   }
 
-.version-table th,
-.version-table td {
-    padding: 8px; 
-    font-size: 14px; 
+  .version-table th,
+  .version-table td {
+    padding: 8px; /* 調整表格內邊距以適應小螢幕 */
+    font-size: 14px; /* 調整文字大小以適應小螢幕 */
   }
 }
