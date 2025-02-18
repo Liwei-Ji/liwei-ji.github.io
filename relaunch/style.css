@@ -103,7 +103,7 @@ body {
   margin: 20px auto; /* 容器居中 */
 }
 
-canvas {
+.canvas {
   width: 100% !important; 
   height: auto !important; 
 }
