@@ -1,0 +1,129 @@
+/* 基本 */
+body {
+    font-family: 'Roboto', 'Noto Sans JP', 'Noto Sans TC', 'Yu Gothic', 'Meiryo', sans-serif;
+    line-height: 1.6;  /* 文字行間距 */
+    background-color: #f7f7f7;  /* 背景色 */
+    color: #333;  /* 文字顏色 */
+}
+
+/* 進度條 */
+#progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%; /* 初始寬度 0% */
+    height: 5px;
+    background-color: #007BFF;
+    z-index: 9999;
+}
+
+/* 圖片 */
+.full-image {
+    width: 100%;
+    height: 100vh; /* 視窗高度 */
+    background-size: cover; /* 確保圖片不會被拉伸 */
+    background-position: center; /* 圖片居中 */
+    position: relative;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* 內文區域 */
+.article {
+    max-width: 1200px;  /* 限制最大寬度， */
+    margin: 0 auto;  /* 內文居中 */
+    padding: 30px;  /* 內邊距 */
+    z-index: 1;
+}
+
+/* 標題 */
+h1 {
+    font-size: 3em;  /* 主標題 */
+    font-weight: bold;  /* 加粗 */
+    margin-bottom: 0.5em;  /* 標題與內容之間的空間 */
+}
+
+h2, h3, h4 {
+    font-weight: bold;  /* 副標題 */
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+/* 文字段落 */
+p {
+    font-size: 1.2em;  /* 文字大小 */
+    margin-bottom: 1em;  /* 段落間距 */
+}
+
+/* 短間距段落 */
+.short-spacing {
+    margin-bottom: 0.3em;  /* 之間的間距較小 */
+}
+
+/* 引用文字 */
+blockquote {
+    font-size: 1.2em;
+    margin: 1.5em 0;
+    padding-left: 1.2em;
+    border-left: 5px solid #ccc;  /* 引用加上邊框 */
+    color: #333;  /* 引用文字顏色 */
+}
+
+/* 文字中圖片 */
+.inline-image {
+    display: block;  /* 圖片塊級元素，讓文字換行 */
+    margin: 20px auto;   /* 圖片上下留空間 */
+    max-width: 100%;   /* 控制圖片最大寬度 */
+    height: auto;     /* 圖片按比例自動調整 */
+}
+
+
+/* 左文字 右圖片 */
+.left-text-right-image {
+    display: flex;
+    padding: 20px;
+}
+
+.left-text {
+    flex: 1;
+    padding-right: 20px;
+}
+
+.left-text h2 {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.left-text p {
+    font-size: 1.2em;
+    line-height: 1.6;
+}
+
+.right-image {
+    flex: 1;
+    background-size: contain; 
+    background-position: center;
+    height: 300px;
+    background-repeat: no-repeat;
+}
+
+/* 閱讀更多 */
+.left-image-right-image {
+    display: flex;
+    gap: 10px; /* 兩張圖片之間的間距 */
+}
+
+/* 每個圖片容器 */
+.image-link {
+    flex: 1;  /* 圖片區域50% */
+    display: block;  
+    text-decoration: none; 
+}
+
+.left-image, .right-image {
+    width: 100%; /* 圖片寬度 */
+    height: 300px;  /* 控制圖片高度 */
+    background-size: contain; /* 圖片覆蓋整個區域 */
+    background-position: left center;
+    background-repeat: no-repeat; /* 確保圖片不會重複 */
+}
