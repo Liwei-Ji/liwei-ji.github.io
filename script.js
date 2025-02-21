@@ -18,37 +18,37 @@ modeToggle.addEventListener('change', checkMode);
 // 頁面加載時檢查顏色模式
 checkMode();
 
-// 專案卡片數據
+// 卡片數據
 const cardData = [
     {
-        imgSrc: "https://liwei-ji.github.io/picture.jpg",
-        title: "Title 1",
-        tags: ["Tip", "Tip"],
-        content: "Essay 1"
+        imgSrc: "https://toyota.jp/pages/contents/rav4/002_p_001/image/top/feature_03.jpg",
+        title: "トヨタ 新型RAV4 車載システム",
+        tags: ["日本語", "トヨタ自動車", "NewRav4", "Research"],
+        url: "https://liwei-ji.github.io/projects/toyota-rav4"
     },
     {
         imgSrc: "https://liwei-ji.github.io/picture.jpg",
         title: "Title 2",
         tags: ["Tip", "Tip"],
-        content: "Essay 2"
+        url: "https://example.com/project2"
     },
     {
         imgSrc: "https://liwei-ji.github.io/picture.jpg",
         title: "Title 3",
         tags: ["Tip", "Tip"],
-        content: "Essay 3"
+        url: "https://example.com/project2"
     },
     {
         imgSrc: "https://liwei-ji.github.io/picture.jpg",
         title: "Title 4",
         tags: ["Tip", "Tip"],
-        content: "Essay 4"
+        url: "https://example.com/project2"
     },
     {
         imgSrc: "https://liwei-ji.github.io/picture.jpg",
         title: "Title 5",
         tags: ["Tip", "Tip"],
-        content: "Essay 5"
+        url: "https://example.com/project2"
     }
 ];
 
@@ -65,15 +65,14 @@ function createCard(card) {
     `;
 
     cardElement.addEventListener('click', () => {
-        document.getElementById('popupTitle').textContent = card.title;
-        document.getElementById('popupContent').textContent = card.content;
-        document.getElementById('popup').classList.add('show');
+        // 點擊卡片時開啟指定的 URL
+        window.open(card.url, "_self");  // 在當前標籤頁中打開
     });
 
     return cardElement;
 }
 
-// 創建虛線卡片
+// 虛線卡片
 function createDashedCard() {
     const dashedCard = document.createElement('div');
     dashedCard.classList.add('dashed-card');
@@ -87,16 +86,6 @@ cardData.forEach(card => {
     cardContainer.appendChild(createCard(card));
 });
 cardContainer.appendChild(createDashedCard());
-
-// 彈出視窗關閉功能
-document.getElementById('closePopup').addEventListener('click', () => {
-    document.getElementById('popup').classList.remove('show');
-});
-
-// 點擊遮罩層關閉彈出視窗
-document.getElementById('popupOverlay').addEventListener('click', () => {
-    document.getElementById('popup').classList.remove('show');
-});
 
 // 平滑滾動
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
