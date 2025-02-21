@@ -1,13 +1,13 @@
 /* 基本 */
 body {
     font-family: 'Roboto', 'Noto Sans JP', 'Noto Sans TC', 'Yu Gothic', 'Meiryo', sans-serif;
+    line-height: 1.6; /* 文字行間距 */
+    background-color: #f7f7f7; /* 背景色 */
+    color: #FFFFFF;
     margin: 0;
     padding: 0;
-    transition: background-color 0.3s, color 0.3s;
     font-size: 18px;
-    line-height: 1.6;
-    background-color: #1E1E1E;
-    color: #FFFFFF;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 body.light-mode {
