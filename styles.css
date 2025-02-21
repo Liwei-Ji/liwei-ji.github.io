@@ -1,6 +1,6 @@
-/* 基本樣式 */
+/* 基本 */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Roboto', 'Noto Sans JP', 'Noto Sans TC', 'Yu Gothic', 'Meiryo', sans-serif;
     margin: 0;
     padding: 0;
     transition: background-color 0.3s, color 0.3s;
@@ -274,53 +274,6 @@ body.dark-mode .card-tag {
     color: #C9C9C9;
     height: 100%;
     min-height: 200px;
-}
-
-/* Popup */
-.popup {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 1000;
-}
-
-.popup.show {
-    display: block;
-}
-
-.popup-overlay {
-    position: absolute;
-    inset: 0;
-    background-color: rgba(0, 0, 0, 0.7);
-}
-
-.popup-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #2A2A2A;
-    padding: 2rem;
-    border-radius: 20px;
-    width: 90%;
-    max-width: 600px;
-    color: #FFFFFF;
-}
-
-body.light-mode .popup-content {
-    background-color: #FFFFFF;
-    color: #1E1E1E;
-}
-
-.close-btn {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    border: none;
-    background: none;
-    font-size: 2rem;
-    cursor: pointer;
-    color: inherit;
 }
 
 /* Info */
