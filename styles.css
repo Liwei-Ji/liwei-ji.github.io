@@ -2,7 +2,7 @@
 body {
     font-family: 'Roboto', 'Noto Sans JP', 'Noto Sans TC', 'Yu Gothic', 'Meiryo', sans-serif;
     line-height: 1.6; /* 文字行間距 */
-    background-color: #f7f7f7; /* 背景色 */
+    background-color: #1e1e1e; /* 背景色 */
     color: #FFFFFF;
     margin: 0;
     padding: 0;
@@ -11,7 +11,7 @@ body {
 }
 
 body.light-mode {
-    background-color: #FFFFFF;
+    background-color: #f7f7f7; /* 背景色 */
     color: #1E1E1E;
 }
 
