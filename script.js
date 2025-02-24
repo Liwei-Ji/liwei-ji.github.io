@@ -21,6 +21,24 @@ checkMode();
 // 卡片數據
 const cardData = [
     {
+        imgSrc: "https://sg.osim.com/partners-program/img/osim_storeimg2-min.jpg",
+        title: "Review of OSIM Work",
+        tags: ["English", "UI/UX", "Website", "APP", "Research"],
+        url: "https://liwei-ji.github.io/projects/review-of-osim-work"
+    },
+    {
+        imgSrc: "https://liwei-ji.github.io/picture.jpg",
+        title: "Smooth Integration Between Different Products",
+        tags: ["English", "APP", "Research"],
+        url: "https://liwei-ji.github.io/projects/osim-well-being-app"
+    },
+    {
+        imgSrc: "https://liwei-ji.github.io/picture.jpg",
+        title: "How I Helped the CS Team Increase Efficiency",
+        tags: ["English", "Website", "Research"],
+        url: "https://liwei-ji.github.io/projects/osim-onecrm"
+    },
+    {
         imgSrc: "https://toyota.jp/pages/contents/rav4/002_p_001/image/top/feature_03.jpg",
         title: "トヨタ 新型RAV4 車載システム",
         tags: ["日本語", "トヨタ自動車", "NewRav4", "Research"],
@@ -28,27 +46,9 @@ const cardData = [
     },
     {
         imgSrc: "https://liwei-ji.github.io/picture.jpg",
-        title: "Title 2",
-        tags: ["Tip", "Tip"],
-        url: "https://example.com/project2"
-    },
-    {
-        imgSrc: "https://liwei-ji.github.io/picture.jpg",
-        title: "Title 3",
-        tags: ["Tip", "Tip"],
-        url: "https://example.com/project2"
-    },
-    {
-        imgSrc: "https://liwei-ji.github.io/picture.jpg",
-        title: "Title 4",
-        tags: ["Tip", "Tip"],
-        url: "https://example.com/project2"
-    },
-    {
-        imgSrc: "https://liwei-ji.github.io/picture.jpg",
-        title: "Title 5",
-        tags: ["Tip", "Tip"],
-        url: "https://example.com/project2"
+        title: "トヨタ 新型RAV4 車載アプリ",
+        tags: ["日本語", "トヨタ自動車", "NewRav4", "Research", "APP"],
+        url: "https://liwei-ji.github.io/projects/toyota-app"
     }
 ];
 
