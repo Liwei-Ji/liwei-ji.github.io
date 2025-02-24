@@ -1,8 +1,7 @@
-<style > * {
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Arial", sans-serif;
 }
 
 body {
@@ -10,7 +9,7 @@ body {
   font-size: 16px;
   line-height: 1.6;
   background-color: #f7f7f7; /* 背景色 */
-  color: #333;; /* 文字顏色 */
+  color: #333; /* 文字顏色 */
 }
 
 
@@ -347,10 +346,6 @@ body {
 .chart-container {
     width: 48%; /* 容器寬度 */
     margin: 2; 
-  }
-
-  .chart-container {
-    width: 100%;
   }
 
   .card {
