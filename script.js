@@ -57,7 +57,7 @@ const cardData = [
         url: "https://liwei-ji.github.io/projects/toyota-rav4"
     },
     {
-        imgSrc: "https://liwei-ji.github.io/picture.jpg",
+        imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/edc2d3219676023.67beeeafbc81b.png",
         title: "Toyota New RAV4 In Car App",
         tags: ["Japanese", "Toyota", "NewRav4", "Research", "APP"],
         url: "https://liwei-ji.github.io/projects/toyota-app"
