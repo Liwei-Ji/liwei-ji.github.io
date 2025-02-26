@@ -39,15 +39,27 @@ const cardData = [
         url: "https://liwei-ji.github.io/projects/osim-onecrm"
     },
     {
+        imgSrc: "https://liwei-ji.github.io/picture.jpg",
+        title: "Designing the mmWave Testing Tool GUI",
+        tags: ["English", "Website", "Research"],
+        url: "https://liwei-ji.github.io/projects/mmwave"
+    },
+    {
+        imgSrc: "https://liwei-ji.github.io/picture.jpg",
+        title: "OPTEX Vision App",
+        tags: ["English", "APP", "Research"],
+        url: "https://liwei-ji.github.io/projects/optex-app"
+    },
+    {
         imgSrc: "https://toyota.jp/pages/contents/rav4/002_p_001/image/top/feature_03.jpg",
-        title: "トヨタ 新型RAV4 車載システム",
-        tags: ["日本語", "トヨタ自動車", "NewRav4", "Research"],
+        title: "Toyota New RAV4 In Car System",
+        tags: ["Japanese", "Toyota", "NewRav4", "Research"],
         url: "https://liwei-ji.github.io/projects/toyota-rav4"
     },
     {
         imgSrc: "https://liwei-ji.github.io/picture.jpg",
-        title: "トヨタ 新型RAV4 車載アプリ",
-        tags: ["日本語", "トヨタ自動車", "NewRav4", "Research", "APP"],
+        title: "Toyota New RAV4 In Car App",
+        tags: ["Japanese", "Toyota", "NewRav4", "Research", "APP"],
         url: "https://liwei-ji.github.io/projects/toyota-app"
     }
 ];
