@@ -81,7 +81,7 @@ body.light-mode .navbar a {
     color: #4CAF50; /*Green*/
 }
 
-/* Switch */
+/* 日夜切換開關 */
 .switch {
     position: relative;
     display: inline-block;
@@ -102,9 +102,8 @@ body.light-mode .navbar a {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #ccc;
-    transition: .4s;
-    box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    background: linear-gradient(to bottom, #19072b 20%, #343066 100%); /* 星空顏色 */
+    transition: 0.3s;
 }
 
 .slider:before {
@@ -114,25 +113,30 @@ body.light-mode .navbar a {
     width: 26px;
     left: 4px;
     bottom: 4px;
-    background-color: white;
-    transition: .4s;
+    background: radial-gradient(circle at 60% 40%, #adadad 30%, #f4f4f4 100%); /* 月亮滑塊顏色 */
+    transition: 0.3s;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
 input:checked + .slider {
-    background-color: #4CAF50;
+    background: linear-gradient(to bottom, #87ceeb 0%, #e0f6ff 100%); /* 天空顏色 */
 }
 
 input:checked + .slider:before {
     transform: translateX(26px);
+    background: radial-gradient(circle, #ffcc00 30%, #f4f4f4 100%); /* 太陽滑塊顏色 */
+    box-shadow: 0 10px 10px rgba(241, 196, 15, 0.2);
 }
 
 .slider.round {
     border-radius: 34px;
 }
 
+/* 滑塊樣式 */
 .slider.round:before {
-    border-radius: 50%;
+    background-color: #f4f4f4; /* 白色 */
+    box-shadow: 0 10px 30px rgba(0, 0, 15, 0.8);  /* 帶些光暈 */
+    border-radius: 50%;  /* 圓形 */
 }
 
 /* Available Badge */
