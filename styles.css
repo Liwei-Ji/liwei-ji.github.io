@@ -17,15 +17,19 @@ body.light-mode {
 
 /* Navbar */
 .navbar {
-    padding: 20px 40px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    background-color: rgba(30, 30, 30, 0.8);
-    backdrop-filter: blur(10px);
+    padding: 20px; /* 內邊距*/
+    position: fixed; /* 設定為固定定位 */
+    top: 30px;  /* 離視窗頂部 */
+    left: 0; /* 離視窗左邊緣 */
+    right: 0; /* 離視窗右邊緣 */
+    z-index: 1000;  /* 設定堆疊順序，確保其他元素之上 */
+    background-color: rgba(30, 30, 30, 0.8); /* 背景顏色半透明深灰色 */
+    backdrop-filter: blur(10px); /* 背景上模糊效果 */
     transition: background-color 0.3s, color 0.3s;
+    border-radius: 40px; /* 圓角半徑 */
+    max-width: 800px; /* 最大寬度 */
+    width: 90%; /* 設定寬度 */
+    margin: 0 auto;
 }
 
 body.light-mode .navbar {
