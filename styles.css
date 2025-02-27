@@ -194,6 +194,7 @@ input:checked + .slider:before {
 }
 
 .hero-text {
+    font-family: 'Poppins', sans-serif;
     font-size: 5.5rem;
     font-weight: 700;
     line-height: 1.2;
