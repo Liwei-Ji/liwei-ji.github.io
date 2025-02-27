@@ -1,7 +1,7 @@
-// 模式切換
+    // 模式切換
 const modeToggle = document.getElementById('modeToggle');
 
-// 檢查顏色模式
+    // 檢查顏色模式
 function checkMode() {
     if (modeToggle.checked) {
         document.body.classList.remove('dark-mode');
@@ -12,13 +12,61 @@ function checkMode() {
     }
 }
 
-// 監聽切換事件
+    // 監聽切換事件
 modeToggle.addEventListener('change', checkMode);
 
-// 頁面加載時檢查顏色模式
+    // 頁面加載時檢查顏色模式
 checkMode();
 
-// 卡片數據
+    // 打字機效果
+const heroText = document.getElementById("heroText");
+const cursor = document.querySelector(".cursor"); // 獲取游標元素
+const words = [
+    "Hi I'm Liwei Ji ",
+    "I'm UIUX Designer ",
+    "Frontend Developer ",
+    "Creating Engaging Experiences ",
+    "Turning Ideas into Solutions ",
+];
+
+let wordIndex = 0;
+let charIndex = 0;
+let isDeleting = false;
+
+function typeEffect() {
+    const currentWord = words[wordIndex];
+
+    // 更新顯示文字
+    heroText.textContent = currentWord.substring(0, charIndex);
+
+    // 控制游標顯示
+    cursor.style.visibility = charIndex === currentWord.length && !isDeleting ? "hidden" : "visible";
+
+    // 更新字符索引
+    if (isDeleting) {
+        charIndex--;
+    } else {
+        charIndex++;
+    }
+
+    let typingSpeed = isDeleting ? 40 : 80; // 刪除速度
+
+    // 控制打字和刪除邏輯
+    if (!isDeleting && charIndex === currentWord.length) {
+        typingSpeed = 2000; // 文字顯示完停頓 2 秒
+        isDeleting = true;
+    } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        wordIndex = (wordIndex + 1) % words.length; // 切換到下一句
+        typingSpeed = 300;
+    }
+
+    setTimeout(typeEffect, typingSpeed);
+    }
+
+document.addEventListener("DOMContentLoaded", typeEffect);
+
+    // 卡片數據
 const cardData = [
     {
         imgSrc: "https://sg.osim.com/partners-program/img/osim_storeimg2-min.jpg",
@@ -64,7 +112,7 @@ const cardData = [
     }
 ];
 
-// 創建卡片
+    // 創建卡片
 function createCard(card) {
     const cardElement = document.createElement('div');
     cardElement.classList.add('card');
@@ -77,14 +125,14 @@ function createCard(card) {
     `;
 
     cardElement.addEventListener('click', () => {
-        // 點擊卡片時開啟指定的 URL
+    // 點擊卡片時開啟指定的 URL
         window.open(card.url, "_self");  // 在當前標籤頁中打開
     });
 
     return cardElement;
 }
 
-// 虛線卡片
+    // 虛線卡片
 function createDashedCard() {
     const dashedCard = document.createElement('div');
     dashedCard.classList.add('dashed-card');
@@ -92,14 +140,14 @@ function createDashedCard() {
     return dashedCard;
 }
 
-// 初始化卡片容器
+    // 初始化卡片容器
 const cardContainer = document.getElementById('card-container');
 cardData.forEach(card => {
     cardContainer.appendChild(createCard(card));
 });
 cardContainer.appendChild(createDashedCard());
 
-// 平滑滾動
+    // 平滑滾動
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
