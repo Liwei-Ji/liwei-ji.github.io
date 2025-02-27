@@ -196,6 +196,16 @@ input:checked + .slider:before {
     margin: 0;
 }
 
+/* 打字機效果 */
+.cursor {
+    display: inline-block; /* 設定inline區塊 */
+    width: 15px; /* 寬度 */
+    height: 1.2em; /* 與文字高度一致 */
+    vertical-align: middle; /* 與文字對齊 */
+    background-color: #4CAF50; /*Green*/
+    margin-left: 5px;
+    animation: blink 0.7s infinite;
+}
 
 /* Projects */
 .projects-section {
