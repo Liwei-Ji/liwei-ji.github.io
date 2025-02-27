@@ -19,53 +19,36 @@ modeToggle.addEventListener('change', checkMode);
 checkMode();
 
     // 打字機效果
-const heroText = document.getElementById("heroText");
-const cursor = document.querySelector(".cursor"); // 獲取游標元素
-const words = [
-    "Hi I'm Liwei Ji ",
-    "I'm UIUX Designer ",
-    "Frontend Developer ",
-    "Creating Engaging Experiences ",
-    "Turning Ideas into Solutions ",
-];
-
+const textElement = document.getElementById("heroText");
+const words = ["Hi I'm Liwei Ji", "I'm UIUX Designer", "Frontend Developer", "Creating Engaging Experiences", "Turning Ideas into Solutions"];
 let wordIndex = 0;
 let charIndex = 0;
 let isDeleting = false;
 
 function typeEffect() {
     const currentWord = words[wordIndex];
-
-    // 更新顯示文字
-    heroText.textContent = currentWord.substring(0, charIndex);
-
-    // 控制游標顯示
-    cursor.style.visibility = charIndex === currentWord.length && !isDeleting ? "hidden" : "visible";
-
-    // 更新字符索引
     if (isDeleting) {
         charIndex--;
     } else {
         charIndex++;
     }
 
-    let typingSpeed = isDeleting ? 40 : 80; // 刪除速度
+    textElement.textContent = currentWord.substring(0, charIndex);
 
-    // 控制打字和刪除邏輯
+    let typingSpeed = isDeleting ? 50 : 100; // 刪除速度
     if (!isDeleting && charIndex === currentWord.length) {
-        typingSpeed = 2000; // 文字顯示完停頓 2 秒
+        typingSpeed = 2000; // 完整顯示後暫停
         isDeleting = true;
     } else if (isDeleting && charIndex === 0) {
         isDeleting = false;
-        wordIndex = (wordIndex + 1) % words.length; // 切換到下一句
-        typingSpeed = 300;
+        wordIndex = (wordIndex + 1) % words.length;
+        typingSpeed = 500; // 切換到下一句時的暫停
     }
 
     setTimeout(typeEffect, typingSpeed);
-    }
+}
 
 document.addEventListener("DOMContentLoaded", typeEffect);
-
     // 卡片數據
 const cardData = [
     {
