@@ -407,7 +407,7 @@ body.light-mode .info {
     }
 }
 
-@media (max@media (max-width: 768px) {
+@media (max-width: 768px) {
     .navbar-container {
         flex-direction: column;
         align-items: center;
