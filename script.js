@@ -52,14 +52,14 @@ document.addEventListener("DOMContentLoaded", typeEffect);
     // 卡片數據
 const cardData = [
     {
-        imgSrc: "https://sg.osim.com/partners-program/img/osim_storeimg2-min.jpg",
+        imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/464ea3220712515.67c82815e2868.png",
         title: "Review of OSIM Work",
         tags: ["English", "UI/UX", "Website", "APP", "Research"],
         url: "https://liwei-ji.github.io/projects/review-of-osim-work"
     },
     {
-        imgSrc: "https://liwei-ji.github.io/picture.jpg",
-        title: "Smooth Integration Between Different Products",
+        imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/293901220712515.67c8224364822.png",
+        title: "OSIM Well Being App",
         tags: ["English", "APP", "Research"],
         url: "https://liwei-ji.github.io/projects/osim-well-being-app"
     },
@@ -70,25 +70,25 @@ const cardData = [
         url: "https://liwei-ji.github.io/projects/osim-onecrm"
     },
     {
-        imgSrc: "https://liwei-ji.github.io/picture.jpg",
+        imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/e51e2b220712515.67c81f448fc61.png",
         title: "Designing the mmWave Testing Tool GUI",
         tags: ["English", "Website", "Research"],
         url: "https://liwei-ji.github.io/projects/mmwave"
     },
     {
-        imgSrc: "https://liwei-ji.github.io/picture.jpg",
+        imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/e4659a220712515.67c82775b7f34.png",
         title: "OPTEX Vision App",
         tags: ["English", "APP", "Research"],
         url: "https://liwei-ji.github.io/projects/optex-app"
     },
     {
-        imgSrc: "https://toyota.jp/pages/contents/rav4/002_p_001/image/top/feature_03.jpg",
+        imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/d66ace220712515.67c825cfd1d87.png",
         title: "Toyota New RAV4 In Car System",
         tags: ["Japanese", "Toyota", "NewRav4", "Research"],
         url: "https://liwei-ji.github.io/projects/toyota-rav4"
     },
     {
-        imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/edc2d3219676023.67beeeafbc81b.png",
+        imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/b6296d220712515.67c8012021a2c.png",
         title: "Toyota New RAV4 In Car App",
         tags: ["Japanese", "Toyota", "NewRav4", "Research", "APP"],
         url: "https://liwei-ji.github.io/projects/toyota-app"
