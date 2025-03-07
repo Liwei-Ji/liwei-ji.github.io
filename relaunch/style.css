@@ -193,7 +193,7 @@ body {
   font-weight: bold;
 }
 
-/* 返回頂部按鈕 */
+/* 返回頂部按鈕 
 #back-to-top {
     position: fixed;
     bottom: 20px;
@@ -212,7 +212,7 @@ body {
     background-color: #FFD700;
     transform: scale(1.6);
 }
-
+*/
 
 /* 淡入效果 */
 .fade-in {
