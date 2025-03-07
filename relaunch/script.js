@@ -1,21 +1,21 @@
 // 監控滾動事件，顯示或隱藏 "Back to Top" 按鈕
-window.onscroll = function() {
-    var button = document.getElementById("back-to-top");
-    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-        button.style.display = "block"; // 顯示按鈕
-    } else {
-        button.style.display = "none"; // 隱藏按鈕
-    }
-};
+// window.onscroll = function() {
+//  var button = document.getElementById("back-to-top");
+//  if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+//  button.style.display = "block"; // 顯示按鈕
+// } else {
+// button.style.display = "none"; // 隱藏按鈕
+//  }
+//};
 
 // 當按下 "Back to Top" 按鈕時，平滑滾動回頁面頂部
-document.getElementById("back-to-top").onclick = function(event) {
-    event.preventDefault(); // 阻止默認的錨點行為（不改變網址）
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth' // 使用平滑滾動
-    });
-};
+//document.getElementById("back-to-top").onclick = function(event) {
+// event.preventDefault(); // 阻止默認的錨點行為（不改變網址）
+// window.scrollTo({
+//   top: 0,
+// behavior: 'smooth' // 使用平滑滾動
+// });
+// };
 
 
 // 淡入效果
