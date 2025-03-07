@@ -53,16 +53,16 @@ const ctxFeature = document.getElementById('featureProgressChart').getContext('2
 
 // 功能名稱和其對應的進度數據（0-100%）
 const featureData = {
-  "Home": 50,
+  "Home": 95,
   "Navbar": 100,
   "NightMode": 100,
   "HeroBanner": 80,
-  "Projects": 20,
-  "Skill": 0,
-  "Info": 50,
-  "Layout": 20,
-  "Optimization": 0,
-  "SEO": 0
+  "Projects": 85,
+  "Skill": 10,
+  "Info": 20,
+  "Layout": 65,
+  "Optimization": 30,
+  "SEO": 40,
 };
 
 // 計算總體進度（根據各功能進度的平均值）
