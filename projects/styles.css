@@ -103,8 +103,14 @@ blockquote {
     flex: 1;
     background-size: contain; 
     background-position: center;
-    height: auto; /* 原來設定 300px; */
+    height: 300px; 
     background-repeat: no-repeat;
+}
+
+/* 新增直向圖片樣式 */
+.right-image.vertical {
+    background-size: contain;
+    height: auto;
 }
 
 /* 新增社交圖示樣式 */
