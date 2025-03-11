@@ -103,27 +103,46 @@ blockquote {
     flex: 1;
     background-size: contain; 
     background-position: center;
-    height: 300px;
+    height: auto; /* 原來設定 300px; */
     background-repeat: no-repeat;
 }
 
-/* 閱讀更多 */
-.left-image-right-image {
+/* 新增社交圖示樣式 */
+.social-links {
     display: flex;
-    gap: 10px; /* 兩張圖片之間的間距 */
+    gap: 1.5rem;
+    justify-content: flex-start;
+    margin-top: 2rem;
 }
 
-/* 每個圖片容器 */
+.social-link {
+    font-size: 1.5rem;
+    color: #dbdbdb;
+    transition: color 0.3s, transform 0.3s;
+}
+
+.social-link:hover {
+    transform: scale(1.2);
+}
+
+/* 閱讀更多 
+.left-image-right-image {
+    display: flex;
+    gap: 10px; /* 兩張圖片之間的間距
+}
+
+/* 每個圖片容器 
 .image-link {
-    flex: 1;  /* 圖片區域50% */
+    flex: 1;  /* 圖片區域50% 
     display: block;  
     text-decoration: none; 
 }
 
 .left-image, .right-image {
-    width: 100%; /* 圖片寬度 */
-    height: 300px;  /* 控制圖片高度 */
-    background-size: contain; /* 圖片覆蓋整個區域 */
+    width: 100%; /* 圖片寬度 
+    height: 300px;  /* 控制圖片高度 
+    background-size: contain; /* 圖片覆蓋整個區域 
     background-position: left center;
-    background-repeat: no-repeat; /* 確保圖片不會重複 */
+    background-repeat: no-repeat; /* 確保圖片不會重複 
 }
+*/
