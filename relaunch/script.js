@@ -58,11 +58,11 @@ const featureData = {
   "NightMode": 100,
   "HeroBanner": 80,
   "Projects": 85,
-  "Skill": 10,
-  "Info": 20,
-  "Layout": 65,
-  "Optimization": 30,
-  "SEO": 40,
+  "Skill": 50,
+  "Info": 75,
+  "Layout": 80,
+  "Optimization": 60,
+  "SEO": 60,
 };
 
 // 計算總體進度（根據各功能進度的平均值）
