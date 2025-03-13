@@ -64,7 +64,7 @@ const cardData = [
         url: "https://liwei-ji.github.io/projects/osim-well-being-app"
     },
     {
-        imgSrc: "https://liwei-ji.github.io/picture.jpg",
+        imgSrc: "https://sg.osim.com/partners-program/img/servicedonewell-min.jpg",
         title: "How I Helped the CS Team Increase Efficiency",
         tags: ["English", "Website", "Research"],
         url: "https://liwei-ji.github.io/projects/osim-onecrm"
