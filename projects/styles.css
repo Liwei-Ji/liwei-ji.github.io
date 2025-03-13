@@ -194,3 +194,23 @@ blockquote {
     font-size: 14px;
     color: white;
 }
+
+.tag[data-color="blue"] {
+    background-color: #007bff;
+}
+
+.tag[data-color="green"] {
+    background-color: #28a745;
+}
+
+.tag[data-color="red"] {
+    background-color: #dc3545;
+}
+
+.tag[data-color="purple"] {
+    background-color: #6f42c1;
+}
+
+.tag[data-color="orange"] {
+    background-color: #fd7e14;
+}
