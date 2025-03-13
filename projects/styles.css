@@ -214,3 +214,205 @@ blockquote {
 .tag[data-color="orange"] {
     background-color: #fd7e14;
 }
+
+/* 用於故事(Relaunch)樣式 */ 
+/* 進度卡片 */ 
+.block { 
+    background-color: #f9f9f9; 
+    border-radius: 16px; 
+    padding: 20px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    max-width: 1400px; 
+    margin: 0 auto; 
+    
+} 
+   
+/* 文字淡入效果 */ 
+.text p { 
+    opacity: 0; /* 初始狀態為透明 */ 
+    transform: translateY(30px); /* 從下方進入 */ 
+    animation: fadeUp 1s ease-out forwards; /* 動畫效果 */ 
+    margin-bottom: 20px; /* 行與行之間的間距 */ 
+    animation-delay: var(--delay); /* 每一段文字的延遲時間 */ 
+} 
+   
+/* 設定動畫效果 */ 
+@keyframes fadeUp { 
+    0% { 
+      opacity: 0; 
+      transform: translateY(30px); /* 從下方進入 */ 
+    } 
+    100% { 
+      opacity: 1; 
+      transform: translateY(0); /* 最終位置 */ 
+    } 
+} 
+   
+/* 為每段文字設定不同的延遲時間 */ 
+.text p:nth-child(1) { 
+    --delay: 0s; /* 第一段文字無延遲 */ 
+} 
+   
+.text p:nth-child(2) { 
+    --delay: 0.2s; /* 第二段文字延遲 0.2 秒 */ 
+} 
+   
+.text p:nth-child(3) { 
+    --delay: 0.4s; /* 第三段文字延遲 0.4 秒 */ 
+} 
+   
+.text p:nth-child(4) { 
+    --delay: 0.6s; /* 第四段文字延遲 0.6 秒 */ 
+} 
+   
+.text p:nth-child(5) { 
+    --delay: 0.8s; /* 第五段文字延遲 0.8 秒 */ 
+} 
+   
+.text p:nth-child(6) { 
+    --delay: 1s; /* 第六段文字延遲 1 秒 */ 
+} 
+   
+   
+/* 超連結 */ 
+.link { 
+    padding: 20px; 
+    border-radius: 8px; 
+    margin-top: 20px; 
+    text-align: center; 
+    transition: color 0.3s, transform 0.3s; 
+} 
+   
+/* 圖表並排 */ 
+.charts-row { 
+    display: flex; 
+    justify-content: space-between; /* 左右對齊 */ 
+    gap: 20px; /* 間隔 */ 
+    flex-wrap: wrap; 
+} 
+   
+/* 圖表容器 */ 
+.chart-container { 
+    width: 48%; /* 控制圖表尺寸 */ 
+    margin: 20px auto; /* 容器居中 */ 
+} 
+   
+.canvas { 
+    width: 100% !important;  
+    height: auto !important;  
+} 
+   
+/* 提示框 */ 
+.note { 
+    background-color: #ffeeba; 
+    border-left: 5px solid #ffc107; 
+    padding: 15px; 
+    margin-top: 20px; 
+    border-radius: 5px; 
+    font-size: 16px; 
+} 
+
+   
+/* 淡入效果 */ 
+.fade-in { 
+    opacity: 0; 
+    transition: opacity 1.5s ease-out; 
+} 
+   
+.fade-in.visible { 
+    opacity: 1; 
+} 
+   
+/* 卡片排版 */ 
+.card-container { 
+    display: flex; 
+    justify-content: center; 
+    gap: 20px; 
+    flex-wrap: wrap; 
+    width: 100%; 
+    box-sizing: border-box; 
+} 
+   
+/* 卡片樣式 */ 
+.card { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    padding: 20px; 
+    border-radius: 10px; 
+    background-color: #ffffff; 
+    border: 1px solid #ddd; 
+    border-radius: 10px; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+    text-align: center; 
+    padding: 20px; 
+    text-decoration: none; 
+    color: #808080; 
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
+    width: 22%; 
+    max-width: 100%; 
+    box-sizing: border-box; 
+} 
+
+.card:hover { 
+    transform: translateY(-5px); 
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); 
+} 
+
+.card-icon { 
+    font-size: 2.5rem; 
+    margin-bottom: 15px; 
+} 
+
+.card-text { 
+    font-size: 1rem; 
+    font-weight: 600; 
+} 
+   
+/* 卡片停留時甩動 */ 
+.portfolio-icon { 
+    transition: transform 0.3s ease; 
+} 
+.card:hover .portfolio-icon { 
+    animation: swing-curve 0.8s ease-in-out; 
+} 
+   
+/* 卡片停留時搖晃 */ 
+.email-icon { 
+    transition: transform 0.3s ease; 
+} 
+.card:hover .email-icon { 
+    animation: shake 0.5s; 
+} 
+   
+/* 搖晃動畫定義 */ 
+@keyframes shake { 
+    0%   { transform: translateX(0); } 
+    25%  { transform: translateX(-5px); } 
+    50%  { transform: translateX(5px); } 
+    75%  { transform: translateX(-5px); } 
+    100% { transform: translateX(0); } 
+} 
+   
+/* 甩動動畫定義 */ 
+@keyframes swing-curve { 
+    0% { 
+      transform: rotate(0deg) translate(0, 0); 
+    } 
+    20% { 
+      transform: rotate(-15deg) translate(-5px, -5px); 
+    } 
+    40% { 
+      transform: rotate(10deg) translate(5px, 5px); 
+    } 
+    60% { 
+      transform: rotate(-10deg) translate(-4px, -4px); 
+    } 
+    80% { 
+      transform: rotate(5deg) translate(2px, 2px); 
+    } 
+    100% { 
+      transform: rotate(0deg) translate(0, 0); 
+    }   
+}
