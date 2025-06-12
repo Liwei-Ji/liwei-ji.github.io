@@ -189,6 +189,15 @@ input:checked + .slider:before {
     min-height: 100vh;
     padding: 2rem;
     box-sizing: border-box;
+  /* 背景圖設定 */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;    
+}
+
+/* 背景圖根據模式切換 */
+body.dark-mode .hero-section {
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)),url('https://mir-s3-cdn-cf.behance.net/project_modules/fs/f3fbbd220712515.684ac5d08670c.jpg');
 }
 
 .hero-container {
