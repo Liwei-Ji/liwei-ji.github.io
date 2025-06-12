@@ -20,7 +20,7 @@ checkMode();
 
     // 打字機效果
 const textElement = document.getElementById("heroText");
-const words = ["Hi I'm Liwei Ji", "I'm UIUX Designer", "Frontend Developer", "Creating Engaging Experiences", "Turning Ideas into Solutions"];
+const words = ["UIUX Designer", "Frontend Developer"];
 let wordIndex = 0;
 let charIndex = 0;
 let isDeleting = false;
