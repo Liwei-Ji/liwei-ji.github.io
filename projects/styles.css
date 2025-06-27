@@ -11,13 +11,17 @@ body {
   position: fixed;
   top: 20px;
   right: 20px;
+  width: 40px;
+  height: 40px;
   background-color: #EEEEEE;
   color: #000;
-  padding: 10px 14px;
-  border-radius: 20px;
+  border-radius: 50%;   
   text-decoration: none;
   z-index: 10000;
   font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
