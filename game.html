@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>星際射手 — Neo Space Shooter</title>
+<style>
+  :root {
+    --bg1:#060913; --bg2:#0b1020; --acc:#7cf3ff; --accent:#76ffd1; --warn:#ff7b7b; --txt:#e9f6ff;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    color: var(--txt);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", Arial, sans-serif;
+    background: radial-gradient(1400px 900px at 70% 20%, #1a2350 0%, var(--bg2) 45%, var(--bg1) 100%);
+    overflow: hidden;
+  }
+  #wrap { position: relative; width: 100%; height: 100%; }
+  canvas { display:block; width:100%; height:100%; touch-action:none; cursor: crosshair; }
+
+  /* HUD */
+  #hud { position:absolute; inset: 0 auto auto 0; padding: 14px 16px; font-weight: 600; text-shadow: 0 1px 0 rgba(0,0,0,.4); user-select:none; pointer-events:none; }
+  #hud .row { display:flex; gap:16px; align-items:center; }
+  .pill {
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 999px; padding: 6px 12px; font-size: 14px;
+    backdrop-filter: blur(6px);
+  }
+  #hpbar {
+    --pct: 1;
+    width: 190px; height: 12px; border-radius: 999px; overflow: hidden;
+    background: rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18); position: relative;
+  }
+  #hpbar::after{
+    content:""; position:absolute; inset:0; width: calc(100% * var(--pct));
+    background: linear-gradient(90deg, var(--accent), #9dffd9);
+  }
+
+  /* overlays */
+  .overlay {
+    position:absolute; inset:0; display:grid; place-items:center;
+    background:
+      radial-gradient(900px 700px at 50% 30%, rgba(124,243,255,.08), transparent 60%),
+      radial-gradient(1200px 900px at 80% 80%, rgba(118,255,209,.06), transparent 60%),
+      rgba(5,9,20,.55);
+    opacity:0; pointer-events:none; transition: opacity .25s ease;
+  }
+  .overlay.show { opacity:1; pointer-events:auto; }
+  .panel {
+    width:min(92vw,760px); border-radius:16px; padding:24px; color:var(--txt);
+    background: rgba(10,16,36,.76); border:1px solid rgba(124,243,255,.22);
+    box-shadow: 0 10px 40px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.06);
+    backdrop-filter: blur(10px);
+  }
+  .panel h1 { margin:0 0 10px; font-size: clamp(24px, 4vw, 36px); letter-spacing:.4px; }
+  .panel p { margin:.4em 0; line-height:1.6; opacity:.9; }
+  .kbd { display:inline-block; padding:.2em .5em; border:1px solid rgba(255,255,255,.25); border-radius:6px; background:rgba(255,255,255,.07); font-weight:700; }
+  .btns { display:flex; gap:12px; margin-top:16px; flex-wrap:wrap; }
+  button {
+    appearance:none; border:none; border-radius:12px; padding:12px 18px; font-size:16px; font-weight:700;
+    color:#06101d; background: linear-gradient(180deg, #7cf3ff, #43d6ff);
+    box-shadow: 0 8px 24px rgba(124,243,255,.35), inset 0 1px 0 rgba(255,255,255,.6);
+    cursor:pointer;
+  }
+  button.secondary {
+    color:var(--txt); background: linear-gradient(180deg, #2a3260, #1b2347);
+    box-shadow: 0 6px 14px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.18);
+  }
+  .meta { opacity:.7; font-size:13px; margin-top:8px; }
+  @media (max-width: 768px) { .hide-mobile { display:none; } }
+</style>
+</head>
+<body>
+  <div id="wrap">
+    <canvas id="game" aria-label="Neo Space Shooter"></canvas>
+
+    <div id="hud" aria-live="polite">
+      <div class="row">
+        <div class="pill">分數 <span id="score">0</span></div>
+        <div class="pill">最高分 <span id="best">0</span></div>
+        <div class="pill">星際波次 <span id="wave">1</span></div>
+        <div id="hpbar" title="護盾"></div>
+      </div>
+    </div>
+
+    <div id="menu" class="overlay show">
+      <div class="panel">
+        <h1>星際射手</h1>
+        <p class="hide-mobile">操作：<span class="kbd">W</span><span class="kbd">A</span><span class="kbd">S</span><span class="kbd">D</span> / 方向鍵移動，滑鼠瞄準，<span class="kbd">滑鼠左鍵</span> 發射雷射，<span class="kbd">P</span> 暫停。</p>
+        <p>手機／平板：左半邊拖移動，右半邊點或按住發射。</p>
+        <p>設定：星空、星雲、能量護盾、UFO 敵人、螢光雷射、粒子星塵。</p>
+        <div class="btns">
+          <button id="btnStart">啟動任務</button>
+          <button id="btnMute" class="secondary" aria-pressed="false">音效：開</button>
+        </div>
+        <div class="meta">使用 HTML5 Canvas 的純前端實作</div>
+      </div>
+    </div>
+
+    <div id="over" class="overlay">
+      <div class="panel">
+        <h1>任務失敗</h1>
+        <p>本局分數：<b><span id="finalScore">0</span></b></p>
+        <p>最高分：<b><span id="finalBest">0</span></b></p>
+        <div class="btns">
+          <button id="btnRetry">再試一次</button>
+          <button id="btnHome" class="secondary">回基地</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+(() => {
+  // ====== 基礎 ======
+  const canvas = document.getElementById('game');
+  const ctx = canvas.getContext('2d', { alpha: true, desynchronized: true });
+  const hudScore = document.getElementById('score');
+  const hudBest = document.getElementById('best');
+  const hudWave = document.getElementById('wave');
+  const hpbar = document.getElementById('hpbar');
+  const $ = (id) => document.getElementById(id);
+
+  const UI = {
+    menu: $('menu'),
+    over: $('over'),
+    finalScore: $('finalScore'),
+    finalBest: $('finalBest'),
+    btnStart: $('btnStart'),
+    btnRetry: $('btnRetry'),
+    btnHome: $('btnHome'),
+    btnMute: $('btnMute'),
+  };
+
+  const DPR = Math.min(window.devicePixelRatio || 1, 2);
+  function resize() {
+    const { innerWidth:w, innerHeight:h } = window;
+    canvas.width = Math.floor(w * DPR);
+    canvas.height = Math.floor(h * DPR);
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    createStars();
+  }
+  window.addEventListener('resize', resize);
+
+  // ====== 工具 ======
+  const rand = (a=0, b=1) => a + Math.random() * (b - a);
+  const randInt = (a, b) => Math.floor(rand(a, b + 1));
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  const dist2 = (x1,y1,x2,y2) => { const dx=x2-x1, dy=y2-y1; return dx*dx + dy*dy; };
+  const len = (x,y) => Math.hypot(x,y);
+  const norm = (x,y) => { const l = Math.hypot(x,y)||1; return [x/l, y/l]; };
+  const now = () => performance.now();
+
+  // ====== 音效（簡易合成，可關閉） ======
+  let muted = false;
+  UI.btnMute.addEventListener('click', () => {
+    muted = !muted;
+    UI.btnMute.textContent = `音效：${muted ? '關' : '開'}`;
+    UI.btnMute.setAttribute('aria-pressed', String(muted));
+  });
+  const audioCtx = new (window.AudioContext || window.webkitAudioContext || function(){})();
+  function beep(freq=440, dur=0.06, type='sine', vol=0.03) {
+    if (muted || !audioCtx || !audioCtx.createOscillator) return;
+    const o = audioCtx.createOscillator();
+    const g = audioCtx.createGain();
+    o.type = type; o.frequency.value = freq;
+    g.gain.value = vol; o.connect(g); g.connect(audioCtx.destination);
+    o.start();
+    setTimeout(()=>{ o.stop(); o.disconnect(); g.disconnect(); }, dur*1000);
+  }
+
+  // ====== 狀態 ======
+  const State = { Menu:0, Playing:1, Paused:2, Over:3 };
+  let gameState = State.Menu;
+
+  const world = {
+    w: () => canvas.width / DPR,
+    h: () => canvas.height / DPR,
+    time: 0,
+    last: now(),
+    dt: 0,
+    score: 0,
+    best: Number(localStorage.getItem('spaceShooterHighScore') || 0),
+    wave: 1,
+    spawnTimer: 0,
+    difficulty: 1,
+  };
+  hudBest.textContent = world.best;
+
+  const player = {
+    x: 0, y: 0, r: 14, speed: 270, hp: 100, hpMax: 100,
+    fireRate: 9, fireCd: 0, invuln: 0, friction: 0.92, vx:0, vy:0,
+  };
+  const input = {
+    keys: new Set(),
+    mouse: { x:0, y:0, down:false },
+    touchMove: { id:null, active:false, x:0, y:0 },
+    touchShoot: { id:null, active:false, x:0, y:0 },
+  };
+  const bullets = [];
+  const enemies = [];
+  const particles = [];
+
+  // ====== 太空背景（星雲 + 星野） ======
+  const stars = [];
+  function createStars() {
+    stars.length = 0;
+    const count = Math.floor(clamp((world.w()*world.h())/7000, 120, 420));
+    for (let i=0;i<count;i++){
+      stars.push({
+        x: rand(0, world.w()), y: rand(0, world.h()),
+        s: rand(0.25, 1.2), tw: rand(0, Math.PI*2),
+        spdX: rand(3, 20), spdY: rand(-4, 4)
+      });
+    }
+  }
+
+  // ====== 初始化 ======
+  function resetGame() {
+    world.time = 0; world.score = 0; world.wave = 1; world.spawnTimer = 0; world.difficulty = 1;
+    bullets.length = 0; enemies.length = 0; particles.length = 0;
+    player.x = world.w()/2; player.y = world.h()/2; player.vx=player.vy=0;
+    player.hp = player.hpMax; player.invuln = 0; player.fireCd = 0;
+    updateHUD();
+  }
+  function updateHUD() {
+    hudScore.textContent = world.score|0;
+    hudBest.textContent = world.best|0;
+    hudWave.textContent = world.wave|0;
+    hpbar.style.setProperty('--pct', (player.hp / player.hpMax).toFixed(3));
+  }
+
+  // ====== 輸入 ======
+  window.addEventListener('keydown', (e)=>{
+    if (['ArrowUp','ArrowDown','ArrowLeft','ArrowRight',' '].includes(e.key)) e.preventDefault();
+    input.keys.add(e.key.toLowerCase());
+    if (e.key === 'p' || e.key === 'P') togglePause();
+    if (e.key === 'Escape') { if (gameState===State.Playing) togglePause(); }
+  });
+  window.addEventListener('keyup', (e)=>{ input.keys.delete(e.key.toLowerCase()); });
+  canvas.addEventListener('contextmenu', e=>e.preventDefault());
+  canvas.addEventListener('mousemove', (e)=>{ input.mouse.x = e.clientX; input.mouse.y = e.clientY; });
+  canvas.addEventListener('mousedown', (e)=>{
+    if (gameState!==State.Playing) return;
+    input.mouse.down = e.button===0;
+    input.mouse.x = e.clientX; input.mouse.y = e.clientY;
+  });
+  window.addEventListener('mouseup', ()=>{ input.mouse.down = false; });
+
+  // 觸控
+  canvas.addEventListener('pointerdown', (e) => {
+    if (e.pointerType !== 'touch') return;
+    if (gameState!==State.Playing) return;
+    const x = e.clientX, y = e.clientY;
+    if (x < world.w()/2 && !input.touchMove.active) {
+      input.touchMove = { id: e.pointerId, active: true, x, y };
+    } else if (!input.touchShoot.active) {
+      input.touchShoot = { id: e.pointerId, active: true, x, y };
+      input.mouse.down = true; input.mouse.x = x; input.mouse.y = y;
+    }
+  });
+  canvas.addEventListener('pointermove', (e) => {
+    if (e.pointerType !== 'touch') return;
+    if (e.pointerId === input.touchMove.id) { input.touchMove.x = e.clientX; input.touchMove.y = e.clientY; }
+    if (e.pointerId === input.touchShoot.id) { input.touchShoot.x = e.clientX; input.touchShoot.y = e.clientY; input.mouse.x = e.clientX; input.mouse.y = e.clientY; }
+  });
+  window.addEventListener('pointerup', (e) => {
+    if (e.pointerType !== 'touch') return;
+    if (e.pointerId === input.touchMove.id) input.touchMove = { id:null, active:false, x:0, y:0 };
+    if (e.pointerId === input.touchShoot.id) { input.touchShoot = { id:null, active:false, x:0, y:0 }; input.mouse.down = false; }
+  });
+
+  // ====== UI ======
+  UI.btnStart.addEventListener('click', ()=>{ startGame(); });
+  UI.btnRetry.addEventListener('click', ()=>{ startGame(); });
+  UI.btnHome.addEventListener('click', ()=>{ showMenu(); });
+
+  function showMenu() { gameState = State.Menu; UI.menu.classList.add('show'); UI.over.classList.remove('show'); }
+  function showOver() { gameState = State.Over; UI.finalScore.textContent = world.score|0; UI.finalBest.textContent = world.best|0; UI.over.classList.add('show'); }
+  function startGame() {
+    resetGame();
+    UI.menu.classList.remove('show');
+    UI.over.classList.remove('show');
+    gameState = State.Playing;
+    beep(760, .05, 'square', .04);
+  }
+  function togglePause() {
+    if (gameState===State.Playing) { gameState = State.Paused; UI.menu.querySelector('h1').textContent='暫停中'; UI.menu.classList.add('show'); }
+    else if (gameState===State.Paused) { UI.menu.querySelector('h1').textContent='星際射手'; UI.menu.classList.remove('show'); gameState = State.Playing; }
+  }
+
+  // ====== 物件生成 ======
+  function spawnEnemy() {
+    const margin = 50;
+    const sides = ['top','right','bottom','left'];
+    const side = sides[randInt(0,3)];
+    let x,y;
+    if (side==='top') { x = rand(0, world.w()); y = -margin; }
+    if (side==='bottom'){ x = rand(0, world.w()); y = world.h()+margin; }
+    if (side==='left') { x = -margin; y = rand(0, world.h()); }
+    if (side==='right'){ x = world.w()+margin; y = rand(0, world.h()); }
+    const base = 78 + world.difficulty * 20;
+    const e = { x, y, r: rand(12, 18), speed: rand(base*.85, base*1.15), hp: 1, hitCd: 0 };
+    enemies.push(e);
+  }
+
+  function shootTowards(tx, ty) {
+    const [dx, dy] = [tx - player.x, ty - player.y];
+    const [nx, ny] = norm(dx, dy);
+    const spd = 680;
+    bullets.push({ x: player.x + nx*(player.r+2), y: player.y + ny*(player.r+2), vx: nx*spd, vy: ny*spd, r: 3.5, life: 0.9, ang: Math.atan2(ny, nx) });
+    // 太空感「雷射」音
+    beep(1080, .04, 'triangle', .03);
+  }
+
+  function addBurst(x, y, n, colA='rgba(118,255,209,', colB='rgba(124,243,255,') {
+    for (let i=0;i<n;i++){
+      const a = rand(0, Math.PI*2), s = rand(40, 240);
+      particles.push({ x, y, vx: Math.cos(a)*s, vy: Math.sin(a)*s, life: rand(.25,.7), r: rand(1, 2.6), c: (i%2?colA:colB) });
+    }
+  }
+
+  // ====== 更新 ======
+  function update(dt) {
+    world.time += dt;
+
+    // 背景星星漂移
+    const w = world.w(), h = world.h();
+    for (const s of stars) {
+      s.x -= s.spdX * s.s * dt;
+      s.y += s.spdY * 0.2 * dt;
+      if (s.x < -2) s.x = w + 2;
+      if (s.y < -2) s.y = h + 2;
+      if (s.y > h + 2) s.y = -2;
+    }
+
+    // 玩家移動
+    const k = input.keys;
+    let ax = 0, ay = 0;
+    if (k.has('w') || k.has('arrowup')) ay -= 1;
+    if (k.has('s') || k.has('arrowdown')) ay += 1;
+    if (k.has('a') || k.has('arrowleft')) ax -= 1;
+    if (k.has('d') || k.has('arrowright')) ax += 1;
+
+    // 觸控移動
+    if (input.touchMove.active) {
+      const [dx, dy] = [input.touchMove.x - player.x, input.touchMove.y - player.y];
+      const L = Math.hypot(dx,dy);
+      if (L > 6) { ax += dx/L; ay += dy/L; }
+    }
+
+    if (ax || ay) {
+      const [nx, ny] = norm(ax, ay);
+      player.vx += nx * player.speed * dt;
+      player.vy += ny * player.speed * dt;
+    }
+    // 摩擦
+    player.vx *= player.friction; player.vy *= player.friction;
+    player.x += player.vx * dt; player.y += player.vy * dt;
+    player.x = clamp(player.x, player.r, world.w()-player.r);
+    player.y = clamp(player.y, player.r, world.h()-player.r);
+    if (player.invuln>0) player.invuln -= dt;
+
+    // 射擊
+    player.fireCd -= dt;
+    if ((input.mouse.down || input.touchShoot.active) && player.fireCd <= 0) {
+      shootTowards(input.mouse.x, input.mouse.y);
+      player.fireCd = 1 / player.fireRate;
+    }
+
+    // 子彈
+    for (let i=bullets.length-1;i>=0;i--){
+      const b = bullets[i];
+      b.x += b.vx * dt; b.y += b.vy * dt; b.life -= dt;
+      if (b.x<-30||b.x>world.w()+30||b.y<-30||b.y>world.h()+30||b.life<=0) bullets.splice(i,1);
+    }
+
+    // 生成敵人與難度
+    world.spawnTimer -= dt;
+    if (world.spawnTimer <= 0) {
+      const rate = Math.max(0.16, 1.0 - world.difficulty*0.08);
+      world.spawnTimer = rate;
+      const count = 1 + Math.floor(world.difficulty * 0.25);
+      for (let i=0;i<count;i++) spawnEnemy();
+      // 每 15 秒提升難度
+      if (Math.floor(world.time/15)+1 > world.wave) {
+        world.wave++;
+        world.difficulty += 1;
+        beep(540,.09,'sawtooth',.035);
+      }
+    }
+
+    // 敵人移動 & 碰撞
+    for (let i=enemies.length-1;i>=0;i--){
+      const e = enemies[i];
+      const [dx, dy] = [player.x - e.x, player.y - e.y];
+      const [nx, ny] = norm(dx, dy);
+      e.x += nx * e.speed * dt; e.y += ny * e.speed * dt;
+      if (e.hitCd>0) e.hitCd -= dt;
+
+      // 子彈擊中
+      for (let j=bullets.length-1;j>=0;j--){
+        const b = bullets[j];
+        const r = e.r + 3.2;
+        if (dist2(e.x,e.y,b.x,b.y) <= r*r) {
+          bullets.splice(j,1);
+          addBurst(e.x, e.y, randInt(8,13));
+          world.score += 10 + Math.floor(world.difficulty*2);
+          updateHUD();
+          enemies.splice(i,1);
+          beep(240, .05, 'square', .04);
+          break;
+        }
+      }
+
+      // 與玩家相撞
+      const rr = (e.r + player.r);
+      if (dist2(e.x,e.y,player.x,player.y) <= rr*rr) {
+        if (player.invuln<=0) {
+          player.hp -= 16; player.invuln = 0.8;
+          addBurst(player.x, player.y, randInt(10,16), 'rgba(255,123,123,', 'rgba(255,210,128,');
+          // 反衝
+          player.vx -= nx * 260; player.vy -= ny * 260;
+          if (player.hp <= 0) {
+            world.best = Math.max(world.best, world.score|0);
+            localStorage.setItem('spaceShooterHighScore', world.best);
+            updateHUD();
+            showOver();
+            beep(160,.24,'sawtooth',.045);
+          } else {
+            beep(360,.08,'sine',.035);
+          }
+          updateHUD();
+        }
+      }
+    }
+
+    // 粒子
+    for (let i=particles.length-1;i>=0;i--){
+      const p = particles[i];
+      p.x += p.vx * dt; p.y += p.vy * dt; p.vx *= 0.98; p.vy *= 0.98;
+      p.life -= dt;
+      if (p.life<=0) particles.splice(i,1);
+    }
+    if (particles.length > 650) particles.splice(0, particles.length - 650);
+  }
+
+  // ====== 繪製 ======
+  function drawBackground() {
+    const w = world.w(), h = world.h();
+    // 深空底色
+    ctx.clearRect(0,0,w,h);
+    // 銀河霧（星雲）
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    for (let i=0;i<2;i++){
+      const grad = ctx.createRadialGradient(
+        w*(i?0.75:0.3), h*(i?0.7:0.35), 10,
+        w*(i?0.75:0.3), h*(i?0.7:0.35), Math.max(w,h)*0.7
+      );
+      if (i===0) { grad.addColorStop(0,'rgba(124,243,255,.12)'); grad.addColorStop(1,'rgba(124,243,255,0)'); }
+      else       { grad.addColorStop(0,'rgba(118,255,209,.10)'); grad.addColorStop(1,'rgba(118,255,209,0)'); }
+      ctx.fillStyle = grad; ctx.fillRect(0,0,w,h);
+    }
+    ctx.restore();
+
+    // 星星
+    for (const s of stars) {
+      const a = 0.35 + 0.65 * (0.5 + 0.5*Math.sin(world.time*2.2*s.s + s.tw));
+      ctx.globalAlpha = a;
+      ctx.fillStyle = '#e6fbff';
+      ctx.beginPath(); ctx.arc(s.x, s.y, 0.8 + 1.6*s.s, 0, Math.PI*2); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  function drawPlayer() {
+    // 船身朝向：瞄準點
+    const aimDx = input.mouse.x - player.x, aimDy = input.mouse.y - player.y;
+    const ang = Math.atan2(aimDy, aimDx);
+
+    ctx.save();
+    ctx.translate(player.x, player.y);
+    ctx.rotate(ang);
+
+    // 护盾閃爍（受傷無敵）
+    if (player.invuln>0) {
+      const glow = 0.3 + 0.7 * (0.5 + 0.5*Math.sin(world.time*18));
+      ctx.globalAlpha = glow;
+      ctx.strokeStyle = 'rgba(124,243,255,.9)';
+      ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.arc(0, 0, player.r+5, 0, Math.PI*2); ctx.stroke();
+      ctx.globalAlpha = 1;
+    }
+
+    // 推進尾焰
+    const speed = Math.hypot(player.vx, player.vy);
+    if (speed > 20) {
+      ctx.globalCompositeOperation = 'lighter';
+      ctx.fillStyle = 'rgba(255,210,128,.9)';
+      ctx.beginPath();
+      ctx.moveTo(-player.r-3, 0);
+      ctx.lineTo(-player.r-3- (8 + Math.min(18, speed*0.1)), 4);
+      ctx.lineTo(-player.r-3- (8 + Math.min(18, speed*0.1)), -4);
+      ctx.closePath(); ctx.fill();
+      ctx.globalCompositeOperation = 'source-over';
+    }
+
+    // 太空船（機身 + 駕駛艙）
+    ctx.lineWidth = 2.2;
+    ctx.strokeStyle = 'rgba(124,243,255,.95)';
+    ctx.fillStyle = 'rgba(14,28,60,.6)';
+    ctx.beginPath();
+    ctx.moveTo(player.r+2, 0);                // 機鼻
+    ctx.lineTo(-player.r*0.6, player.r*0.9);  // 左尾
+    ctx.lineTo(-player.r*0.3, 0);             // 內折
+    ctx.lineTo(-player.r*0.6, -player.r*0.9); // 右尾
+    ctx.closePath(); ctx.fill(); ctx.stroke();
+
+    // 駕駛艙
+    ctx.fillStyle = 'rgba(118,255,209,.7)';
+    ctx.beginPath(); ctx.ellipse(player.r*0.2, 0, 5, 6, 0, 0, Math.PI*2); ctx.fill();
+    ctx.restore();
+
+    // 前方瞄準圈
+    const [nx, ny] = norm(aimDx, aimDy);
+    const cx = player.x + nx * (player.r + 14);
+    const cy = player.y + ny * (player.r + 14);
+    ctx.strokeStyle = 'rgba(184,243,255,.85)'; ctx.lineWidth = 1.4;
+    ctx.beginPath(); ctx.arc(cx, cy, 6.5, 0, Math.PI*2); ctx.stroke();
+  }
+
+  function drawEnemies() {
+    ctx.lineWidth = 2;
+    for (const e of enemies) {
+      const ang = Math.atan2(player.y - e.y, player.x - e.x);
+      ctx.save(); ctx.translate(e.x, e.y); ctx.rotate(ang);
+
+      // UFO：圓頂 + 碟形底座 + 發光邊
+      ctx.globalCompositeOperation = 'lighter';
+      // 邊緣光暈
+      ctx.strokeStyle = 'rgba(118,255,209,.85)';
+      ctx.beginPath(); ctx.ellipse(0, 0, e.r*1.7, e.r*0.9, 0, 0, Math.PI*2); ctx.stroke();
+      ctx.globalCompositeOperation = 'source-over';
+
+      // 底座
+      ctx.fillStyle = 'rgba(12,24,52,.8)';
+      ctx.strokeStyle = 'rgba(124,243,255,.9)';
+      ctx.beginPath(); ctx.ellipse(0, 0, e.r*1.5, e.r*0.75, 0, 0, Math.PI*2); ctx.fill(); ctx.stroke();
+
+      // 圓頂
+      ctx.fillStyle = 'rgba(124,243,255,.35)';
+      ctx.beginPath(); ctx.ellipse(0, -e.r*0.5, e.r*0.7, e.r*0.55, 0, Math.PI, 0, true); ctx.fill();
+
+      ctx.restore();
+    }
+  }
+
+  function drawBullets() {
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    for (const b of bullets) {
+      ctx.save();
+      ctx.translate(b.x, b.y);
+      ctx.rotate(b.ang);
+      // 雷射本體
+      ctx.fillStyle = 'rgba(124,243,255,.95)';
+      ctx.beginPath();
+      ctx.roundRect(-10, -2, 14, 4, 2); // 需要現代瀏覽器；若不支援可換成矩形+arc
+      ctx.fill();
+      // 中央發光
+      ctx.fillStyle = 'rgba(118,255,209,.9)';
+      ctx.fillRect(-8, -1, 10, 2);
+      ctx.restore();
+    }
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.restore();
+  }
+
+  function drawParticles() {
+    for (const p of particles) {
+      ctx.globalAlpha = Math.max(0, p.life);
+      ctx.fillStyle = p.c + (0.2 + 0.6 * p.life) + ')';
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  function draw() {
+    drawBackground();
+    drawParticles();
+    drawBullets();
+    drawEnemies();
+    drawPlayer();
+
+    // 觸控提示圈
+    if (input.touchMove.active) {
+      ctx.strokeStyle = 'rgba(255,255,255,.25)'; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.arc(input.touchMove.x, input.touchMove.y, 26, 0, Math.PI*2); ctx.stroke();
+    }
+  }
+
+  // ====== 迴圈 ======
+  function loop() {
+    const t = now();
+    const dt = Math.min(0.033, (t - world.last) / 1000);
+    world.last = t;
+
+    if (gameState === State.Playing) {
+      update(dt);
+      updateHUD();
+    }
+    draw();
+    requestAnimationFrame(loop);
+  }
+
+  // ====== 啟動 ======
+  resize();
+  resetGame();
+  loop();
+})();
+</script>
+</body>
+</html>
