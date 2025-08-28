@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flashcard Game</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --fg: #111111;
+      --muted: #666666;
+      --primary: #2b7fff;
+      --ok: #10b981;
+      --bad: #ef4444;
+      --card: #f5f7fb;
+      --border: #e5e7eb;
+      --shadow: 0 10px 25px rgba(0,0,0,.08);
+      --btn-bg: #f3f4f6;
+    }
+    [data-theme="dark"]{
+      --bg: #0b0e11;
+      --fg: #f5f7fb;
+      --muted: #98a2b3;
+      --primary: #76a8ff;
+      --ok: #34d399;
+      --bad: #f87171;
+      --card: #151a21;
+      --border: #1f2937;
+      --shadow: 0 10px 25px rgba(0,0,0,.35);
+      --btn-bg: #1f2937;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, -apple-system, "Segoe UI", Roboto, "Noto Sans TC", "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.5;
+    }
+    header {
+      position: sticky; top: 0; z-index: 10;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 12px;
+      padding: 14px 16px;
+    }
+    h1 { font-size: 18px; margin: 0; }
+    .spacer { flex: 1; }
+    .theme-toggle, .btn {
+      appearance: none; border: 1px solid var(--border);
+      background: var(--btn-bg); color: var(--fg);
+      padding: 8px 12px; border-radius: 10px; cursor: pointer;
+      font-size: 14px; transition: transform .06s ease, background .2s ease;
+    }
+    .theme-toggle:active, .btn:active { transform: scale(.98); }
+    .container { max-width: 980px; margin: 0 auto; padding: 18px 16px 28px; }
+    .tabs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 8px; margin-bottom: 14px;
+    }
+    .tab-btn {
+      padding: 10px 10px; border-radius: 10px; border: 1px solid var(--border);
+      background: var(--card); color: var(--fg); cursor: pointer; font-weight: 600;
+    }
+    .tab-btn.active { outline: 2px solid var(--primary); }
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+    .stack { display: grid; gap: 10px; }
+    .select, input[type="text"]{
+      background: var(--bg); color: var(--fg); border: 1px solid var(--border);
+      padding: 8px 10px; border-radius: 10px; font-size: 14px;
+    }
+    .hint { color: var(--muted); font-size: 12px; }
+
+    /* 卡片 */
+    .flashcard {
+      background: var(--card); border: 1px solid var(--border); border-radius: 18px;
+      min-height: 240px; padding: 26px; display: grid; place-items: center; text-align: center;
+      box-shadow: var(--shadow);
+    }
+    .big {
+      font-size: clamp(36px, 7vw, 64px);
+      letter-spacing: 1px; font-weight: 800;
+    }
+    .meaning { font-size: 18px; color: var(--muted); }
+    .controls { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+    .pill { padding: 6px 10px; border-radius: 999px; border: 1px solid var(--border); background: var(--btn-bg); }
+    .badge { font-size: 12px; color: var(--muted); }
+
+    /* 選擇題 */
+    .choices { display: grid; gap: 10px; margin-top: 10px; }
+    @media (min-width: 560px){ .choices { grid-template-columns: repeat(2, 1fr); } }
+    .choice {
+      padding: 14px 16px; border-radius: 12px; border: 1px solid var(--border);
+      background: var(--bg); cursor: pointer; font-size: 18px; font-weight: 700; color: var(--fg); /* 新增：讓按鈕文字跟著主題走（亮=深色字、暗=白字） */
+    }
+    .choice.ok { outline: 2px solid var(--ok); }
+    .choice.bad { outline: 2px solid var(--bad); }
+
+    /* 記錄區 */
+    .stats { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
+    .stat { padding: 6px 10px; border-radius: 999px; border: 1px solid var(--border); background: var(--btn-bg); font-size: 12px; }
+
+    footer { margin-top: 28px; color: var(--muted); font-size: 12px; text-align: center; }
+    .kbd { border: 1px solid var(--border); border-bottom-width: 3px; border-radius: 6px; padding: 2px 6px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+
+    .section {
+      border: 1px solid var(--border);
+      background: var(--card);
+      border-radius: 16px;
+      padding: 16px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Flashcard Game</h1>
+    <div class="spacer"></div>
+    <button class="theme-toggle" id="themeToggle" aria-label="切換主題">主題：<span id="themeLabel">亮色</span></button>
+  </header>
+
+  <div class="container">
+    <div class="tabs" role="tablist">
+      <button class="tab-btn active" role="tab" aria-selected="true" data-tab="flash">閃卡</button>
+      <button class="tab-btn" role="tab" aria-selected="false" data-tab="listen">聽音辨字</button>
+      <button class="tab-btn" role="tab" aria-selected="false" data-tab="dict">聽寫辨字</button>
+      <button class="tab-btn" role="tab" aria-selected="false" data-tab="manage">單字管理</button>
+    </div>
+
+    <!-- 控制列（共用） -->
+    <div class="row" style="margin-bottom:12px;">
+      <label>年級
+        <select class="select" id="levelFilter">
+          <option value="ALL">全部（K–Grade 6）</option>
+          <option value="K">Kindergarten (K)</option>
+          <option value="G1">Grade 1</option>
+          <option value="G2">Grade 2</option>
+          <option value="G3">Grade 3</option>
+          <option value="G4">Grade 4</option>
+          <option value="G5">Grade 5</option>
+          <option value="G6">Grade 6</option>
+        </select>
+      </label>
+      <label>語速
+        <input type="range" id="rate" min="0.6" max="1.2" value="0.95" step="0.05" />
+      </label>
+      <label>音高
+        <input type="range" id="pitch" min="0.8" max="1.4" value="1.0" step="0.05" />
+      </label>
+      <!-- 新增：語音選擇器 -->
+      <label>語音
+        <select class="select" id="voiceSelect">
+          <option>載入中…</option>
+        </select>
+      </label>
+      <span id="voiceBadge" class="pill badge" hidden>語音：<span id="voiceName">偵測中…</span></span>
+      <button class="btn" id="shuffleBtn">洗牌</button>
+      <span class="hint">小技巧：按 <span class="kbd">空白鍵</span> 可播放語音／下一題</span>
+    </div>
+
+    <!-- 閃卡 -->
+    <section id="panel-flash" class="panel active">
+      <div class="flashcard" id="flashcard" tabindex="0" aria-live="polite">
+        <div class="stack">
+          <div class="big" id="flashWord">apple</div>
+          <div class="meaning" id="flashMeaning">蘋果</div>
+          <div class="controls">
+            <button class="btn" id="speakFlash">🔊 念一次</button>
+            <button class="btn" id="toggleMeaning">🙈 隱藏中文</button>
+            <button class="btn" id="prevBtn">← 上一張</button>
+            <button class="btn" id="nextBtn">下一張 →</button>
+            <button class="btn" id="markKnown">已會 ✅</button>
+            <button class="btn" id="markUnknown">不熟 ❓</button>
+          </div>
+          <div class="stats">
+            <div class="stat">進度：<span id="progress">0/0</span></div>
+            <div class="stat">熟悉：<span id="knownCount">0</span></div>
+            <div class="stat">不熟：<span id="unknownCount">0</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 聽音辨字（選擇題） -->
+    <section id="panel-listen" class="panel">
+      <div class="section">
+        <div class="row">
+          <label>選項數
+            <select id="choiceCount" class="select">
+              <option>2</option><option selected>3</option><option>4</option>
+            </select>
+          </label>
+          <label class="pill"><input type="checkbox" id="listenOnlyUnknown"> 只練不熟</label>
+          <button class="btn" id="playListen">🔊 播放題目</button>
+          <button class="btn" id="nextListen">下一題</button>
+          <div class="stats">
+            <div class="stat">答對：<span id="l-correct">0</span></div>
+            <div class="stat">答錯：<span id="l-wrong">0</span></div>
+          </div>
+        </div>
+        <div class="flashcard" style="min-height: 150px;">
+          <div class="stack" style="width:100%;">
+            <div id="listenPrompt" class="meaning">按「播放題目」，聽音後選正確單字</div>
+            <div class="choices" id="choices"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 聽寫辨字（打字） -->
+    <section id="panel-dict" class="panel">
+      <div class="section">
+        <div class="row">
+          <label class="pill"><input type="checkbox" id="dictOnlyUnknown"> 只練不熟</label>
+          <button class="btn" id="playDict">🔊 播放題目</button>
+          <button class="btn" id="revealDict">顯示答案</button>
+          <button class="btn" id="nextDict">下一題</button>
+          <div class="stats">
+            <div class="stat">正確：<span id="d-correct">0</span></div>
+            <div class="stat">錯誤：<span id="d-wrong">0</span></div>
+          </div>
+        </div>
+        <div class="flashcard" style="min-height: 180px;">
+          <div class="stack" style="width:100%; place-items:center; text-align:center;">
+            <div id="dictPrompt" class="meaning">按「播放題目」，聽音後拼寫單字</div>
+            <input id="dictInput" type="text" class="select" style="font-size:22px; text-align:center; padding:12px 16px; width:min(460px, 90%);" placeholder="輸入聽到的單字，按 Enter 送出" />
+            <div class="row" style="justify-content:center;">
+              <button class="btn" id="checkDict">送出</button>
+              <button class="btn" id="hintDict">提示（第一個字母）</button>
+            </div>
+            <div id="dictFeedback" class="meaning"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 單字管理 -->
+    <section id="panel-manage" class="panel">
+      <div class="section stack">
+        <h3 style="margin:0;">新增／管理單字</h3>
+        <div class="row">
+          <input id="newWord" type="text" placeholder="英文單字 (例如: apple)" />
+          <input id="newTw" type="text" placeholder="中文解釋 (例如: 蘋果)" />
+          <select id="newLevel" class="select">
+            <option value="K">Kindergarten (K)</option>
+            <option value="G1">Grade 1</option>
+            <option value="G2">Grade 2</option>
+            <option value="G3">Grade 3</option>
+            <option value="G4">Grade 4</option>
+            <option value="G5">Grade 5</option>
+            <option value="G6">Grade 6</option>
+          </select>
+          <button class="btn" id="addWord">加入</button>
+        </div>
+        <div class="row">
+          <button class="btn" id="exportBtn">匯出自訂單字 JSON</button>
+          <label class="btn" for="importFile" style="cursor:pointer;">匯入 JSON</label>
+          <input id="importFile" type="file" accept="application/json" style="display:none;" />
+        </div>
+        <div class="row">
+          <button class="btn" id="clearKnown">清空「已會」</button>
+          <button class="btn" id="clearUnknown">清空「不熟」</button>
+        </div>
+        <div class="hint">提示：自訂單字會儲存在本機瀏覽器 (localStorage)。更換裝置或清空瀏覽資料會消失，請記得匯出備份。</div>
+        <div class="stack">
+          <h4 style="margin:10px 0 0;">目前單字（依美式年級篩選）</h4>
+          <div id="wordList"></div>
+        </div>
+      </div>
+    </section>
+
+    <footer>© 2025 Flashcard Game · LiＷei Design</footer>
+  </div>
+
+  <script>
+    // ====== 資料：基礎單字（K–G6） ======
+    const BUILTIN_WORDS = [
+      // Kindergarten (K)
+      {w:'apple',tw:'蘋果',lv:'K'},{w:'ball',tw:'球',lv:'K'},{w:'cat',tw:'貓',lv:'K'},
+      {w:'dog',tw:'狗',lv:'K'},{w:'egg',tw:'蛋',lv:'K'},{w:'fish',tw:'魚',lv:'K'},
+      {w:'go',tw:'走；去',lv:'K'},{w:'hat',tw:'帽子',lv:'K'},{w:'ice',tw:'冰',lv:'K'},
+      {w:'jam',tw:'果醬',lv:'K'},{w:'kite',tw:'風箏',lv:'K'},{w:'lion',tw:'獅子',lv:'K'},
+      {w:'milk',tw:'牛奶',lv:'K'},{w:'nose',tw:'鼻子',lv:'K'},{w:'orange',tw:'柳橙',lv:'K'},
+      {w:'pig',tw:'豬',lv:'K'},{w:'queen',tw:'女王',lv:'K'},{w:'red',tw:'紅色',lv:'K'},
+      {w:'sun',tw:'太陽',lv:'K'},{w:'toy',tw:'玩具',lv:'K'},{w:'up',tw:'向上',lv:'K'},
+      {w:'van',tw:'廂型車',lv:'K'},{w:'water',tw:'水',lv:'K'},{w:'xray',tw:'X 光',lv:'K'},
+      {w:'yellow',tw:'黃色',lv:'K'},{w:'zoo',tw:'動物園',lv:'K'},
+      // Grade 1
+      {w:'ant',tw:'螞蟻',lv:'G1'},{w:'bird',tw:'鳥',lv:'G1'},{w:'blue',tw:'藍色',lv:'G1'},
+      {w:'book',tw:'書',lv:'G1'},{w:'bus',tw:'公車',lv:'G1'},{w:'chair',tw:'椅子',lv:'G1'},
+      {w:'class',tw:'班級',lv:'G1'},{w:'door',tw:'門',lv:'G1'},{w:'eat',tw:'吃',lv:'G1'},
+      {w:'friend',tw:'朋友',lv:'G1'},{w:'happy',tw:'快樂的',lv:'G1'},{w:'jump',tw:'跳',lv:'G1'},
+      {w:'me',tw:'我（受格）',lv:'G1'},{w:'mom',tw:'媽媽',lv:'G1'},{w:'open',tw:'打開',lv:'G1'},
+      {w:'pen',tw:'原子筆',lv:'G1'},{w:'pencil',tw:'鉛筆',lv:'G1'},{w:'run',tw:'跑',lv:'G1'},
+      {w:'school',tw:'學校',lv:'G1'},{w:'table',tw:'桌子',lv:'G1'},{w:'tree',tw:'樹',lv:'G1'},
+      {w:'you',tw:'你；妳；你們',lv:'G1'},{w:'yes',tw:'是；好',lv:'G1'},{w:'no',tw:'不是；不',lv:'G1'},
+      // Grade 2
+      {w:'after',tw:'之後',lv:'G2'},{w:'before',tw:'之前',lv:'G2'},{w:'bring',tw:'帶來',lv:'G2'},
+      {w:'brown',tw:'棕色',lv:'G2'},{w:'cook',tw:'煮；廚師',lv:'G2'},{w:'draw',tw:'畫畫',lv:'G2'},
+      {w:'drink',tw:'喝；飲料',lv:'G2'},{w:'family',tw:'家庭',lv:'G2'},{w:'far',tw:'遠的',lv:'G2'},
+      {w:'fast',tw:'快的',lv:'G2'},{w:'floor',tw:'地板；樓層',lv:'G2'},{w:'light',tw:'光；輕的',lv:'G2'},
+      {w:'market',tw:'市場',lv:'G2'},{w:'music',tw:'音樂',lv:'G2'},{w:'near',tw:'近的',lv:'G2'},
+      {w:'quiet',tw:'安靜的',lv:'G2'},{w:'right',tw:'右邊；正確',lv:'G2'},{w:'sometimes',tw:'有時候',lv:'G2'},
+      {w:'start',tw:'開始',lv:'G2'},{w:'together',tw:'一起',lv:'G2'},{w:'under',tw:'在…之下',lv:'G2'},
+      {w:'wash',tw:'洗',lv:'G2'},{w:'watch',tw:'手錶；觀看',lv:'G2'},{w:'white',tw:'白色',lv:'G2'},
+      {w:'window',tw:'窗戶',lv:'G2'},{w:'yesterday',tw:'昨天',lv:'G2'},
+      // Grade 3
+      {w:'animal',tw:'動物',lv:'G3'},{w:'because',tw:'因為',lv:'G3'},{w:'both',tw:'兩者都',lv:'G3'},
+      {w:'climb',tw:'攀爬',lv:'G3'},{w:'cloud',tw:'雲',lv:'G3'},{w:'country',tw:'國家；鄉間',lv:'G3'},
+      {w:'finish',tw:'完成',lv:'G3'},{w:'future',tw:'未來',lv:'G3'},{w:'health',tw:'健康',lv:'G3'},
+      {w:'hour',tw:'小時',lv:'G3'},{w:'important',tw:'重要的',lv:'G3'},{w:'language',tw:'語言',lv:'G3'},
+      {w:'matter',tw:'事情；要緊',lv:'G3'},{w:'minute',tw:'分鐘',lv:'G3'},{w:'nature',tw:'自然',lv:'G3'},
+      {w:'promise',tw:'承諾；答應',lv:'G3'},{w:'reason',tw:'理由',lv:'G3'},{w:'season',tw:'季節',lv:'G3'},
+      {w:'simple',tw:'簡單的',lv:'G3'},{w:'slowly',tw:'慢慢地',lv:'G3'},{w:'solution',tw:'解決方法',lv:'G3'},
+      {w:'strong',tw:'強壯的',lv:'G3'},{w:'through',tw:'穿過；透過',lv:'G3'},{w:'village',tw:'村莊',lv:'G3'},
+      {w:'weather',tw:'天氣',lv:'G3'},{w:'world',tw:'世界',lv:'G3'},
+      // Grade 4
+      {w:'accident',tw:'意外；事故',lv:'G4'},{w:'afraid',tw:'害怕的',lv:'G4'},{w:'already',tw:'已經',lv:'G4'},
+      {w:'bottle',tw:'瓶子',lv:'G4'},{w:'bridge',tw:'橋',lv:'G4'},{w:'calendar',tw:'日曆',lv:'G4'},
+      {w:'careful',tw:'小心的',lv:'G4'},{w:'circle',tw:'圓形',lv:'G4'},{w:'comfortable',tw:'舒服的',lv:'G4'},
+      {w:'cousin',tw:'堂／表兄弟姊妹',lv:'G4'},{w:'danger',tw:'危險',lv:'G4'},{w:'delicious',tw:'好吃的',lv:'G4'},
+      {w:'describe',tw:'描述',lv:'G4'},{w:'energy',tw:'能量',lv:'G4'},{w:'exercise',tw:'運動；鍛鍊',lv:'G4'},
+      {w:'festival',tw:'節日',lv:'G4'},{w:'foreign',tw:'外國的',lv:'G4'},{w:'garbage',tw:'垃圾',lv:'G4'},
+      {w:'grass',tw:'草',lv:'G4'},{w:'history',tw:'歷史',lv:'G4'},{w:'island',tw:'島嶼',lv:'G4'},
+      {w:'invite',tw:'邀請',lv:'G4'},{w:'mirror',tw:'鏡子',lv:'G4'},{w:'paper',tw:'紙；報紙',lv:'G4'},
+      {w:'repair',tw:'修理',lv:'G4'},
+      // Grade 5
+      {w:'advice',tw:'建議',lv:'G5'},{w:'ancient',tw:'古老的',lv:'G5'},{w:'arrive',tw:'到達',lv:'G5'},
+      {w:'attention',tw:'注意',lv:'G5'},{w:'battle',tw:'戰鬥',lv:'G5'},{w:'beach',tw:'海灘',lv:'G5'},
+      {w:'believe',tw:'相信',lv:'G5'},{w:'career',tw:'職業；生涯',lv:'G5'},{w:'century',tw:'世紀',lv:'G5'},
+      {w:'chemical',tw:'化學的；化學品',lv:'G5'},{w:'company',tw:'公司',lv:'G5'},{w:'courage',tw:'勇氣',lv:'G5'},
+      {w:'culture',tw:'文化',lv:'G5'},{w:'custom',tw:'習俗',lv:'G5'},{w:'damage',tw:'損害',lv:'G5'},
+      {w:'effect',tw:'效果；影響',lv:'G5'},{w:'electric',tw:'電的',lv:'G5'},{w:'excellent',tw:'優秀的',lv:'G5'},
+      {w:'factory',tw:'工廠',lv:'G5'},{w:'famous',tw:'有名的',lv:'G5'},{w:'general',tw:'一般的；將軍',lv:'G5'},
+      {w:'government',tw:'政府',lv:'G5'},{w:'human',tw:'人類；人的',lv:'G5'},{w:'illness',tw:'疾病',lv:'G5'},
+      {w:'invention',tw:'發明',lv:'G5'},
+      // Grade 6
+      {w:'achievement',tw:'成就',lv:'G6'},{w:'architecture',tw:'建築',lv:'G6'},{w:'atmosphere',tw:'大氣；氣氛',lv:'G6'},
+      {w:'behavior',tw:'行為',lv:'G6'},{w:'challenge',tw:'挑戰',lv:'G6'},{w:'community',tw:'社區',lv:'G6'},
+      {w:'competition',tw:'競爭',lv:'G6'},{w:'conclusion',tw:'結論',lv:'G6'},{w:'conservation',tw:'保育；節約',lv:'G6'},
+      {w:'continent',tw:'大陸；洲',lv:'G6'},{w:'cooperation',tw:'合作',lv:'G6'},{w:'discovery',tw:'發現',lv:'G6'},
+      {w:'education',tw:'教育',lv:'G6'},{w:'environment',tw:'環境',lv:'G6'},{w:'evidence',tw:'證據',lv:'G6'},
+      {w:'experiment',tw:'實驗',lv:'G6'},{w:'independent',tw:'獨立的',lv:'G6'},{w:'influence',tw:'影響',lv:'G6'},
+      {w:'international',tw:'國際的',lv:'G6'},{w:'literature',tw:'文學',lv:'G6'},{w:'population',tw:'人口',lv:'G6'},
+      {w:'principle',tw:'原則',lv:'G6'},{w:'responsible',tw:'負責的',lv:'G6'},{w:'solution',tw:'解決方法',lv:'G6'},
+      {w:'technology',tw:'科技',lv:'G6'}
+    ];
+
+    // ====== 工具 & 儲存 ======
+    const $ = (q, el=document) => el.querySelector(q);
+    const $$ = (q, el=document) => Array.from(el.querySelectorAll(q));
+    const STORAGE_KEYS = {
+      THEME: 'fc-theme',
+      CUSTOM: 'fc-custom-words',
+      KNOWN: 'fc-known',
+      UNKNOWN: 'fc-unknown',
+      VOICE: 'fc-voice' // 新增：記住語音偏好
+    };
+    function loadTheme(){
+      const saved = localStorage.getItem(STORAGE_KEYS.THEME) || 'light';
+      document.documentElement.setAttribute('data-theme', saved === 'dark' ? 'dark' : 'light');
+      $('#themeLabel').textContent = saved === 'dark' ? '深色' : '亮色';
+    }
+    function toggleTheme(){
+      const cur = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+      const next = cur === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      $('#themeLabel').textContent = next === 'dark' ? '深色' : '亮色';
+      localStorage.setItem(STORAGE_KEYS.THEME, next);
+    }
+    function getCustomWords(){ try{ return JSON.parse(localStorage.getItem(STORAGE_KEYS.CUSTOM)||'[]'); }catch{ return []; } }
+    function saveCustomWords(list){ localStorage.setItem(STORAGE_KEYS.CUSTOM, JSON.stringify(list)); }
+    function allWords(){ return [...BUILTIN_WORDS, ...getCustomWords()].sort((a,b)=> a.w.localeCompare(b.w)); }
+    function getKnown(){ try{ return JSON.parse(localStorage.getItem(STORAGE_KEYS.KNOWN)||'[]'); }catch{ return []; } }
+    function getUnknown(){ try{ return JSON.parse(localStorage.getItem(STORAGE_KEYS.UNKNOWN)||'[]'); }catch{ return []; } }
+    function addToList(key, w){
+      const set = new Set(JSON.parse(localStorage.getItem(key) || '[]'));
+      set.add(w); localStorage.setItem(key, JSON.stringify([...set]));
+    }
+    function clearList(key){ localStorage.removeItem(key); }
+
+    function sample(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+    function shuffle(arr){ for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; } return arr; }
+
+    // ====== 語音（TTS） ======
+    let VOICES = [];
+    function pickVoice(){
+      const sel = document.querySelector('#voiceSelect');
+      if(sel && VOICES.length){
+        const i = parseInt(sel.value, 10) || 0;
+        return VOICES[i] || VOICES[0] || null;
+      }
+      return VOICES[0] || null;
+    }
+    function speak(text){
+      if(!('speechSynthesis' in window)) return alert('此瀏覽器不支援語音朗讀。');
+      const u = new SpeechSynthesisUtterance(text);
+      u.rate = parseFloat($('#rate').value);
+      u.pitch = parseFloat($('#pitch').value);
+      const v = pickVoice(); if(v) u.voice = v;
+      speechSynthesis.cancel(); speechSynthesis.speak(u);
+    }
+    function initVoices(){
+      VOICES = window.speechSynthesis.getVoices();
+      // 只列英文語音（若沒有英文則保留全部）
+      const en = VOICES.filter(v => /^en([-_]|$)/i.test(v.lang));
+      if(en.length) VOICES = en;
+
+      const sel = document.querySelector('#voiceSelect');
+      if(!sel) return;
+
+      sel.innerHTML = VOICES.map((v, i) => `<option value="${i}">${v.name} · ${v.lang}</option>`).join('') || '<option>未找到語音</option>';
+
+      const savedName = localStorage.getItem(STORAGE_KEYS.VOICE);
+      const prefs = ['en-US','en-GB','en-AU','en-CA'];
+      let index = 0;
+
+      if(savedName){
+        const k = VOICES.findIndex(v => v.name === savedName);
+        if(k >= 0) index = k;
+      }else{
+        for(const p of prefs){
+          const k = VOICES.findIndex(v => v.lang.startsWith(p));
+          if(k >= 0){ index = k; break; }
+        }
+      }
+
+      sel.value = String(index);
+      const v = VOICES[index];
+      $('#voiceName').textContent = v ? `${v.name} · ${v.lang}` : '未找到語音';
+    }
+    window.speechSynthesis?.addEventListener('voiceschanged', initVoices);
+
+    // ====== 狀態 ======
+    let currentTab = 'flash';
+    let pool = []; let order = []; let idx = 0;
+    let listenAnswer = null, lCorrect = 0, lWrong = 0;
+    let dictAnswer = null, dCorrect = 0, dWrong = 0;
+
+    // ====== 年級過濾（美式） ======
+    function byLevel(list){
+      const lv = $('#levelFilter').value;
+      return lv === 'ALL' ? list : list.filter(x=> x.lv === lv);
+    }
+    function sourceForMode(base){
+      if((currentTab==='listen' && $('#listenOnlyUnknown')?.checked) ||
+         (currentTab==='dict' && $('#dictOnlyUnknown')?.checked)){
+        const unk = new Set(getUnknown());
+        return base.filter(x=> unk.has(x.w));
+      }
+      return base;
+    }
+    function refreshPool(){
+      pool = sourceForMode(byLevel(allWords()));
+      order = pool.map((_,i)=>i); shuffle(order); idx = 0;
+      renderFlash(); renderWordList(); resetListen(); resetDict();
+    }
+
+    // ====== 閃卡 ======
+    function renderFlash(){
+      if(pool.length === 0){
+        $('#flashWord').textContent = '（此年級目前沒有單字）';
+        $('#flashMeaning').textContent = '請切換年級，或到「單字管理」新增單字。';
+        $('#progress').textContent = '0/0';
+        $('#knownCount').textContent = getKnown().length;
+        $('#unknownCount').textContent = getUnknown().length;
+        return;
+      }
+      const i = order[idx], item = pool[i];
+      $('#flashWord').textContent = item.w;
+      $('#flashMeaning').textContent = item.tw;
+      $('#progress').textContent = `${idx+1}/${order.length}`;
+      $('#knownCount').textContent = getKnown().length;
+      $('#unknownCount').textContent = getUnknown().length;
+    }
+    function nextFlash(){ if(pool.length){ idx = (idx+1)%order.length; renderFlash(); } }
+    function prevFlash(){ if(pool.length){ idx = (idx-1+order.length)%order.length; renderFlash(); } }
+    function toggleMeaning(){
+      const el = $('#flashMeaning');
+      const hidden = el.style.visibility === 'hidden';
+      el.style.visibility = hidden ? 'visible' : 'hidden';
+      $('#toggleMeaning').textContent = hidden ? '🙈 隱藏中文' : '👀 顯示中文';
+    }
+
+    // ====== 聽音辨字 ======
+    function resetListen(){
+      listenAnswer = null;
+      $('#listenPrompt').textContent = '按「播放題目」，聽音後選正確單字';
+      $('#choices').innerHTML = '';
+    }
+    function currentPool(){ return sourceForMode(byLevel(allWords())); }
+    function newListenQuestion(){
+      const list = currentPool(); if(list.length === 0){ resetListen(); return; }
+      const count = parseInt($('#choiceCount').value, 10);
+      const answer = sample(list); listenAnswer = answer.w;
+      $('#listenPrompt').textContent = '請選出剛剛聽到的單字';
+      const others = list.filter(x=> x.w !== answer.w); shuffle(others);
+      const options = shuffle([answer.w, ...others.slice(0, Math.max(1,count-1)).map(x=>x.w)]);
+      const box = $('#choices'); box.innerHTML = '';
+      options.forEach(opt=>{
+        const btn = document.createElement('button');
+        btn.className = 'choice'; btn.textContent = opt;
+        btn.addEventListener('click', ()=>{
+          if(opt === listenAnswer){
+            btn.classList.add('ok'); lCorrect++; $('#l-correct').textContent = lCorrect;
+            addToList(STORAGE_KEYS.KNOWN, opt);
+          }else{
+            btn.classList.add('bad'); lWrong++; $('#l-wrong').textContent = lWrong;
+            addToList(STORAGE_KEYS.UNKNOWN, listenAnswer);
+          }
+        }, {once:true});
+        btn.addEventListener('mouseenter', ()=> speak(opt));
+        box.appendChild(btn);
+      });
+      speak(answer.w);
+    }
+
+    // ====== 聽寫辨字 ======
+    function resetDict(){
+      dictAnswer = null;
+      $('#dictPrompt').textContent = '按「播放題目」，聽音後拼寫單字';
+      $('#dictFeedback').textContent = '';
+      $('#dictInput').value = '';
+    }
+    function newDictQuestion(){
+      const list = currentPool(); if(list.length === 0){ resetDict(); return; }
+      const item = sample(list); dictAnswer = item.w;
+      $('#dictPrompt').textContent = '請聽音拼寫並送出';
+      $('#dictFeedback').textContent = ''; $('#dictInput').value = ''; $('#dictInput').focus();
+      speak(item.w);
+    }
+    function checkDict(){
+      const val = ($('#dictInput').value || '').trim().toLowerCase();
+      if(!dictAnswer) return;
+      if(val === dictAnswer.toLowerCase()){
+        $('#dictFeedback').textContent = '✅ 正確！'; $('#dictFeedback').style.color = 'var(--ok)';
+        dCorrect++; $('#d-correct').textContent = dCorrect;
+        addToList(STORAGE_KEYS.KNOWN, dictAnswer);
+      }else{
+        $('#dictFeedback').textContent = `❌ 再試試看！正確答案：${dictAnswer}`; $('#dictFeedback').style.color = 'var(--bad)';
+        dWrong++; $('#d-wrong').textContent = dWrong;
+        addToList(STORAGE_KEYS.UNKNOWN, dictAnswer);
+      }
+    }
+
+    // ====== 單字管理 ======
+    function renderWordList(){
+      const target = $('#wordList'); const words = byLevel(allWords());
+      if(words.length === 0){ target.innerHTML = '<div class="hint">此年級沒有資料。</div>'; return; }
+      const groups = words.reduce((acc, x)=>{ (acc[x.lv] ||= []).push(x); return acc; }, {});
+      let html = '';
+      for(const lv of Object.keys(groups)){
+        const title = ({K:'Kindergarten (K)',G1:'Grade 1',G2:'Grade 2',G3:'Grade 3',G4:'Grade 4',G5:'Grade 5',G6:'Grade 6'})[lv] || lv;
+        const arr = groups[lv].sort((a,b)=> a.w.localeCompare(b.w));
+        html += `<div style="margin:.5rem 0;"><div class="badge">年級：${title}</div>`;
+        html += '<div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:6px;">';
+        arr.forEach(x=>{ html += `<span class="pill">${x.w}<span class="hint">（${x.tw}）</span></span>`; });
+        html += '</div></div>';
+      }
+      target.innerHTML = html;
+    }
+
+    // ====== 事件繫結 ======
+    function bind(){
+      // tabs
+      $$('.tab-btn').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          $$('.tab-btn').forEach(b=> b.classList.remove('active'));
+          btn.classList.add('active'); currentTab = btn.dataset.tab;
+          $$('.panel').forEach(p=> p.classList.remove('active'));
+          $('#panel-'+currentTab).classList.add('active');
+        });
+      });
+
+      // theme
+      $('#themeToggle').addEventListener('click', toggleTheme);
+
+      // filters
+      $('#levelFilter').addEventListener('change', refreshPool);
+
+      // voice select（記住偏好）
+      const voiceSel = document.querySelector('#voiceSelect');
+      if(voiceSel){
+        voiceSel.addEventListener('change', () => {
+          const v = pickVoice();
+          if(v){
+            $('#voiceName').textContent = `${v.name} · ${v.lang}`;
+            localStorage.setItem(STORAGE_KEYS.VOICE, v.name);
+          }
+        });
+      }
+
+      // flash controls
+      $('#shuffleBtn').addEventListener('click', ()=>{ shuffle(order); idx=0; renderFlash(); });
+      $('#nextBtn').addEventListener('click', nextFlash);
+      $('#prevBtn').addEventListener('click', prevFlash);
+      $('#toggleMeaning').addEventListener('click', toggleMeaning);
+      $('#speakFlash').addEventListener('click', ()=>{ if(pool.length){ speak(pool[order[idx]].w); } });
+      $('#markKnown').addEventListener('click', ()=>{ if(pool.length){ addToList(STORAGE_KEYS.KNOWN, pool[order[idx]].w); renderFlash(); } });
+      $('#markUnknown').addEventListener('click', ()=>{ if(pool.length){ addToList(STORAGE_KEYS.UNKNOWN, pool[order[idx]].w); renderFlash(); } });
+
+      // listen
+      $('#playListen').addEventListener('click', newListenQuestion);
+      $('#nextListen').addEventListener('click', newListenQuestion);
+      $('#listenOnlyUnknown').addEventListener('change', refreshPool);
+
+      // dict
+      $('#playDict').addEventListener('click', newDictQuestion);
+      $('#nextDict').addEventListener('click', newDictQuestion);
+      $('#checkDict').addEventListener('click', checkDict);
+      $('#dictOnlyUnknown').addEventListener('change', refreshPool);
+      $('#dictInput').addEventListener('keydown', (e)=>{ if(e.key === 'Enter'){ checkDict(); } });
+      $('#hintDict').addEventListener('click', ()=>{
+        if(!dictAnswer) return;
+        const hint = dictAnswer[0] + ' ' + '_ '.repeat(Math.max(dictAnswer.length-1,1)).trim();
+        $('#dictFeedback').textContent = `提示：${hint}`;
+        $('#dictFeedback').style.color = 'var(--muted)';
+      });
+      $('#revealDict').addEventListener('click', ()=>{
+        if(!dictAnswer) return;
+        $('#dictFeedback').textContent = `答案：${dictAnswer}`;
+        $('#dictFeedback').style.color = 'var(--primary)';
+        speak(dictAnswer);
+      });
+
+      // manage
+      $('#addWord').addEventListener('click', ()=>{
+        const w = ($('#newWord').value||'').trim();
+        const tw = ($('#newTw').value||'').trim();
+        const lv = $('#newLevel').value;
+        if(!w || !tw) return alert('請輸入英文與中文。');
+        const all = getCustomWords();
+        if(all.some(x=> x.w.toLowerCase() === w.toLowerCase())){ return alert('此單字已存在於自訂清單。'); }
+        all.push({w, tw, lv}); saveCustomWords(all);
+        $('#newWord').value = ''; $('#newTw').value='';
+        refreshPool(); alert('已加入！');
+      });
+
+      $('#exportBtn').addEventListener('click', ()=>{
+        const data = JSON.stringify(getCustomWords(), null, 2);
+        const blob = new Blob([data], {type:'application/json'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a'); a.href = url; a.download = 'my-words.json'; a.click();
+        URL.revokeObjectURL(url);
+      });
+      $('#importFile').addEventListener('change', (e)=>{
+        const file = e.target.files?.[0]; if(!file) return;
+        const reader = new FileReader();
+        reader.onload = () => {
+          try{
+            const arr = JSON.parse(reader.result);
+            if(!Array.isArray(arr)) throw new Error('格式錯誤');
+            const sanitized = arr
+              .filter(x=> x && typeof x.w==='string' && typeof x.tw==='string' && ['K','G1','G2','G3','G4','G5','G6'].includes(x.lv))
+              .map(x=> ({w:x.w.trim(), tw:x.tw.trim(), lv:x.lv}));
+            saveCustomWords(sanitized); refreshPool(); alert('匯入完成！');
+          }catch(err){ alert('匯入失敗：' + err.message); }
+        };
+        reader.readAsText(file); e.target.value = '';
+      });
+
+      $('#clearKnown').addEventListener('click', ()=>{ if(confirm('確定清空「已會」清單？')){ clearList(STORAGE_KEYS.KNOWN); renderFlash(); } });
+      $('#clearUnknown').addEventListener('click', ()=>{ if(confirm('確定清空「不熟」清單？')){ clearList(STORAGE_KEYS.UNKNOWN); renderFlash(); } });
+
+      // 快捷鍵
+      window.addEventListener('keydown', (e)=>{
+        if(e.code === 'Space'){
+          e.preventDefault();
+          if(currentTab === 'flash'){
+          nextFlash();                     // 先換到下一張
+          speak(pool[order[idx]].w);       // 播放新顯示的字
+          }else if(currentTab === 'listen'){
+            newListenQuestion();
+          }else if(currentTab === 'dict'){
+            if(dictAnswer){ checkDict(); } else { newDictQuestion(); }
+          }
+        }else if(currentTab==='flash' && (e.key==='ArrowRight' || e.key==='ArrowLeft')){
+          e.key==='ArrowRight' ? nextFlash() : prevFlash();
+        }
+      });
+    }
+
+    // ====== 初始化 ======
+    function init(){
+      loadTheme(); initVoices();
+      if(('speechSynthesis' in window) && VOICES.length === 0){ setTimeout(initVoices, 200); }
+      bind(); refreshPool();
+    }
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
