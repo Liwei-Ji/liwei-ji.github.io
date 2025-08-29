@@ -6,6 +6,12 @@ const cardData = [
         tags: ["",],
         url: "https://liwei-ji.github.io/labs/vocab-trainer/"
     },
+     {
+        imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/27592f220712515.68b173e00fa59.jpg",
+        title: "Neo Space Shoote",
+        tags: ["",],
+        url: "https://liwei-ji.github.io/game"
+    },
 
 ];
 
@@ -27,14 +33,6 @@ function createCard(card) {
     });
 
     return cardElement;
-}
-
-    // 虛線卡片
-function createDashedCard() {
-    const dashedCard = document.createElement('div');
-    dashedCard.classList.add('dashed-card');
-    dashedCard.textContent = 'A new update is coming soon...';
-    return dashedCard;
 }
 
     // 初始化卡片容器
