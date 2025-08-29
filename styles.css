@@ -181,7 +181,7 @@ input:checked + .slider:before {
     }
 }
 
-/* Hero Section */
+    /* Hero Section */
 .hero-section {
     display: flex;
     align-items: center;
@@ -189,22 +189,36 @@ input:checked + .slider:before {
     min-height: 100vh;
     padding: 2rem;
     box-sizing: border-box;
-/* 背景圖設定 */
+
+    /* 以變數控制背景（第一層遮罩、第二層圖片） */
+    background-image: var(--hero-overlay, none), var(--hero-image, none);
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;    
+    background-repeat: no-repeat;
 }
 
-/* 背景圖根據模式切換 */
+    /* 背景圖根據模式切換 */
 body.dark-mode .hero-section {
-    background-image: linear-gradient(to bottom,
-                          rgba(0, 0, 0, 0.3) 0%,
-                          rgba(0, 0, 0, 0.6) 60%,
-                          #1e1e1e 100%
-                      ),
-                      url('https://mir-s3-cdn-cf.behance.net/project_modules/fs/f3fbbd220712515.684ac5d08670c.jpg');
+    --hero-overlay: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.3) 0%,
+        rgba(0, 0, 0, 0.6) 60%,
+        #1e1e1e 100%
+    );
+    --hero-image: url('https://mir-s3-cdn-cf.behance.net/project_modules/fs/f3fbbd220712515.684ac5d08670c.jpg');
 }
 
+/* Labs：只顯示圖片，不加遮罩、不顯示文字
+   在新頁 <body> 加上 .page-hero-image-only
+   並提供 --hero-image */
+body.page-hero-image-only .hero-section {
+    --hero-overlay: none; /* 移除遮罩 */
+}
+
+/* Labs：隱藏主標文字（不影響主頁） */
+body.page-hero-image-only .hero-text {
+    display: none;
+}
 
 .hero-container {
     max-width: 1400px;
