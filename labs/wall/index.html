@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>  
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Wall and Floor</title>
+</head>  
+<style>
+  html, body { margin:0; height:100%; background:#0b0f14; }
+  #tip {
+    position:fixed; left:10px; top:10px; color:#eaeef2;
+    font:13px/1.4 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+    background:rgba(255,255,255,.06); padding:6px 8px; border-radius:8px; border:1px solid rgba(255,255,255,.08);
+    z-index:10; display:flex; gap:12px; align-items:center; flex-wrap:wrap;
+  }
+  canvas { display:block; width:100%; height:100%; }
+  .row { display:flex; gap:10px; align-items:center; }
+</style>
+
+<div id="tip">
+  <div class="row">
+    <label>Wall <input id="backImg2" type="file" accept="image/*" /></label>
+    <label><input id="flipBackX2" type="checkbox" checked> Flip horizontally</label>
+    <span id="status2">Not uploaded</span>
+  </div>
+  <div class="row">
+    <label>Floor <input id="backImg6" type="file" accept="image/*" /></label>
+    <label><input id="flipBackX6" type="checkbox" checked> Flip horizontally</label>
+    <span id="status6">Not uploaded</span>
+  </div>
+</div>
+<canvas id="gl"></canvas>
+
+<script>
+(function(){
+  const canvas = document.getElementById('gl');
+  const gl = canvas.getContext('webgl2') || canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  if (!gl) { alert('WebGL is not supported in this environment'); return; }
+
+  // ===== Resize / DPR =====
+  function resize() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const w = Math.floor(canvas.clientWidth  * dpr);
+    const h = Math.floor(canvas.clientHeight * dpr);
+    if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h; gl.viewport(0,0,w,h); }
+  }
+  const ro = new ResizeObserver(resize); ro.observe(canvas); resize();
+
+  // ===== Shaders =====
+  const vsSrc = `
+    attribute vec3 aPos;
+    attribute vec2 aUV;
+    attribute vec2 aUVBack;  // backside UVs (image sampling)
+    uniform mat4 uMVP;
+    varying vec2 vUV;
+    varying vec2 vUVBack;
+    void main() {
+      vUV = aUV;
+      vUVBack = aUVBack;
+      gl_Position = uMVP * vec4(aPos, 1.0);
+    }
+  `;
+  const fsSrc = `
+    precision mediump float;
+    varying vec2 vUV;
+    varying vec2 vUVBack;
+    uniform sampler2D uTex;      // front: currently replaced by a solid color
+    uniform sampler2D uTexBack;  // back: uploaded image
+
+    uniform bool  uUseFrontColor;
+    uniform vec4  uFrontColor;
+
+    uniform float uAlpha;
+    uniform bool  uUseBackColor; // use fallback color if no image uploaded
+    uniform vec4  uBackColor;    // fallback color
+    uniform bool  uHasBackImg;   // has image?
+    uniform bool  uBackFlipX;    // horizontal flip
+    void main() {
+      vec4 c;
+      // front face: solid color (or atlas if you turn it back on)
+      if (uUseFrontColor) {
+        c = uFrontColor;
+      } else {
+        c = texture2D(uTex, vUV);
+      }
+
+      // back face: uploaded image or fallback color
+      if (!gl_FrontFacing) {
+        if (uHasBackImg) {
+          vec2 uv = vUVBack;
+          if (uBackFlipX) uv.x = 1.0 - uv.x;
+          c = texture2D(uTexBack, uv);
+        } else if (uUseBackColor) {
+          c = uBackColor;
+        }
+      }
+      c.a *= uAlpha;
+      gl_FragColor = c;
+    }
+  `;
+  function compile(type, src){ const sh=gl.createShader(type); gl.shaderSource(sh,src); gl.compileShader(sh);
+    if(!gl.getShaderParameter(sh,gl.COMPILE_STATUS)){ const info=gl.getShaderInfoLog(sh); gl.deleteShader(sh); throw new Error(info); }
+    return sh;
+  }
+  function link(vs, fs){ const p=gl.createProgram(); gl.attachShader(p,vs); gl.attachShader(p,fs); gl.linkProgram(p);
+    if(!gl.getProgramParameter(p,gl.LINK_STATUS)){ const info=gl.getProgramInfoLog(p); gl.deleteProgram(p); throw new Error(info); }
+    return p;
+  }
+  const prog = link(compile(gl.VERTEX_SHADER,vsSrc), compile(gl.FRAGMENT_SHADER,fsSrc));
+  gl.useProgram(prog);
+  const aPos = gl.getAttribLocation(prog,'aPos');
+  const aUV  = gl.getAttribLocation(prog,'aUV');
+  const aUVBack = gl.getAttribLocation(prog,'aUVBack');
+  const uMVP = gl.getUniformLocation(prog,'uMVP');
+  const uTex = gl.getUniformLocation(prog,'uTex');
+  const uTexBack = gl.getUniformLocation(prog,'uTexBack');
+  const uAlpha = gl.getUniformLocation(prog,'uAlpha');
+  const uUseBackColor = gl.getUniformLocation(prog,'uUseBackColor');
+  const uBackColor = gl.getUniformLocation(prog,'uBackColor');
+  const uHasBackImg = gl.getUniformLocation(prog,'uHasBackImg');
+  const uBackFlipX = gl.getUniformLocation(prog,'uBackFlipX');
+  const uUseFrontColor = gl.getUniformLocation(prog,'uUseFrontColor');
+  const uFrontColor = gl.getUniformLocation(prog,'uFrontColor');
+  gl.uniform1i(uTex, 0);        // atlas = unit 0 (kept)
+  gl.uniform1i(uTexBack, 1);    // wall back image = unit 1 (floor uses unit 2)
+
+  // ===== Geometry (wall + floor only) =====
+  const P = [
+    // wall (front face towards -Z)
+    -1,-1,-1,  -1, 1,-1,   1, 1,-1,   1,-1,-1,
+    // floor (facing +Y up, -Z towards back)
+    -1,-1, 1,  -1,-1,-1,   1,-1,-1,   1,-1, 1
+  ];
+  const UV = [
+    // (front) UVs — not used visually since front uses solid colors
+    1,0,  1,1,  0,1,  0,0,
+    1,0,  0,0,  0,1,  1,1
+  ];
+  // Back-face UVs — full range (0..1); we keep original aspect by scaling geometry
+  let UVB = [
+    0,0,  0,1,  1,1,  1,0,
+    0,0,  0,1,  1,1,  1,0
+  ];
+  const I = [ 0,1,2, 0,2,3,  4,5,6, 4,6,7 ];
+
+  function buf(target, data, usage=gl.STATIC_DRAW){ const b=gl.createBuffer(); gl.bindBuffer(target,b); gl.bufferData(target,data,usage); return b; }
+  buf(gl.ARRAY_BUFFER, new Float32Array(P));
+  gl.enableVertexAttribArray(aPos); gl.vertexAttribPointer(aPos, 3, gl.FLOAT, false, 0, 0);
+  buf(gl.ARRAY_BUFFER, new Float32Array(UV));
+  gl.enableVertexAttribArray(aUV); gl.vertexAttribPointer(aUV, 2, gl.FLOAT, false, 0, 0);
+  const uvBackBuf = buf(gl.ARRAY_BUFFER, new Float32Array(UVB));
+  gl.enableVertexAttribArray(aUVBack); gl.vertexAttribPointer(aUVBack, 2, gl.FLOAT, false, 0, 0);
+  buf(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(I));
+
+  // ===== Atlas (kept for completeness) =====
+  function makeAtlas(size=1024){
+    const cols=3, rows=2, cellW=size/cols, cellH=size/rows, dpr=2;
+    const c=document.createElement('canvas'); c.width=size*dpr; c.height=size*dpr;
+    const g=c.getContext('2d'); g.scale(dpr,dpr);
+    g.textAlign='center'; g.textBaseline='middle';
+    const colors=['#ff4040','#39d27d','#4b7bff','#ffe14b','#ff49ff','#43e0ff'];
+    for(let i=0;i<6;i++){
+      const col=i%cols, row=(i/cols|0), x=col*cellW, y=row*cellH;
+      g.fillStyle=colors[i]; g.fillRect(x,y,cellW,cellH);
+      const num=String(i+1);
+      g.font=`${Math.floor(cellH*0.65)}px system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif`;
+      g.lineWidth=Math.max(4, cellH*0.06);
+      g.strokeStyle='rgba(0,0,0,0.65)'; g.fillStyle='#fff';
+      g.strokeText(num, x+cellW/2, y+cellH/2);
+      g.fillText(num,   x+cellW/2, y+cellH/2);
+    }
+    return c;
+  }
+  function createTextureFromCanvas(cv){
+    const tex=gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, tex);
+    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, 1);
+    gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,cv);
+    gl.generateMipmap(gl.TEXTURE_2D);
+    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR_MIPMAP_LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
+    return tex;
+  }
+  const atlasTex = createTextureFromCanvas(makeAtlas(2048)); // unit 0
+
+  // ===== Texture creation (uploaded images) =====
+  const MAX_TEX = gl.getParameter(gl.MAX_TEXTURE_SIZE) || 4096;
+  function createNPOTTextureFromImage(img){
+    let iw = img.naturalWidth || img.width;
+    let ih = img.naturalHeight || img.height;
+    if (iw > MAX_TEX || ih > MAX_TEX) {
+      const s = Math.min(MAX_TEX/iw, MAX_TEX/ih);
+      const nw = Math.max(1, Math.floor(iw*s));
+      const nh = Math.max(1, Math.floor(ih*s));
+      const cv = document.createElement('canvas'); cv.width=nw; cv.height=nh;
+      const g = cv.getContext('2d');
+      g.imageSmoothingEnabled = true; g.imageSmoothingQuality='high';
+      g.drawImage(img, 0, 0, nw, nh);
+      const tex = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, tex);
+      gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, 1);
+      gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,cv);
+      gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);
+      gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
+      return tex;
+    } else {
+      const tex = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, tex);
+      gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, 1);
+      gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,img);
+      gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);
+      gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
+      return tex;
+    }
+  }
+
+  // ===== Math helpers & transforms =====
+  function mat4Mul(a,b){ const o=new Array(16);
+    for(let r=0;r<4;r++) for(let c=0;c<4;c++) o[c+r*4]=a[r*4]*b[c]+a[r*4+1]*b[c+4]+a[r*4+2]*b[c+8]+a[r*4+3]*b[c+12];
+    return o;
+  }
+  function mat4Perspective(fov, aspect, near, far){ const f=1/Math.tan(fov/2), nf=1/(near-far);
+    return [f/aspect,0,0,0, 0,f,0,0,  0,0,(far+near)*nf,-1,  0,0,(2*far*near)*nf,0];
+  }
+  function mat4Translate(x,y,z){ return [1,0,0,0,  0,1,0,0,  0,0,1,0,  x,y,z,1]; }
+  function mat4RotateX(a){ const c=Math.cos(a), s=Math.sin(a); return [1,0,0,0,  0,c,s,0,  0,-s,c,0,  0,0,0,1]; }
+  function mat4RotateY(a){ const c=Math.cos(a), s=Math.sin(a); return [c,0,-s,0,  0,1,0,0,  s,0,c,0,  0,0,0,1]; }
+  function mat4Scale(x,y,z){ return [x,0,0,0,  0,y,0,0,  0,0,z,0,  0,0,0,1]; }
+
+  // Track aspect ratios (iw/ih) for each face
+  let aspect2 = 1.0; // wall
+  let aspect6 = 1.0; // floor
+
+  // ===== Upload handlers =====
+  // Wall
+  let backTex2 = null, hasBackImg2 = false;
+  document.getElementById('backImg2').addEventListener('change', e=>{
+    const f=e.target.files && e.target.files[0]; if(!f) return;
+    if (!(f.type||'').startsWith('image/')) { alert('Please upload an image file'); return; }
+    const fr=new FileReader();
+    fr.onload=()=>{ const img=new Image(); img.onload=()=>{
+      if (backTex2) gl.deleteTexture(backTex2);
+      backTex2 = createNPOTTextureFromImage(img);
+      hasBackImg2 = true;
+
+      const iw = img.naturalWidth || img.width;
+      const ih = img.naturalHeight || img.height;
+      aspect2 = iw / ih; // remember aspect
+
+      // Back-face UVs stay full range (0..1) — geometry scaling preserves aspect
+      const uv2 = [0,0,  0,1,  1,1,  1,0];
+      const updated = new Float32Array([
+        ...uv2,
+        ...UVB.slice(8, 16) // keep floor part
+      ]);
+      gl.bindBuffer(gl.ARRAY_BUFFER, uvBackBuf);
+      gl.bufferData(gl.ARRAY_BUFFER, updated, gl.STATIC_DRAW);
+      UVB = Array.from(updated);
+
+      document.getElementById('status2').textContent =
+        `Uploaded (original aspect via geometry scale): ${iw}×${ih}, aspect=${(aspect2).toFixed(4)}`;
+    }; img.onerror=()=>alert('Failed to load image'); img.src=fr.result; };
+    fr.onerror=()=>alert('Failed to read file');
+    fr.readAsDataURL(f);
+  });
+
+  // Floor
+  let backTex6 = null, hasBackImg6 = false;
+  document.getElementById('backImg6').addEventListener('change', e=>{
+    const f=e.target.files && e.target.files[0]; if(!f) return;
+    if (!(f.type||'').startsWith('image/')) { alert('Please upload an image file'); return; }
+    const fr=new FileReader();
+    fr.onload=()=>{ const img=new Image(); img.onload=()=>{
+      if (backTex6) gl.deleteTexture(backTex6);
+      backTex6 = createNPOTTextureFromImage(img);
+      hasBackImg6 = true;
+
+      const iw = img.naturalWidth || img.width;
+      const ih = img.naturalHeight || img.height;
+      aspect6 = iw / ih; // remember aspect
+
+      const uv6 = [0,0,  0,1,  1,1,  1,0];
+      const updated = new Float32Array([
+        ...UVB.slice(0, 8),
+        ...uv6
+      ]);
+      gl.bindBuffer(gl.ARRAY_BUFFER, uvBackBuf);
+      gl.bufferData(gl.ARRAY_BUFFER, updated, gl.STATIC_DRAW);
+      UVB = Array.from(updated);
+
+      document.getElementById('status6').textContent =
+        `Uploaded (original aspect via geometry scale): ${iw}×${ih}, aspect=${(aspect6).toFixed(4)}`;
+    }; img.onerror=()=>alert('Failed to load image'); img.src=fr.result; };
+    fr.onerror=()=>alert('Failed to read file');
+    fr.readAsDataURL(f);
+  });
+
+  // ===== GL state =====
+  gl.enable(gl.DEPTH_TEST);
+  gl.enable(gl.BLEND);
+  gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+  gl.clearColor(0.043,0.059,0.078,1);
+
+  // ===== Interaction =====
+  let rotX=0.5, rotY=0.8, dist=5, dragging=false, lastX=0, lastY=0;
+  canvas.addEventListener('mousedown', e=>{ dragging=true; lastX=e.clientX; lastY=e.clientY; });
+  window.addEventListener('mouseup', ()=> dragging=false);
+  window.addEventListener('mousemove', e=>{
+    if(!dragging) return; const dx=e.clientX-lastX, dy=e.clientY-lastY; lastX=e.clientX; lastY=e.clientY;
+    rotY += dx*0.01; rotX += dy*0.01;
+  }, {passive:true});
+  canvas.addEventListener('wheel', e=>{
+    e.preventDefault(); const k=Math.exp(e.deltaY*0.001); dist=Math.max(2, Math.min(20, dist*k));
+  }, {passive:false});
+  canvas.addEventListener('touchstart', e=>{ if(e.touches.length===1){ dragging=true; lastX=e.touches[0].clientX; lastY=e.touches[0].clientY; } }, {passive:true});
+  canvas.addEventListener('touchmove', e=>{
+    if(dragging && e.touches.length===1){ const t=e.touches[0]; const dx=t.clientX-lastX, dy=t.clientY-lastY; lastX=t.clientX; lastY=t.clientY;
+      rotY+=dx*0.01; rotX+=dy*0.01; }
+  }, {passive:true});
+  canvas.addEventListener('touchend', ()=> dragging=false);
+
+  const flipBackX2 = document.getElementById('flipBackX2');
+  const flipBackX6 = document.getElementById('flipBackX6');
+
+  // ===== Render (scale X by aspect, keep height=1) =====
+  function mat4MVP(model, view, proj){ return mat4Mul(mat4Mul(model, view), proj); }
+
+  function render(){
+    resize();
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+    const aspectCanvas = canvas.width / canvas.height;
+    const proj = mat4Perspective(60*Math.PI/180, aspectCanvas, 0.01, 100.0);
+    const view = mat4Translate(0, 0, -dist);
+    const base = mat4Mul(mat4Mul(mat4RotateY(rotY), mat4RotateX(rotX)), view);
+
+    gl.uniform1f(uAlpha, 1.0);
+
+    // --- Wall ---
+    {
+      const model2 = mat4Mul(mat4Scale(aspect2, 1, 1), base);
+      gl.uniformMatrix4fv(uMVP, false, new Float32Array(mat4MVP(model2, [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1], proj)));
+      if (hasBackImg2 && backTex2) { gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, backTex2); gl.uniform1i(uTexBack, 1); }
+      gl.uniform1i(uUseFrontColor, 1);
+      gl.uniform4f(uFrontColor, 0.294, 0.482, 1.0, 1.0);
+      gl.uniform1i(uUseBackColor, hasBackImg2 ? 0 : 1);
+      gl.uniform4f(uBackColor, 0.294, 0.482, 1.0, 1.0);
+      gl.uniform1i(uHasBackImg, hasBackImg2 ? 1 : 0);
+      gl.uniform1i(uBackFlipX, flipBackX2.checked ? 1 : 0);
+      gl.drawElements(gl.TRIANGLES, 6, gl.UNSIGNED_SHORT, 0);
+    }
+
+    // --- Floor ---
+    {
+      const model6 = mat4Mul(mat4Scale(aspect6, 1, 1), base);
+      gl.uniformMatrix4fv(uMVP, false, new Float32Array(mat4MVP(model6, [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1], proj)));
+      if (hasBackImg6 && backTex6) { gl.activeTexture(gl.TEXTURE2); gl.bindTexture(gl.TEXTURE_2D, backTex6); gl.uniform1i(uTexBack, 2); }
+      gl.uniform1i(uUseFrontColor, 1);
+      gl.uniform4f(uFrontColor, 0.2, 0.85, 0.42, 1.0);
+      gl.uniform1i(uUseBackColor, hasBackImg6 ? 0 : 1);
+      gl.uniform4f(uBackColor, 0.2, 0.85, 0.42, 1.0);
+      gl.uniform1i(uHasBackImg, hasBackImg6 ? 1 : 0);
+      gl.uniform1i(uBackFlipX, flipBackX6.checked ? 1 : 0);
+      gl.drawElements(gl.TRIANGLES, 6, gl.UNSIGNED_SHORT, 6 * 2);
+    }
+
+    requestAnimationFrame(render);
+  }
+  render();
+})();
+</script>
