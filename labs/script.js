@@ -2,6 +2,12 @@
 const cardData = [
     {
         imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/7e78c4220712515.68b163c7bc2a1.jpg",
+        title: "Wall",
+        tags: ["",],
+        url: "https://liwei-ji.github.io/labs/wall/"
+    },
+    {
+        imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/7e78c4220712515.68b163c7bc2a1.jpg",
         title: "Flashcard Game",
         tags: ["",],
         url: "https://liwei-ji.github.io/labs/vocab-trainer/"
