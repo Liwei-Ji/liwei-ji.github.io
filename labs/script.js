@@ -1,7 +1,7 @@
     // 卡片數據
 const cardData = [
     {
-        imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/7e78c4220712515.68b163c7bc2a1.jpg",
+        imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/f8aed6220712515.68b6c2d413744.jpg",
         title: "Wall",
         tags: ["",],
         url: "https://liwei-ji.github.io/labs/wall/"
