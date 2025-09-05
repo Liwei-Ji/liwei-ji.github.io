@@ -2,7 +2,7 @@
 const cardData = [
     {
         imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/0578f5220712515.68ba5ad31cb00.jpg",
-        title: "chat",
+        title: "Chat",
         tags: ["",],
         url: "https://liwei-ji.github.io/labs/chat/"
     },
