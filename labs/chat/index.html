@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <title>ChatGPT</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Font Awesome 5.15.4 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+  <style>
+    :root{
+      --bg:#1e1e1e; 
+      --panel:#ffffff; 
+      --border:#e5e5e5; 
+      --muted:#6b7280; 
+      --text:#111827;
+      --accent:#10a37f;
+      --accent-pressed:#0e8f6f; 
+      --user:#171717;
+      --assistant:#ffffff;
+      --code-bg:#0b1020; 
+      --code-fg:#e5e7eb; 
+      --chip:#efefef;
+      --shadow:0 1px 2px rgba(0,0,0,.04),0 8px 40px rgba(0,0,0,.06);
+    }
+    @media (prefers-color-scheme: dark){
+      :root{
+      --bg:#0f1216; 
+      --panel:#14171c; 
+      --border:#272a31; 
+      --muted:#9aa3af;
+      --text:#e5e7eb;
+      --assistant:#1b1f26; 
+      --chip:#20242b; 
+      --shadow:none;
+      }
+    }
+    *{box-sizing:border-box}
+    body{
+      font-family: ui-sans-serif, "Helvetica Neue", Helvetica, Arial, "Noto Sans TC", "PingFang TC", system-ui, -apple-system, "Segoe UI", sans-serif;
+      background: var(--bg); 
+      color: var(--text); 
+      margin:0; height:100vh; 
+      display:flex; 
+      justify-content:center; 
+      align-items:stretch;
+    }
+    .app{ 
+      width:min(960px, 100%); 
+      height:100vh; display:flex; 
+      flex-direction:column; }
+    .topbar{
+      height:56px; 
+      display:flex; 
+      align-items:center; 
+      gap:8px; 
+      padding:0 16px;
+      background:var(--panel); 
+      border-bottom:1px solid var(--border); 
+      position:sticky; 
+      top:0; 
+      z-index:10;
+    }
+    .logo{ 
+      display:flex; 
+      align-items:center; 
+      gap:20px; 
+      font-weight:700; 
+    }
+    .dot{ 
+      width:22px; 
+      height:22px; 
+      display:inline-grid; 
+      place-items:center; 
+      color:#fff; 
+      font-size:20px; 
+      font-weight:500; 
+      letter-spacing:0.3px;
+    }
+    .spacer{
+      flex:1
+    }
+    .ghost{ 
+      background:transparent; 
+      border:1px solid var(--border); 
+      color:var(--text); 
+      padding:8px 10px; 
+      border-radius:8px; 
+      cursor:pointer; 
+    }
+    .ghost:hover{
+      background:rgba(0,0,0,.03)
+    }
+
+    /* Chat area */
+    .chat{ 
+      flex:1; 
+      overflow-y:auto; 
+      padding:24px 12px 16px; 
+      scroll-behavior:smooth; 
+    }
+    .row{ 
+      display:flex; 
+      padding:14px 12px; 
+      border-radius:12px; 
+      transition:background .2s ease; 
+      position:relative; 
+    }
+    .row.user{ 
+      justify-content:flex-end; 
+    }
+    .row.assistant{ 
+      justify-content:flex-start; 
+    }
+
+    /* ===== 只有user有泡泡 ===== */
+    .bubble{
+      max-width:min(78ch, calc(100vw - 100px));
+      border:1px solid var(--border); 
+      box-shadow: var(--shadow);
+      border-radius:12px; 
+      padding:12px 14px; 
+      line-height:1.6; 
+      font-size:15px; 
+      white-space:pre-wrap; 
+      word-wrap:break-word; 
+      background:var(--assistant);
+    }
+    .row.user .bubble{
+      background:var(--user); 
+      color:#fff; 
+      border-color:transparent;
+    }
+    /* 扁平AI設計 */
+    .row.assistant .bubble{
+      background:transparent; 
+      border:none; 
+      box-shadow:none; 
+      padding:0;
+      max-width:min(88ch, calc(100vw - 120px));
+    }
+
+    /* Meta 行為 */
+    .meta{ 
+      display:none !important; 
+    }
+    .row.assistant .meta{ 
+      text-align:left; 
+    }
+
+    /* typing indicator */
+    .typing{ 
+      display:inline-flex; 
+      gap:6px; 
+    }
+    .typing span{ 
+      width:6px; 
+      height:6px; 
+      background: currentColor; 
+      opacity:.35; 
+      border-radius:50%; a
+      nimation: blink 1.2s infinite both; 
+    }
+    .typing span:nth-child(2){ 
+      animation-delay:.15s 
+    } 
+    .typing span:nth-child(3){ 
+      animation-delay:.3s 
+    }
+    @keyframes blink { 0%,80%,100%{opacity:.2} 40%{opacity:1} }
+    
+    [hidden]{ 
+      display:none !important; 
+    }
+
+    /* code block */
+    pre{
+      background: var(--code-bg); 
+      color: var(--code-fg);
+      border-radius:10px; 
+      padding:14px; 
+      overflow:auto; 
+      border:1px solid #1f2937;
+      line-height:1.5; 
+      font-size:13px; 
+      margin:10px 0;
+      position:relative;
+    }
+    code{font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;}
+    .copy-btn{
+      position:absolute; 
+      top:8px; right:8px; 
+      font-size:12px; 
+      border:1px solid #374151;
+      background:#0f172a; 
+      color:#e5e7eb; 
+      padding:6px 8px; 
+      border-radius:8px; 
+      cursor:pointer;
+    }
+    .copy-btn.copied{ 
+      background:#0b7b62; 
+      border-color:#0b7b62; 
+    }
+
+    /* Actions：assistant 放在塊右上；user 放在泡泡下緣 */
+    .actions{
+      position:absolute; 
+      display:flex; 
+      gap:8px; 
+      opacity:0; 
+      transition:opacity .15s ease;
+    }
+    .row:hover .actions{ 
+     opacity:1; 
+    }
+    .row.user .actions{
+     right:8px;
+     bottom:-10px;
+    }
+    .row.assistant .actions{ 
+     left:8px; 
+     top:auto;
+     bottom:-10px; 
+    }
+    .act{
+      font-size:12px; 
+      border:1px solid var(--border); 
+      background:var(--panel); 
+      color:var(--text);
+      padding:6px 8px; 
+      border-radius:8px; 
+      cursor:pointer停止按鍵; 
+      display:inline-flex; 
+      align-items:center; 
+      justify-content:center;
+    }
+    .act i{ 
+      font-size:14px; 
+      pointer-events:none; 
+    }
+
+    /* suggestions chips */
+    .chips{ 
+      display:flex; 
+      gap:8px; 
+      flex-wrap:wrap; 
+      padding:6px 12px 16px; 
+    }
+    .chip{ 
+      border:1px solid var(--border); 
+      background:var(--chip); 
+      color:var(--text); 
+      padding:8px 10px; 
+      border-radius:999px; 
+      font-size:13px; cursor:pointer; 
+    }
+
+    /* Input area */
+    .composer{ 
+      padding:10px 12px 16px; 
+      background:var(--panel); 
+      border-top:1px solid var(--border); 
+      position:sticky; 
+      bottom:0; 
+      z-index:5; }
+    .bar{ 
+      display:flex; 
+      gap:8px; 
+      align-items:flex-end; 
+      border:1px solid var(--border); 
+      border-radius:12px; 
+      padding:8px; 
+      background:var(--panel); 
+    }
+    textarea{ 
+      flex:1; 
+      resize:none; 
+      border:none; 
+      outline:none; 
+      background:transparent; 
+      color:var(--text); 
+      max-height:180px; 
+      min-height:24px; font-size:15px; 
+      line-height:1.5; 
+    }
+    .btn{ 
+      background:var(--accent); 
+      color:#fff; border:none; 
+      padding:10px 14px; 
+      border-radius:36px; 
+      font-weight:600; 
+      cursor:pointer; 
+    }
+    .btn:disabled{ 
+      opacity:.5; 
+      cursor:not-allowed
+    }
+    .btn.secondary{ 
+      background:transparent; c
+      olor:var(--text); 
+      border:1px solid var(--border); 
+    }
+    .hint{ 
+      margin-top:8px; 
+      font-size:12px; 
+      color:var(--muted); 
+      text-align:center; 
+    }
+
+    /* 送出按鍵 */
+    #sendBtn { 
+      width:40px; 
+      height:40px; 
+      padding:0; 
+      display:inline-grid; 
+      place-items:center; 
+      border-radius:999px; 
+    }
+    
+    #sendBtn i{ 
+      font-size:16px; 
+      line-height:1; 
+      pointer-events:none; 
+    }
+    #sendBtn:disabled i{ opacity:.8; }
+    
+    /* 停止按鍵 */
+    #stopBtn{
+      width:40px;
+      height:40px;
+      padding:0;
+      display:inline-grid;     
+      place-items:center;
+      border-radius:999px;
+    }
+    #stopBtn i{
+      font-size:16px;          
+      line-height:1;
+      pointer-events:none;
+   }
+
+
+    /* Rich content styles */
+    .bubble h1,.bubble h2,.bubble h3{ 
+      margin:.4em 0 .2em; line-height:1.3 
+    }
+    .bubble h1{ 
+      font-size:22px 
+    } .bubble h2{ 
+      font-size:20px 
+    } .bubble h3{ 
+      font-size:18px 
+    }
+    .bubble hr{ 
+      border:0; 
+      border-top:1px solid var(--border); 
+      margin:12px 0 
+    }
+    .bubble blockquote{ 
+      margin:8px 0; 
+      padding:8px 12px; 
+      border-left:3px solid var(--border); 
+      background: rgba(0,0,0,.03) 
+    }
+    @media (prefers-color-scheme: dark){ .bubble blockquote{ background: rgba(255,255,255,.03) } }
+    .bubble img{ 
+      max-width:100%; 
+      height:auto; 
+      border-radius:8px; 
+      border:1px solid var(--border) }
+    .callout{ 
+      border:1px solid var(--border); 
+      border-radius:10px; 
+      padding:10px 12px; 
+      margin:10px 0; 
+      display:flex; 
+      gap:10px; 
+      align-items:flex-start; 
+    }
+    .callout .ico{ 
+      flex:0 0 18px; 
+      line-height:1 
+    }
+    .callout.info{ 
+      background:#eef6ff 
+    } 
+    .callout.warn{ 
+      background:#fff8e6 
+    } .callout.success{ 
+      background:#eefaf5 
+    }
+    @media (prefers-color-scheme: dark){ .callout.info{ background:#0f1a26 } .callout.warn{ background:#251e0b } .callout.success{ background:#0d1a15 } }
+    .bubble table{ 
+      width:100%; border-collapse:collapse; 
+      margin:10px 0; 
+      font-size:14px 
+    }
+    .bubble table th,.bubble table td{ 
+      border:1px solid var(--border); 
+      padding:8px; text-align:left 
+    }
+    .bubble table th{ 
+      background:rgba(0,0,0,.04) 
+    }
+    @media (prefers-color-scheme: dark){ .bubble table th{ background:rgba(255,255,255,.05) } }
+    .task{ display:flex; 
+      gap:8px; 
+      align-items:center; 
+      margin:4px 0 
+    } 
+    .task input{ accent-color: var(--accent) }
+  </style>
+  
+  
+</head>
+<body>
+  <div class="app">
+    <div class="topbar">
+    <div class="logo">
+      <div class="dot">ChatAny</div>
+    </div>
+      <div class="spacer"></div>
+      <button class="ghost" id="clearBtn" title="清除會話" aria-label="清除">
+       <i class="fas fa-trash" aria-hidden="true"></i>
+      </button>
+    </div>
+
+    <div id="chat" class="chat" aria-live="polite" aria-label="聊天訊息"></div>
+    <div class="chips" id="chips"></div>
+
+    <div class="composer">
+      <form id="composerForm" class="bar">
+        <textarea id="input" placeholder="詢問任何問題"></textarea>
+        <button type="button" class="btn secondary" id="stopBtn" hidden title="停止產生">
+          <i class="fas fa-stop" aria-hidden="true"></i><span class="sr-only">停止</span>
+        </button>
+        <button type="submit" class="btn" id="sendBtn" disabled aria-label="送出" title="送出 (Enter)">
+          <i class="fas fa-arrow-up"></i>
+        </button>
+      </form>
+      <div class="hint"> ChatAny 可能會出錯，請查核重要資訊。</div>
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', boot);
+    } else { boot(); }
+
+    function boot(){
+      const $  = (sel, el=document) => el.querySelector(sel);
+      const $$ = (sel, el=document) => Array.from(el.querySelectorAll(sel));
+
+      const chat     = $('#chat');
+      const input    = $('#input');
+      const sendBtn  = $('#sendBtn');
+      const stopBtn  = $('#stopBtn');
+      const clearBtn = $('#clearBtn');
+      const chipsWrap= $('#chips');
+
+      if(!chat || !input || !sendBtn){ console.error('必要節點缺失'); return; }
+
+      /* localStorage 安全封裝 */
+      const safeStore = (()=> {
+        try{
+          const k='__test__'+Math.random(); localStorage.setItem(k,'1'); localStorage.removeItem(k);
+          return {
+            get: (key, fallback='[]') => JSON.parse(localStorage.getItem(key) || fallback),
+            set: (key, val) => localStorage.setItem(key, JSON.stringify(val)),
+            clear: key => localStorage.removeItem(key)
+          };
+        }catch(e){
+          const mem = new Map();
+          return {
+            get: (key, fallback='[]') => mem.has(key) ? mem.get(key) : JSON.parse(fallback),
+            set: (key, val) => mem.set(key, val),
+            clear: key => mem.delete(key)
+          };
+        }
+      })();
+
+      const STORAGE_KEY = 'demo-chat';
+
+      const demoReplies = [
+      `# 嗨！今天想做什麼？
+      這裡有幾個你可以試試看的想法：
+      - 生成一份簡報大綱
+      - 用條列式摘要一篇文章
+      - 寫一段可直接執行的小工具
+      > 也可以貼上內容，我會自動幫你整理成重點。`,
+
+      `## 我會怎麼處理你的任務
+      1.釐清目標與輸出格式
+      2.生成初稿（含可行替代）
+      3.產生驗收清單與後續動作
+      ---
+      你可以說：「幫我做個 7 天學習計畫（含每天 30 分鐘）」`,
+
+      `這是一個簡單的節流函數（throttle）範例，避免事件被過度觸發：
+       \`\`\`js
+       function throttle(fn, wait=200){
+       let last = 0, timer;
+       return (...args)=>{
+       const now = Date.now();
+       if(now - last > wait){
+       last = now; fn(...args);
+       }else{
+       clearTimeout(timer);
+       timer = setTimeout(()=>{ last = Date.now(); fn(...args); }, wait - (now - last));
+         }
+        };
+       }
+       \`\`\`
+       **用法**：在 scroll/resize 監聽器裡包一層即可。`,
+
+       `<div class="callout info"><div class="ico">💡</div><div>小技巧：先描述 <b>背景</b>、<b>輸出格式</b>、<b>限制</b>，品質會更穩定。</div></div>
+       <div class="task"><input type="checkbox" disabled> 先提供使用情境（誰會讀？）</div>
+       <div class="task"><input type="checkbox" disabled> 指定輸出格式（例如：JSON / 表格 / 條列）</div>
+       <div class="task"><input type="checkbox" disabled> 列出硬性限制（字數、語氣、含不含程式碼）</div>`,
+
+       `<h3>兩個方案比較</h3>
+       <table>
+       <thead><tr><th>方案</th><th>優點</th><th>風險</th></tr></thead>
+       <tbody>
+       <tr><td>A：快速上線</td><td>時程短、影響小</td><td>技術債可能累積</td></tr>
+       <tr><td>B：重構後推出</td><td>長期維護成本低</td><td>初期投入較高</td></tr>
+       </tbody>
+       </table>
+       建議：先 A 驗證市場，再以 B 漸進重構。`,
+
+       `<details>
+       <summary><b>常見問題：我該需要休息多久？</b></summary>
+       <div style="margin-top:8px">一句話版本 + 要求輸出格式就夠起步；若是長任務，加上範例輸出更好。</div>
+       </details>`,
+
+       `這是佈局靈感圖（僅示意）：
+       ![Layout idea](https://picsum.photos/seed/chat-ui/800/400)
+       你可以告訴我想保留哪些元素，我直接輸出 HTML/CSS 範本。`,
+
+       `需要更技術向的回覆？加上「請以工程手冊語氣」。
+       [參考寫作語氣指引](https://www.nngroup.com/articles/tone-of-voice-dimensions/)
+
+        > 準備好了就把你的素材貼上來吧，我會先幫你做一次「結構化拆解」。`
+      ];
+
+      const demoChips = [
+        "幫我把這段改成條列重點",
+        "寫學習計畫",
+        "幫我把 API 文件整理成表格",
+        "用工程手冊語氣，寫出部署步驟",
+        "把下面 JS 重構並加註解",
+        "產生一份 PR 模板（含檢查清單）"
+      ];
+
+      let streaming = null;
+      let store = safeStore.get(STORAGE_KEY, '[]');
+      
+      /* 只改這個函式：按鍵顯示狀態 */
+      function setStreamingUI(on){
+        if (on) {
+          // 發送中：隱藏送出、顯示停止
+          sendBtn.hidden = true;
+          sendBtn.style.display = 'none';
+
+          stopBtn.hidden = false;
+          stopBtn.style.display = 'inline-grid';
+          stopBtn.disabled = false;
+        } else {
+          // 發送中：顯示送出（依是否有字決定禁用）、隱藏停止
+          const hasText = (input.value || '').trim().length > 0;
+
+          sendBtn.hidden = false;
+          sendBtn.style.display = 'inline-grid';
+          sendBtn.disabled = !hasText;
+
+          stopBtn.hidden = true;
+          stopBtn.style.display = 'none';
+          stopBtn.disabled = true;
+        }
+
+        // 編輯區體驗與無障礙
+        input.readOnly = on;
+        input.setAttribute('aria-busy', on ? 'true' : 'false');
+        if(!on){ input.focus(); }
+      }
+
+      /* Markdown-lite */
+      function renderMarkdown(text){
+        let html = String(text || '');
+
+        const fenceRegex = /```(\w+)?\n([\s\S]*?)```/g;
+        html = html.replace(fenceRegex, (m, lang='', code='')=>{
+          const safe = code.replace(/[&<>]/g, s=>({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[s]));
+          return `<pre data-lang="${lang || ''}"><button class="copy-btn" title="複製代碼">複製</button><code>${safe}</code></pre>`;
+        });
+
+        // 圖片
+        html = html.replace(/!\[([^\]]*)\]\((https?:\/\/[^\s)]+)\)/g, '<img alt="$1" src="$2" />');
+
+        // 連結
+        html = html.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+
+        // 行內 code
+        html = html.replace(/`([^`]+)`/g, (_, c)=>{
+          const safe = c.replace(/[&<>]/g, s=>({ '&':'&amp;','<':'&lt;','>':'&gt;' }[s]));
+          return `<code>${safe}</code>`;
+        });
+
+        // 標題
+        html = html.replace(/^###\s+(.*)$/gm, '<h3>$1</h3>')
+                   .replace(/^##\s+(.*)$/gm, '<h2>$1</h2>')
+                   .replace(/^#\s+(.*)$/gm, '<h1>$1</h1>');
+
+        // 引言
+        html = html.replace(/^>\s?(.*)$/gm, '<blockquote>$1</blockquote>');
+
+        // 水平線
+        html = html.replace(/^\s*---\s*$/gm, '<hr/>');
+
+        // 任務清單
+        html = html.replace(/^- \[( |x|X)\] (.*)$/gm, (m, chk, txt)=>{
+          const checked = /x/i.test(chk) ? 'checked' : '';
+          return `<div class="task"><input type="checkbox" ${checked} disabled> ${txt}</div>`;
+        });
+
+        // 粗體 / 斜體
+        html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+                   .replace(/\*([^*]+)\*/g, '<em>$1</em>');
+
+        // 換行
+        html = html.replace(/\n/g, '<br/>');
+
+        return html;
+      }
+
+      function row(role, content){
+        const r = document.createElement('div');
+        r.className = `row ${role}`;
+
+        const bubble = document.createElement('div');
+        bubble.className = 'bubble';
+        bubble.innerHTML = content;
+
+        const wrap = document.createElement('div');
+        wrap.style.display = 'flex';
+        wrap.style.flexDirection = 'column';
+        wrap.appendChild(bubble);
+
+        const meta = document.createElement('div');
+        meta.className = 'meta';
+        meta.textContent = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+        wrap.appendChild(meta);
+
+        const actions = document.createElement('div');
+        actions.className = 'actions';
+
+        // 複製
+        const copyBtn = document.createElement('button');
+        copyBtn.className = 'act';
+        copyBtn.innerHTML = '<i class="fas fa-copy" aria-hidden="true"></i>';
+        copyBtn.title = '複製';
+        copyBtn.setAttribute('aria-label', '複製');
+        copyBtn.onclick = ()=> {
+          copyText(stripHtml(bubble.innerHTML));
+          const prev = copyBtn.innerHTML;
+          copyBtn.innerHTML = '<i class="fas fa-check"></i>';
+          setTimeout(()=> copyBtn.innerHTML = prev, 900);
+        };
+        actions.append(copyBtn);
+
+        // 只有AI訊息顯示重新產生
+        if (r.classList.contains('assistant')) {
+          const regenBtn = document.createElement('button');
+          regenBtn.className = 'act';
+          regenBtn.innerHTML = '<i class="fas fa-sync-alt" aria-hidden="true"></i>';
+          regenBtn.title = '重新產生';
+          regenBtn.setAttribute('aria-label', '重新產生');
+          regenBtn.onclick = ()=> regenerate(r);
+          actions.append(regenBtn);
+        }
+
+        r.append(wrap, actions);
+
+        // 事件代理：code block copy
+        r.addEventListener('click', e=>{
+          const target = e.target;
+          if(target && target.classList && target.classList.contains('copy-btn')){
+            const codeEl = target.parentElement && target.parentElement.querySelector('code');
+            const code = codeEl ? codeEl.innerText : '';
+            navigator.clipboard.writeText(code).then(()=>{
+              target.textContent = '已複製';
+              target.classList.add('copied');
+              setTimeout(()=>{ target.textContent='複製'; target.classList.remove('copied'); }, 1200);
+            });
+          }
+        });
+
+        return r;
+      }
+
+      function stripHtml(html){
+        const tmp = document.createElement('div');
+        tmp.innerHTML = html || '';
+        return tmp.textContent || tmp.innerText || '';
+      }
+
+      function rafScrollToBottom(){ requestAnimationFrame(()=>{ chat.scrollTop = chat.scrollHeight; }); }
+
+      function appendTyping(){
+        const typing = row('assistant', `<div class="typing"><span></span><span></span><span></span></div>`);
+        chat.appendChild(typing);
+        rafScrollToBottom();
+        return typing;
+      }
+
+      function streamInto(el, fullText, {interval=18}={}){
+        if(!el) return;
+        let i = 0;
+        setStreamingUI(true);
+        
+        el.innerHTML = '';
+        clearInterval(streaming);
+        streaming = setInterval(()=>{
+          i += 2;
+          el.innerHTML = renderMarkdown(fullText.slice(0, i));
+          chat.scrollTop = chat.scrollHeight;
+          if(i >= fullText.length){
+            clearInterval(streaming);
+            streaming = null;
+            setStreamingUI(false);
+            persist();
+          }
+        }, interval);
+      }
+
+      function stopStream(){
+        if(streaming){
+          clearInterval(streaming);
+          streaming = null;
+        }
+        setStreamingUI(false);
+      }
+
+      function sendMessage(text){
+        setStreamingUI(true);
+        const userRow = row('user', renderMarkdown(text));
+        chat.appendChild(userRow);
+        rafScrollToBottom();
+
+        const typingRow = appendTyping();
+
+        setTimeout(()=>{
+          const reply = demoReplies[Math.floor(Math.random()*demoReplies.length)];
+          const assistantRow = row('assistant', '');
+          chat.replaceChild(assistantRow, typingRow);
+          const bubble = assistantRow.querySelector('.bubble');
+          streamInto(bubble, reply);
+          persist();
+        }, 200);
+      }
+
+      function regenerate(targetRow){
+        const next = targetRow && targetRow.nextElementSibling;
+        const reply = demoReplies[Math.floor(Math.random()*demoReplies.length)];
+        const newRow = row('assistant', '');
+        if(next) chat.insertBefore(newRow, next); else chat.appendChild(newRow);
+        setStreamingUI(true);
+        streamInto(newRow.querySelector('.bubble'), reply);
+        persist();
+      }
+
+      function persist(){
+        try{
+          const data = [];
+          $$('.row').forEach(r=>{
+            const role = r.classList.contains('user') ? 'user' : 'assistant';
+            const text = stripHtml(r.querySelector('.bubble')?.innerHTML || '');
+            data.push({role, text});
+          });
+          safeStore.set(STORAGE_KEY, data);
+        }catch(e){ /* ignore */ }
+      }
+
+      function restore(){
+        chat.innerHTML='';
+        let store;
+        try{ store = safeStore.get(STORAGE_KEY, '[]'); }catch(e){ store = []; }
+
+         if(!store || !store.length){
+         const welcomes = [
+         "Fuck 🤦‍♂️… 你真的來了？歡迎來到這個奇怪的聊天室 🎉\n\n*(小心，這裡的答案可能比你朋友還不可靠)*",
+         "幹你娘，居然真的有人跑進來 🤣 歡迎來到這個垃圾聊天室 🗑️",
+         "竟然還有人用這聊天室 😂\n好啦，坐下來隨便問吧。",
+         "你點開的不是毒蘋果，而是超廢聊天室 🍏\n（記得隨時 ctrl+c / command+c）",
+         "yeah 🎸 歡迎來到 AI 廢話中心™\n這裡的回答品質 = 心情指數 ± 87%",
+         "🐒！別懷疑，這裡找不到標準答案的地方"
+         ];
+
+       const pick = welcomes[Math.floor(Math.random() * welcomes.length)];
+       const hi = row('assistant', renderMarkdown(pick));
+       chat.appendChild(hi);
+        }
+
+        else{
+          for(const m of store){
+            const r = row(m.role, renderMarkdown(m.text || ''));
+            chat.appendChild(r);
+          }
+        }
+        rafScrollToBottom();
+      }
+
+      function initChips(){
+        if(!chipsWrap) return;
+        chipsWrap.innerHTML='';
+        const demoChips = [
+          "把文件改成條列",
+          "寫學習計畫",
+          "把文件整理成表格",
+          "寫出部署步驟",
+          "把JS重構並加註解",
+          "產生PR模板"
+        ];
+        demoChips.forEach(t=>{
+          const c = document.createElement('button');
+          c.type='button'; c.className='chip'; c.textContent=t;
+          c.onclick = ()=> {
+            input.value = t;
+            resizeInput();
+            sendBtn.disabled = !input.value.trim();
+            if(!sendBtn.disabled) form?.requestSubmit();
+          };
+          chipsWrap.appendChild(c);
+        });
+      }
+
+      function copyText(text){ navigator.clipboard?.writeText(String(text || '')); }
+
+      const form = $('#composerForm');
+      if(form){
+        form.addEventListener('submit', e=>{
+          e.preventDefault();
+          const text = (input.value || '').trim();
+          if(!text) return;
+          sendMessage(text);
+          input.value=''; resizeInput(); sendBtn.disabled = true;
+        });
+      }
+
+      input.addEventListener('input', ()=>{
+        resizeInput();
+        sendBtn.disabled = !input.value.trim();
+      });
+      input.addEventListener('keydown', (e)=>{
+        if ((e.key === 'Enter' && (e.metaKey || e.ctrlKey))) { // Cmd/Ctrl + Enter
+          e.preventDefault();
+          if(!sendBtn.disabled) form?.requestSubmit();
+          return;
+        }
+        if(e.key === 'Enter' && !e.shiftKey){ // Enter = 送出
+          e.preventDefault();
+          if(!sendBtn.disabled) form?.requestSubmit();
+        }
+      });
+
+      stopBtn?.addEventListener('click', stopStream);
+
+      clearBtn?.addEventListener('click', ()=>{
+        if(confirm('確定要清除嗎？')){
+          safeStore.clear(STORAGE_KEY);
+          restore();
+        }
+      });
+
+      function resizeInput(){
+        input.style.height = '24px';
+        input.style.height = Math.min(input.scrollHeight, 180) + 'px';
+      }
+
+      restore();
+      initChips();
+      setStreamingUI(false);
+    }
+  })();
+  </script>
+</body>
+</html>
