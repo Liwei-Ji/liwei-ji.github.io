@@ -22,7 +22,7 @@ const cardData = [
         imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/27592f220712515.68b173e00fa59.jpg",
         title: "Neo Space Shoote",
         tags: ["",],
-        url: "https://liwei-ji.github.io/game"
+        url: "https://liwei-ji.github.io/labs/game/"
     },
 
 ];
