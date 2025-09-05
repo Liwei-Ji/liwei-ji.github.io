@@ -1,7 +1,13 @@
     // 卡片數據
 const cardData = [
     {
-        imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/f8aed6220712515.68b6c2d413744.jpg",
+        imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/0367c2220712515.68ba842307480.jpg",
+        title: "Number",
+        tags: ["",],
+        url: "https://liwei-ji.github.io/labs/number"
+    },
+    {
+        imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/198dbd220712515.68ba58843d755.jpg",
         title: "Wall",
         tags: ["",],
         url: "https://liwei-ji.github.io/labs/wall/"
