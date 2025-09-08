@@ -56,8 +56,8 @@
       align-items:center; 
       gap:8px; 
       padding:0 16px;
-      background:var(--panel); 
-      border-bottom:1px solid var(--border); 
+      background:transparent; 
+      border-bottom:none;
       position:sticky; 
       top:0; 
       z-index:10;
@@ -159,8 +159,8 @@
       height:6px; 
       background: currentColor; 
       opacity:.35; 
-      border-radius:50%; a
-      nimation: blink 1.2s infinite both; 
+      border-radius:50%;
+      animation: blink 1.2s infinite both; 
     }
     .typing span:nth-child(2){ 
       animation-delay:.15s 
@@ -204,7 +204,7 @@
       border-color:#0b7b62; 
     }
 
-    /* Actions：assistant 放在塊右上；user 放在泡泡下緣 */
+    /* Actions */
     .actions{
       position:absolute; 
       display:flex; 
@@ -257,18 +257,18 @@
       font-size:13px; cursor:pointer; 
     }
 
-    /* Input area */
+    /* Input */
     .composer{ 
       padding:10px 12px 16px; 
-      background:var(--panel); 
-      border-top:1px solid var(--border); 
+      background:transparent;
+      border-top:none; 
       position:sticky; 
       bottom:0; 
       z-index:5; }
     .bar{ 
       display:flex; 
       gap:8px; 
-      align-items:flex-end; 
+      align-items:center;
       border:1px solid var(--border); 
       border-radius:12px; 
       padding:8px; 
@@ -280,10 +280,12 @@
       border:none; 
       outline:none; 
       background:transparent; 
-      color:var(--text); 
+      color:var(--text);
       max-height:180px; 
-      min-height:24px; font-size:15px; 
-      line-height:1.5; 
+      min-height:40px;
+      font-size:15px; 
+      line-height:1.5;
+      overflow-y:hidden;
     }
     .btn{ 
       background:var(--accent); 
@@ -298,8 +300,8 @@
       cursor:not-allowed
     }
     .btn.secondary{ 
-      background:transparent; c
-      olor:var(--text); 
+      background:transparent;
+      color:var(--text); 
       border:1px solid var(--border); 
     }
     .hint{ 
@@ -876,8 +878,10 @@
       });
 
       function resizeInput(){
-        input.style.height = '24px';
-        input.style.height = Math.min(input.scrollHeight, 180) + 'px';
+        input.style.height = 'auto';
+        const next = Math.min(input.scrollHeight, 180);
+        input.style.height = next + 'px';
+        input.style.overflowY = (input.scrollHeight > 180) ? 'auto' : 'hidden';
       }
 
       restore();
