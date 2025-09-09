@@ -187,13 +187,12 @@
       padding: 2px 6px; 
       font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; 
     }
-
     .section {
       border: 1px solid var(--border);
       background: var(--card);
       border-radius: 16px;
       padding: 16px;
-
+    }
     .flash-img{
       display:none;                 /* 預設不顯示，JS 有圖才打開 */
       width:min(240px, 60%);
@@ -205,9 +204,8 @@
       box-shadow: 0 8px 20px rgba(0,0,0,.06), inset 0 1px 0 rgba(255,255,255,.6);
       margin: 4px auto 8px;
      }
-.flash-img.show{ display:block; }
-
-    }
+    .flash-img.show{ display:block; }
+     }
   </style>
 </head>
 <body>
@@ -625,11 +623,12 @@
         img._bound = true;
       }
       }else{
-      img.removeAttribute('src');
-      img.classList.remove('show');
-      img.alt = '';
-    }
-    }
+         img.removeAttribute('src');
+         img.classList.remove('show');
+         img.alt = '';
+        }
+       }
+      }
     function nextFlash(){ if(pool.length){ idx = (idx+1)%order.length; renderFlash(); } }
     function prevFlash(){ if(pool.length){ idx = (idx-1+order.length)%order.length; renderFlash(); } }
     function toggleMeaning(){
