@@ -193,7 +193,7 @@
       border-radius: 16px;
       padding: 16px;
     }
-    .flash-img{
+    .flash-img {
       display:none;                 /* 預設不顯示，JS 有圖才打開 */
       width:min(240px, 60%);
       max-width: 100%;
@@ -373,9 +373,8 @@
 
   <script>
     // 單字對應圖片
-    const IMAGE_MAP = {
-    apple:  'images/apple.png',
-
+    const IMAGE_BASE = new URL('./images/', location.href);
+    const IMAGE_MAP = { apple: new URL('apple.png', IMAGE_BASE).toString()
     };
 
     // 取得對應圖片：先查 MAP；若沒設定就回傳 null
