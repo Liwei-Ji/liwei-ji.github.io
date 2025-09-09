@@ -193,18 +193,6 @@
       border-radius: 16px;
       padding: 16px;
     }
-    .flash-img{
-      display:none;
-      width:min(240px, 60%);
-      max-width: 100%;
-      aspect-ratio: 1/1;
-      object-fit: contain;
-      border-radius: 14px;
-      background: linear-gradient(180deg, var(--card), rgba(255,255,255,.92));
-      box-shadow: 0 8px 20px rgba(0,0,0,.06), inset 0 1px 0 rgba(255,255,255,.6);
-      margin: 4px auto 8px;
-}
-.flash-img.show{ display:block; }
   </style>
 </head>
 <body>
@@ -258,8 +246,6 @@
     <section id="panel-flash" class="panel active">
       <div class="flashcard" id="flashcard" tabindex="0" aria-live="polite">
         <div class="stack">
-          <!-- 顯示單字對應圖片（有圖才顯示） -->
-          <img id="flashImg" class="flash-img" alt="" loading="lazy" />
           <div class="big" id="flashWord">apple</div>
           <div class="meaning" id="flashMeaning">蘋果</div>
           <div class="controls">
@@ -370,20 +356,7 @@
     <footer>© 2025 Flashcard Game · LiＷei Design</footer>
   </div>
 
-  <script>
-    // 單字對應圖片
-    const IMAGE_BASE = new URL('/labs/flashcard/images/', location.origin);
-    const IMAGE_MAP = { apple: new URL('apple.png', IMAGE_BASE).toString()
-    };
-
-    // 取得對應圖片：先查 MAP；若沒設定就回傳 null
-    function getImageFor(word){
-    if(!word) return null;
-    const key = String(word).toLowerCase();
-    return IMAGE_MAP[key] || null;
-    }
-
-    
+  <script>    
     // ====== 資料：基礎單字（K–G6） ======
     const BUILTIN_WORDS = [
       // Kindergarten (K)
@@ -603,37 +576,8 @@
       $('#knownCount').textContent = getKnown().length;
       $('#unknownCount').textContent = getUnknown().length;
 
-      // 依單字顯示圖片（有就顯示、沒就隱藏）
-      const img = $('#flashImg');
-      if (img) {
-      const src = getImageFor(item.w);
-      if (src) {
-      // 先綁事件，再設定 src，避免錯過快取瞬間觸發的 load
-      if (!img._bound) {
-      img.addEventListener('load', () => img.classList.add('show'));
-      img.addEventListener('error', () => {
-        img.removeAttribute('src');
-        img.classList.remove('show');
-      });
-      img._bound = true;
     }
 
-    img.classList.remove('show');   // 先隱藏，待載入成功再顯示
-    img.alt = item.tw || item.w;
-    img.src = src;                  // 最後才設定 src
-
-    // 若已在快取中、設定 src 後就已完成載入，補一次檢查
-    if (img.complete && img.naturalWidth > 0) {
-      img.classList.add('show');
-    }
-  } else {
-    img.removeAttribute('src');
-    img.classList.remove('show');
-    img.alt = '';
-  }
-}
-
-    
     function nextFlash(){ if(pool.length){ idx = (idx+1)%order.length; renderFlash(); } }
     function prevFlash(){ if(pool.length){ idx = (idx-1+order.length)%order.length; renderFlash(); } }
     function toggleMeaning(){
