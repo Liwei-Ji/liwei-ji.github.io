@@ -193,19 +193,18 @@
       border-radius: 16px;
       padding: 16px;
     }
-    .flash-img {
-      display:none;                 /* 預設不顯示，JS 有圖才打開 */
+    .flash-img{
+      display:none;
       width:min(240px, 60%);
       max-width: 100%;
-      aspect-ratio: 1 / 1;          /* 保持正方，沒有就靠 object-fit */
+      aspect-ratio: 1/1;
       object-fit: contain;
       border-radius: 14px;
       background: linear-gradient(180deg, var(--card), rgba(255,255,255,.92));
       box-shadow: 0 8px 20px rgba(0,0,0,.06), inset 0 1px 0 rgba(255,255,255,.6);
       margin: 4px auto 8px;
-     }
-    .flash-img.show{ display:block; }
-     }
+}
+.flash-img.show{ display:block; }
   </style>
 </head>
 <body>
@@ -596,6 +595,7 @@
         const img0 = $('#flashImg'); if(img0){ img0.removeAttribute('src'); img0.classList.remove('show'); }
         return;
       }
+      
       const i = order[idx], item = pool[i];
       $('#flashWord').textContent = item.w;
       $('#flashMeaning').textContent = item.tw;
@@ -627,7 +627,8 @@
          img.alt = '';
         }
        }
-      }
+     }
+    
     function nextFlash(){ if(pool.length){ idx = (idx+1)%order.length; renderFlash(); } }
     function prevFlash(){ if(pool.length){ idx = (idx-1+order.length)%order.length; renderFlash(); } }
     function toggleMeaning(){
