@@ -372,7 +372,7 @@
 
   <script>
     // 單字對應圖片
-    const IMAGE_BASE = new URL('./images/', location.href);
+    const IMAGE_BASE = new URL('/labs/flashcard/images/', location.origin);
     const IMAGE_MAP = { apple: new URL('apple.png', IMAGE_BASE).toString()
     };
 
@@ -605,29 +605,34 @@
 
       // 依單字顯示圖片（有就顯示、沒就隱藏）
       const img = $('#flashImg');
-      if(img){
+      if (img) {
       const src = getImageFor(item.w);
-      if(src){
-      // 先暫時隱藏，等載入成功再顯示，避免閃爍
-      img.classList.remove('show');
-      img.alt = item.tw || item.w;
-      img.src = src;
-      // 一次性掛上 load/error 處理（避免重複綁定）
-      if(!img._bound){
-        img.addEventListener('load', ()=> img.classList.add('show'));
-        img.addEventListener('error', ()=>{
+      if (src) {
+      // 先綁事件，再設定 src，避免錯過快取瞬間觸發的 load
+      if (!img._bound) {
+      img.addEventListener('load', () => img.classList.add('show'));
+      img.addEventListener('error', () => {
         img.removeAttribute('src');
         img.classList.remove('show');
-        });
-        img._bound = true;
-      }
-      }else{
-         img.removeAttribute('src');
-         img.classList.remove('show');
-         img.alt = '';
-        }
-       }
-     }
+      });
+      img._bound = true;
+    }
+
+    img.classList.remove('show');   // 先隱藏，待載入成功再顯示
+    img.alt = item.tw || item.w;
+    img.src = src;                  // 最後才設定 src
+
+    // 若已在快取中、設定 src 後就已完成載入，補一次檢查
+    if (img.complete && img.naturalWidth > 0) {
+      img.classList.add('show');
+    }
+  } else {
+    img.removeAttribute('src');
+    img.classList.remove('show');
+    img.alt = '';
+  }
+}
+
     
     function nextFlash(){ if(pool.length){ idx = (idx+1)%order.length; renderFlash(); } }
     function prevFlash(){ if(pool.length){ idx = (idx-1+order.length)%order.length; renderFlash(); } }
