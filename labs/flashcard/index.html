@@ -450,15 +450,14 @@
     ];
 
      // ====== 單字→圖片對照 ======
-    const IMAGE_MAP = {
-      apple: 'https://liwei-ji.github.io/labs/flashcard/images/apple.png',
-      cat: 'https://liwei-ji.github.io/labs/flashcard/images/cat.png',
-      lion: 'https://liwei-ji.github.io/labs/flashcard/images/lion.png',
-      pig: 'https://liwei-ji.github.io/labs/flashcard/images/pig.png',
-      queen: 'https://liwei-ji.github.io/labs/flashcard/images/queen.png',
-      van: 'https://liwei-ji.github.io/labs/flashcard/images/van.png',
-      zoo: 'https://liwei-ji.github.io/labs/flashcard/images/zoo.png'
-    };
+    const BASE_URL = 'https://liwei-ji.github.io/labs/flashcard/images/';
+
+    function getImage(word) {
+      return `${BASE_URL}${word}.png`;
+    }
+
+    console.log(getImage('apple'));
+
      // 沒圖時用透明
     const BLANK_IMG = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
    
@@ -618,11 +617,13 @@
       img.src = url || BLANK_IMG;
       }
       
-      // 取得圖片網址：先用對照表，沒有就回傳 null（會用 BLANK_IMG）
+      // 取得圖片網址
+      const BASE_URL = 'https://liwei-ji.github.io/labs/flashcard/images/';
+      
       function getImageURL(item){
       if(!item || !item.w) return null;
       const key = String(item.w).toLowerCase();
-      return IMAGE_MAP[key] || null;
+      return `${BASE_URL}${key}.png`;
      }
       
     }
