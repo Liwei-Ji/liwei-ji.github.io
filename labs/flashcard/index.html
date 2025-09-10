@@ -193,6 +193,21 @@
       border-radius: 16px;
       padding: 16px;
     }
+    /* 單字卡圖片 */
+    .flash-img{
+      display: block;
+      width: 65%;
+      max-height: 30vh;
+      aspect-ratio: 1 / 1;
+      object-fit: contain;
+      margin-bottom: 8px;
+      box-shadow: none;
+      border: none;
+    }
+      .flashcard .stack { 
+     justify-items: center; 
+     text-align: center; 
+    }
   </style>
 </head>
 <body>
@@ -246,6 +261,10 @@
     <section id="panel-flash" class="panel active">
       <div class="flashcard" id="flashcard" tabindex="0" aria-live="polite">
         <div class="stack">
+          
+          <!-- 圖片 -->
+          <img id="flashImage" class="flash-img" alt="illustration" loading="lazy" />
+          
           <div class="big" id="flashWord">apple</div>
           <div class="meaning" id="flashMeaning">蘋果</div>
           <div class="controls">
@@ -430,6 +449,18 @@
       {w:'technology',tw:'科技',lv:'G6'}
     ];
 
+     // ====== 單字→圖片對照 ======
+    const IMAGE_MAP = {
+      apple: 'https://liwei-ji.github.io/labs/flashcard/images/apple.png'
+      cat: 'https://liwei-ji.github.io/labs/flashcard/images/cat.png'
+      lion: 'https://liwei-ji.github.io/labs/flashcard/images/lion.png'
+      pig: 'https://liwei-ji.github.io/labs/flashcard/images/pig.png'
+      van: 'https://liwei-ji.github.io/labs/flashcard/images/van.png'
+      zoo: 'https://liwei-ji.github.io/labs/flashcard/images/zoo.png'
+    };
+     // 沒圖時用透明
+    const BLANK_IMG = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
+   
     // ====== 工具 & 儲存 ======
     const $ = (q, el=document) => el.querySelector(q);
     const $$ = (q, el=document) => Array.from(el.querySelectorAll(q));
@@ -559,13 +590,14 @@
 
     // ====== 抽認卡 ======
     function renderFlash(){
+      const img = $('#flashImage'); // 抓圖片元素
       if(pool.length === 0){
         $('#flashWord').textContent = '（此年級目前沒有單字）';
         $('#flashMeaning').textContent = '請切換年級，或到「單字管理」新增單字。';
         $('#progress').textContent = '0/0';
         $('#knownCount').textContent = getKnown().length;
         $('#unknownCount').textContent = getUnknown().length;
-        const img0 = $('#flashImg'); if(img0){ img0.removeAttribute('src'); img0.classList.remove('show'); }
+        if(img){ img.src = BLANK_IMG; img.alt=''; }
         return;
       }
       
@@ -576,6 +608,19 @@
       $('#knownCount').textContent = getKnown().length;
       $('#unknownCount').textContent = getUnknown().length;
 
+      if(img){
+      const url = getImageURL(item);
+      img.alt = item.w;
+      img.onerror = () => { img.onerror = null; img.src = BLANK_IMG; };
+      img.src = url || BLANK_IMG;
+      }
+      
+      // 取得圖片網址：先用對照表，沒有就回傳 null（會用 BLANK_IMG）
+      function getImageURL(item){
+      if(!item || !item.w) return null;
+      const key = String(item.w).toLowerCase();
+      return IMAGE_MAP[key] || null;
+     }
     }
 
     function nextFlash(){ if(pool.length){ idx = (idx+1)%order.length; renderFlash(); } }
