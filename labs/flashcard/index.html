@@ -451,11 +451,6 @@
 
      // ====== 單字→圖片對照 ======
     const BASE_URL = 'https://liwei-ji.github.io/labs/flashcard/images/';
-
-    function getImage(word) {
-      return `${BASE_URL}${word}.png`;
-    }
-
     console.log(getImage('apple'));
 
      // 沒圖時用透明
@@ -590,7 +585,7 @@
 
     // ====== 抽認卡 ======
     function renderFlash(){
-      const img = $('#flashImage'); // 抓圖片元素
+      const img = $('#flashImage'); 
       
       if(pool.length === 0){
         $('#flashWord').textContent = '（此年級目前沒有單字）';
@@ -616,13 +611,16 @@
       img.onerror = () => { img.onerror = null; img.src = BLANK_IMG; };
       img.src = url || BLANK_IMG;
       }
-      
-      // 取得圖片網址
-      const BASE_URL = 'https://liwei-ji.github.io/labs/flashcard/images/';
+
+      function fileNameFromWord(w){
+      return String(w).trim().toLowerCase()
+      .replace(/\s+/g, '-')      
+      .replace(/[^a-z0-9-]/g, '');  
+      }
       
       function getImageURL(item){
       if(!item || !item.w) return null;
-      const key = String(item.w).toLowerCase();
+      const key = fileNameFromWord(item.w);
       return `${BASE_URL}${key}.png`;
      }
       
