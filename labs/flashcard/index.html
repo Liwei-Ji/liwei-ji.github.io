@@ -449,18 +449,29 @@
       {w:'technology',tw:'科技',lv:'G6'}
     ];
 
-     // ====== 單字→圖片對照 ======
-      const IMAGE_MAP = {
-      apple: 'https://liwei-ji.github.io/labs/flashcard/images/apple.png',
-      cat: 'https://liwei-ji.github.io/labs/flashcard/images/cat.png',
-      lion: 'https://liwei-ji.github.io/labs/flashcard/images/lion.png',
-      pig: 'https://liwei-ji.github.io/labs/flashcard/images/pig.png',
-      queen: 'https://liwei-ji.github.io/labs/flashcard/images/queen.png',
-      van: 'https://liwei-ji.github.io/labs/flashcard/images/van.png',
-      zoo: 'https://liwei-ji.github.io/labs/flashcard/images/zoo.png'
+    // ====== 單字→圖片對照 ======
+    const BASE_URL = 'https://liwei-ji.github.io/labs/flashcard/images/';
+
+    // 不規則檔名例外（若檔名跟單字不同才需要填）
+    const IMAGE_EXCEPTIONS = {
+    // 範例：'ice-cream': 'icecream.png'
     };
 
-     // 沒圖時用透明
+    function fileNameFromWord(w){
+    return String(w).trim().toLowerCase()
+    .replace(/\s+/g, '-')        // 空白→連字號
+    .replace(/[^a-z0-9-]/g, ''); // 去掉非英數/連字號
+    }
+    
+    // getImageURL(item)
+    function getImageURL(item){
+    if(!item || !item.w) return null;
+    const key = fileNameFromWord(item.w);
+    if(IMAGE_EXCEPTIONS[key]) return BASE_URL + IMAGE_EXCEPTIONS[key];
+    return `${BASE_URL}${key}.png`;
+    }
+    
+    // 沒圖時用透明
     const BLANK_IMG = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
    
     // ====== 工具 & 儲存 ======
@@ -618,18 +629,6 @@
       img.onerror = () => { img.onerror = null; img.src = BLANK_IMG; };
       img.src = url || BLANK_IMG;
       }
-      
-      function fileNameFromWord(w){
-      return String(w).trim().toLowerCase()
-      .replace(/\s+/g, '-')      
-      .replace(/[^a-z0-9-]/g, '');  
-      }
-      // 取得圖片網址：先用對照表，沒有就回傳 null（會用 BLANK_IMG）
-      function getImageURL(item){
-      if(!item || !item.w) return null;
-      const key = String(item.w).toLowerCase();
-      return IMAGE_MAP[key] || null;
-     }
       
     }
 
