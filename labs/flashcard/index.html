@@ -204,7 +204,7 @@
       box-shadow: none;
       border: none;
     }
-      .flashcard .stack { 
+    .flashcard .stack { 
      justify-items: center; 
      text-align: center; 
     }
@@ -591,6 +591,7 @@
     // ====== 抽認卡 ======
     function renderFlash(){
       const img = $('#flashImage'); // 抓圖片元素
+      
       if(pool.length === 0){
         $('#flashWord').textContent = '（此年級目前沒有單字）';
         $('#flashMeaning').textContent = '請切換年級，或到「單字管理」新增單字。';
@@ -598,6 +599,7 @@
         $('#knownCount').textContent = getKnown().length;
         $('#unknownCount').textContent = getUnknown().length;
         if(img){ img.src = BLANK_IMG; img.alt=''; }
+        
         return;
       }
       
@@ -621,6 +623,7 @@
       const key = String(item.w).toLowerCase();
       return IMAGE_MAP[key] || null;
      }
+      
     }
 
     function nextFlash(){ if(pool.length){ idx = (idx+1)%order.length; renderFlash(); } }
