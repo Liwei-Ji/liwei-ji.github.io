@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Background color</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+  
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background-color: #ffffff;
+    transition: background-color 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .color-panel {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background: rgba(255,255,255,0.9);
+    border-radius: 20px;
+    padding: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    transition: transform 0.3s;
+    width: 30px;
+  }
+
+  .panel-header {
+    cursor: pointer;
+    font-weight: bold;
+    margin-bottom: 4px;
+    text-align: center;
+    font-size: 18px;
+  }
+
+  .panel-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .collapsed {
+    transform: translateY(-90%);
+    pointer-events: none;
+  }
+
+  label {
+    font-size: 12px;
+  }
+
+  input[type="color"] {
+    width: 100%;
+    height: 30px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+</style>
+</head>
+<body>
+
+<div class="color-panel" id="colorPanel">
+  <div class="panel-header" id="panelHeader"><i class="fa-solid fa-chevron-up"></i></div>
+  <div class="panel-body" id="panelBody">
+    <input type="color" id="bgColor" value="#ffffff">
+  </div>
+</div>
+
+<script>
+  const bgColorPicker = document.getElementById('bgColor');
+  const panelHeader = document.getElementById('panelHeader');
+  const panelBody = document.getElementById('panelBody');
+  const colorPanel = document.getElementById('colorPanel');
+
+  // 背景色即時改變
+  bgColorPicker.addEventListener('input', (e) => {
+    document.body.style.backgroundColor = e.target.value;
+  });
+
+  // 面板收起/展開
+  let collapsed = false;
+  panelHeader.addEventListener('click', () => {
+    collapsed = !collapsed;
+    if(collapsed){
+      panelBody.style.display = 'none';
+      panelHeader.innerHTML = '<i class="fa-solid fa-chevron-down"></i>';
+    } else {
+      panelBody.style.display = 'flex';
+      panelHeader.innerHTML = '<i class="fa-solid fa-chevron-up"></i>';
+    }
+  });
+</script>
+
+</body>
+</html>
