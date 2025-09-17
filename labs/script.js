@@ -1,5 +1,17 @@
     // 卡片數據
 const cardData = [
+     {
+        imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/7e78c4220712515.68b163c7bc2a1.jpg",
+        title: "Flashcard",
+        tags: ["Flashcard","English",],
+        url: "https://liwei-ji.github.io/labs/flashcard/"
+    },
+    {
+        imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/0578f5220712515.68ba5ad31cb00.jpg",
+        title: "Bgcolor",
+        tags: ["Color",],
+        url: "https://liwei-ji.github.io/labs/bgcolor/"
+    },
     {
         imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/0578f5220712515.68ba5ad31cb00.jpg",
         title: "Chat",
@@ -17,12 +29,6 @@ const cardData = [
         title: "Wall",
         tags: ["",],
         url: "https://liwei-ji.github.io/labs/wall/"
-    },
-    {
-        imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/7e78c4220712515.68b163c7bc2a1.jpg",
-        title: "Flashcard Game",
-        tags: ["",],
-        url: "https://liwei-ji.github.io/labs/vocab-trainer/"
     },
      {
         imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/27592f220712515.68b173e00fa59.jpg",
