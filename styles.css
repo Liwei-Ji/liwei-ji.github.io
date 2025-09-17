@@ -311,6 +311,16 @@ body.dark-mode .card-tag {
     color: #FFFFFF;
 }
 
+.card-subtitle {
+    display: block;
+    word-wrap: break-word;
+    white-space: normal;
+    font-size: 1rem;       
+    color: #FFFFFF;       
+    margin: -0.25rem 0 1rem;
+    font-weight: 400;
+}
+
 /* Dashed Card */
 .dashed-card {
     border: 2px dashed #C9C9C9;
