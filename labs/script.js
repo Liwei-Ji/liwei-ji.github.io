@@ -9,31 +9,31 @@ const cardData = [
     {
         imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/0578f5220712515.68ba5ad31cb00.jpg",
         title: "Bgcolor",
-        tags: ["Color",],
+        subtitle: ["Color"],
         url: "https://liwei-ji.github.io/labs/bgcolor/"
     },
     {
         imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/0578f5220712515.68ba5ad31cb00.jpg",
         title: "Chat",
-        tags: ["",],
+        subtitle: ["A conversational interface ready for OpenAI and beyond."],
         url: "https://liwei-ji.github.io/labs/chat/"
     },
     {
         imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/0367c2220712515.68ba842307480.jpg",
         title: "Number",
-        tags: ["",],
+        subtitle: [""],
         url: "https://liwei-ji.github.io/labs/number"
     },
     {
         imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/198dbd220712515.68ba58843d755.jpg",
         title: "Wall",
-        tags: ["",],
+        subtitle: [""],
         url: "https://liwei-ji.github.io/labs/wall/"
     },
      {
         imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/27592f220712515.68b173e00fa59.jpg",
         title: "Neo Space Shoote",
-        tags: ["",],
+        subtitle: [""],
         url: "https://liwei-ji.github.io/labs/game/"
     },
 
