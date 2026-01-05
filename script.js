@@ -52,9 +52,9 @@ document.addEventListener("DOMContentLoaded", typeEffect);
     // 卡片數據
 const cardData = [
     {
-        imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/418935220712515.695bafff8ac0a.png",
+        imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/45ddd2220712515.695bcbd04ca9a.png",
         title: "DISE AI Agent",
-        tags: ["AI Agent", "Model Training", "RAG", "UXUX","DISE","Chinese"],
+        tags: ["AI Agent", "Model Training", "LLM", "RAG", "DISE", "UXUX"],
         url: "https://liwei-ji.github.io/DISE-AI"
     },
     {
