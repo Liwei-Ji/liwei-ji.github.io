@@ -53,6 +53,12 @@ document.addEventListener("DOMContentLoaded", typeEffect);
 const cardData = [
     {
         imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/464ea3220712515.67c82815e2868.png",
+        title: "DISE",
+        tags: ["AI Agent", "Model training", "RAG", "UXUX","DISE","Chinese"],
+        url: "https://liwei-ji.github.io/DISE-AI"
+    },
+    {
+        imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/464ea3220712515.67c82815e2868.png",
         title: "Review of OSIM Work",
         tags: ["English", "UI/UX", "Website", "APP", "Research"],
         url: "https://liwei-ji.github.io/projects/review-of-osim-work"
