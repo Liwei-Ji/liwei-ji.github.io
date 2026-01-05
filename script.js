@@ -55,7 +55,8 @@ const cardData = [
         imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/45ddd2220712515.695bcbd04ca9a.png",
         title: "DISE AI Agent",
         tags: ["AI Agent", "Model Training", "LLM", "RAG", "DISE", "UXUX"],
-        url: "https://liwei-ji.github.io/DISE-AI"
+        url: "https://liwei-ji.github.io/DISE-AI",
+        banner: "Contact me to use"
     },
     {
         imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/464ea3220712515.67c82815e2868.png",
@@ -106,7 +107,11 @@ function createCard(card) {
     const cardElement = document.createElement('div');
     cardElement.classList.add('card');
     cardElement.innerHTML = `
+    <div class="image-wrapper">
         <img src="${card.imgSrc}" alt="${card.title}" class="card-image">
+         ${card.banner ? `<div class="card-banner">${card.banner}</div>` : ""}
+         </div>
+         
         <div class="card-content">
             <h2 class="card-title">${card.title}</h2>
             ${card.tags.map(tag => `<span class="card-tag">${tag}</span>`).join('')}
@@ -115,7 +120,7 @@ function createCard(card) {
 
     cardElement.addEventListener('click', () => {
     // 點擊卡片時開啟指定的 URL
-        window.open(card.url, "_self");  // 在當前標籤頁中打開
+        window.open(card.url, "_self");  // 當前標籤頁中打開
     });
 
     return cardElement;
