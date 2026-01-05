@@ -54,7 +54,7 @@ const cardData = [
     {
         imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/418935220712515.695bafff8ac0a.png",
         title: "DISE AI Agent",
-        tags: ["AI Agent", "Model training", "RAG", "UXUX","DISE","Chinese"],
+        tags: ["AI Agent", "Model Training", "RAG", "UXUX","DISE","Chinese"],
         url: "https://liwei-ji.github.io/DISE-AI"
     },
     {
