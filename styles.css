@@ -261,7 +261,7 @@ body.page-hero-image-only .hero-text {
 
 .card {
     background: #2a2a2a;
-    border-radius: 20px;
+    border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
     cursor: pointer;
@@ -324,7 +324,7 @@ body.dark-mode .card-tag {
 /* Dashed Card */
 .dashed-card {
     border: 2px dashed #C9C9C9;
-    border-radius: 20px;
+    border-radius: 16px;
     display: flex;
     justify-content: center;
     align-items: center;
