@@ -53,8 +53,14 @@ document.addEventListener("DOMContentLoaded", typeEffect);
 const cardData = [
     {
         imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/45ddd2220712515.695bcbd04ca9a.png",
+        title: "Input UX",
+        tags: ["AI Agent", "UIUX", "Interactive behavior", "Logic", "Input"],
+        url: "https://liwei-ji.github.io/ai-agent-input",
+    },
+    {
+        imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/45ddd2220712515.695bcbd04ca9a.png",
         title: "DISE AI Agent",
-        tags: ["AI Agent", "Model Training", "LLM", "RAG", "DISE", "UXUX"],
+        tags: ["AI Agent", "Model Training", "LLM", "RAG", "DISE", "UIUX"],
         url: "https://liwei-ji.github.io/DISE-AI",
         banner: "Contact me to use"
     },
