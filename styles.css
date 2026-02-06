@@ -253,7 +253,8 @@ body.page-hero-image-only .hero-text {
 
 #card-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    /* auto-fit, minmax(300px, 1fr) 3個卡片一排 */
+    grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
     max-width: 1200px;
     margin: 0 auto;
