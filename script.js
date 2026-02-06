@@ -132,14 +132,6 @@ function createCard(card) {
     return cardElement;
 }
 
-    // 虛線卡片
-function createDashedCard() {
-    const dashedCard = document.createElement('div');
-    dashedCard.classList.add('dashed-card');
-    dashedCard.textContent = 'A new update is coming soon...';
-    return dashedCard;
-}
-
     // 初始化卡片容器
 const cardContainer = document.getElementById('card-container');
 cardData.forEach(card => {
