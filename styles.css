@@ -349,19 +349,6 @@ body.light-mode .card-banner {
     color: #1E1E1E;
 }
 
-/* Dashed Card */
-.dashed-card {
-    border: 2px dashed #C9C9C9;
-    border-radius: 16px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 2rem;
-    font-size: 1.5rem;
-    color: #C9C9C9;
-    min-height: 200px;
-}
-
 /* Info */
 .info {
     min-height: 100vh;
