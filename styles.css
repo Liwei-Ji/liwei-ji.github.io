@@ -322,6 +322,10 @@ body.dark-mode .card-tag {
     font-weight: 400;
 }
 
+body.light-mode .card-subtitle {
+    color: #1E1E1E;
+}
+
 /*  Card Banner */
 .image-wrapper {
     position: relative;
