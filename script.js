@@ -82,6 +82,7 @@ const cardData = [
     {
         imgSrc: "https://sg.osim.com/partners-program/img/servicedonewell-min.jpg",
         title: "How I Helped the CS Team Increase Efficiency",
+        subtitle: "From workflow design to prototype validation, crafting tools that accelerate issue resolution and deliver actionable user insights.",
         tags: ["English", "Website", "Research"],
         url: "https://liwei-ji.github.io/projects/osim-onecrm"
     },
