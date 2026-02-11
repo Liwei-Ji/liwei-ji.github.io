@@ -96,6 +96,7 @@ const cardData = [
     {
         imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/e4659a220712515.67c82775b7f34.png",
         title: "OPTEX Vision App",
+        subtitle: "Focused on minimalist design and brand consistency, enhancing operational efficiency and meeting user needs in Japanese and European markets.",
         tags: ["English", "APP", "Research"],
         url: "https://liwei-ji.github.io/projects/optex-app"
     },
