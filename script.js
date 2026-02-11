@@ -101,6 +101,7 @@ const cardData = [
     {
         imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/d66ace220712515.67c825cfd1d87.png",
         title: "Toyota New RAV4 In Car System",
+        subtitle: "Innovating In-Car Interfaces with Dynamic Information and Simplified Controls.",
         tags: ["Japanese", "Toyota", "NewRav4", "Research"],
         url: "https://liwei-ji.github.io/projects/toyota-rav4"
     },
