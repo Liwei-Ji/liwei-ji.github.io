@@ -108,7 +108,7 @@ const cardData = [
     {
         imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/b6296d220712515.67c8012021a2c.png",
         title: "Toyota New RAV4 In Car App",
-        subtitle: "Designing an Intuitive Mobile App for Remote Vehicle Control and Data Visualization.",
+        subtitle: "Smart app integrating real-time vehicle data and interactive workflows, focused on driver experience and user behavior–driven design.",
         tags: ["Japanese", "Toyota", "NewRav4", "Research", "APP"],
         url: "https://liwei-ji.github.io/projects/toyota-app"
     }
