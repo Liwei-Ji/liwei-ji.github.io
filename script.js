@@ -88,6 +88,7 @@ const cardData = [
     {
         imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/e51e2b220712515.67c81f448fc61.png",
         title: "Designing the mmWave Testing Tool GUI",
+        subtitle: "Users can perform beam control experiments and verify test results through the intuitive TMXLAB Kit (TLK) graphical interface.",
         tags: ["English", "Website", "Research"],
         url: "https://liwei-ji.github.io/projects/mmwave"
     },
