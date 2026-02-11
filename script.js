@@ -121,6 +121,7 @@ function createCard(card) {
          
         <div class="card-content">
             <h2 class="card-title">${card.title}</h2>
+            ${card.subtitle ? `<p class="card-subtitle">${card.subtitle}</p>` : ""}
             ${card.tags.map(tag => `<span class="card-tag">${tag}</span>`).join('')}
         </div>
     `;
