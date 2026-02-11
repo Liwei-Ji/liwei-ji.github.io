@@ -61,7 +61,7 @@ const cardData = [
     {
         imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/45ddd2220712515.695bcbd04ca9a.png",
         title: "DISE AI Agent",
-        subtitle: "DISE AI is a medical AI agent combining U-Net–based image recognition, LLMs and retrieval-augmented generation RAG.",
+        subtitle: "DISE AI is a medical AI agent combining U-Net based image recognition, LLMs and retrieval-augmented generation RAG.",
         tags: ["AI Agent", "Model Training", "LLM", "RAG", "DISE", "UIUX"],
         url: "https://liwei-ji.github.io/DISE-AI",
         banner: "Contact me to use"
