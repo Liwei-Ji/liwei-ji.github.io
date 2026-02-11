@@ -69,13 +69,14 @@ const cardData = [
     {
         imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/464ea3220712515.67c82815e2868.png",
         title: "Review of OSIM Work",
-        subtitle: "Reflecting on Challenges, Achievements, and Lessons Learned Along the Way.",
+        subtitle: "Creating a connected OSIM health ecosystem through cross-product integration and intelligent control, delivering a seamless and personalized full-body massage experience.",
         tags: ["English", "UI/UX", "Website", "APP", "Research"],
         url: "https://liwei-ji.github.io/projects/review-of-osim-work"
     },
     {
         imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/293901220712515.67c8224364822.png",
         title: "OSIM Well Being App",
+        subtitle: "Reflecting on Challenges, Achievements, and Lessons Learned Along the Way.",
         tags: ["English", "APP", "Research"],
         url: "https://liwei-ji.github.io/projects/osim-well-being-app"
     },
