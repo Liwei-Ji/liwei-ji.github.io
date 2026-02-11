@@ -54,6 +54,7 @@ const cardData = [
     {
         imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/45ddd2220712515.695bcbd04ca9a.png",
         title: "Input UX",
+        subtitle: "AI-powered interaction system",
         tags: ["AI Agent", "UIUX", "Interactive behavior", "Logic", "Input"],
         url: "https://liwei-ji.github.io/ai-agent-input",
     },
