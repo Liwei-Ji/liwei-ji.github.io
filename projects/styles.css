@@ -84,6 +84,13 @@ p {
     margin-bottom: 0.3em;  /* 之間的間距較小 */
 }
 
+/* 標註文字(紫色) */
+.highlight-purple {
+    background-color: #E6E6FA; /* 淡紫色背景 */
+    padding: 2px 4px;           /* 可選，讓標註文字更清楚 */
+    border-radius: 3px;         /* 可選，圓角 */
+}
+
 /* 引用文字 */
 blockquote {
     font-size: 1.2em;
