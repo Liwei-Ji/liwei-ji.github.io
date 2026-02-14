@@ -229,9 +229,9 @@ body.page-hero-image-only .hero-text {
 
 .hero-text {
     font-family: 'Poppins', sans-serif;
-    font-size: 2rem;
+    font-size: 3.5rem;
     font-weight: 700;
-    line-height: 1.4;
+    line-height: 1.2;
     margin: 0 auto 20px;
     text-align: center;    /* 始終置中 */
     min-height: 2.8em;     /* 預留兩行高度 */
