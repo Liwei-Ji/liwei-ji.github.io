@@ -224,26 +224,98 @@ body.page-hero-image-only .hero-text {
     max-width: 1400px;
     margin: 0 auto;
     padding: 2rem;
+    text-align: center; /* 讓文字與按鈕置中 */
 }
 
 .hero-text {
     font-family: 'Poppins', sans-serif;
-    font-size: 5.5rem;
+    font-size: 2rem;
     font-weight: 700;
-    line-height: 1.2;
-    margin: 0;
+    line-height: 1.4;
+    margin: 0 auto 20px;
+    text-align: center;    /* 始終置中 */
+    min-height: 2.8em;     /* 預留兩行高度 */
+    color: #FFFFFF;
+    display: block;
+}
+
+body.light-mode .hero-text,
+body.light-mode .hero-text span {
+    color: #1E1E1E;
+}
+
+body.light-mode .cursor {
+    background-color: #1E1E1E; 
 }
 
 /* 打字機效果 */
 .cursor {
-    display: inline-block; /* 設定inline區塊 */
-    width: 15px; /* 寬度 */
-    height: 1.2em; /* 與文字高度一致 */
+    display: inline-block; 
+    width: 6px; /* 寬度 */
+    height: 1.1em; 
     vertical-align: middle; /* 與文字對齊 */
-    background-color: #4CAF50; /*Green*/
-    margin-left: 5px;
-    animation: blink 0.7s infinite;
+    background-color: #4CAF50 !important; /*Green*/
+    border-radius: 10px;
+    margin-left: 2px;
+    animation: blink 0.8s infinite;
 }
+
+@keyframes blink-cursor {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* 用於透明文字樣式 */
+.ghost {
+    opacity: 0;
+    visibility: hidden;
+}
+/* 當打字時，游標跟隨模式 */
+.hero-text.typing .cursor {
+    position: static; 
+    margin-left: 8px;
+    left: auto;
+}
+
+/* See more 按鈕樣式 */
+.cta-button {
+    margin-top: 50px;
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #FFFFFF;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+    
+    /* 初始隱藏狀態 */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1); /* 浮現效果 */
+}
+
+/* 顯示按鈕Class */
+.cta-button.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.cta-button:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+/* 行動裝置縮小文字 */
+@media (max-width: 768px) {
+    .hero-text {
+        font-size: 2.5rem;
+    }
+}
+
 
 /* Projects */
 .projects-section {
