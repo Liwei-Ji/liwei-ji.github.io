@@ -19,36 +19,77 @@ modeToggle.addEventListener('change', checkMode);
 checkMode();
 
     // 打字機效果
-const textElement = document.getElementById("heroText");
-const words = ["UIUX Designer", "Frontend Developer"];
-let wordIndex = 0;
-let charIndex = 0;
-let isDeleting = false;
+document.addEventListener("DOMContentLoaded", () => {
+    const heroText = document.getElementById("heroText");
+    const button = document.getElementById("cta-button");
 
-function typeEffect() {
-    const currentWord = words[wordIndex];
-    if (isDeleting) {
-        charIndex--;
-    } else {
-        charIndex++;
+    const line1 = "Turning Complex Challenges into Simple";
+    const line2 = "Elegant Experiences";
+    
+    let charIndex = 0;
+
+    // 放入第一行透明佔位，讓光標在左側
+    heroText.innerHTML = `<span class="cursor"></span><span class="ghost">${line1}</span>`;
+
+    // 等待 2 秒 (CSS動畫處理閃爍)
+    setTimeout(() => {
+        typeLine1();
+    }, 2000);
+
+    // 打第一行
+    function typeLine1() {
+        if (charIndex <= line1.length) {
+            const typed = line1.substring(0, charIndex);
+            const ghost = line1.substring(charIndex);
+            
+            // 已打字 + 游標 + 剩餘透明字
+            heroText.innerHTML = `<span>${typed}</span><span class="cursor"></span><span class="ghost">${ghost}</span>`;
+            
+            charIndex++;
+            setTimeout(typeLine1, 60);
+        } else {
+            // 第一行打完，切換到第二行
+            charIndex = 0;
+            // 換行並放入第二行的透明佔位
+            heroText.innerHTML = `<span>${line1}</span><br><span class="cursor"></span><span class="ghost">${line2}</span>`;
+            setTimeout(typeLine2, 200);
+        }
     }
 
-    textElement.textContent = currentWord.substring(0, charIndex);
-
-    let typingSpeed = isDeleting ? 50 : 100; // 刪除速度
-    if (!isDeleting && charIndex === currentWord.length) {
-        typingSpeed = 2000; // 完整顯示後暫停
-        isDeleting = true;
-    } else if (isDeleting && charIndex === 0) {
-        isDeleting = false;
-        wordIndex = (wordIndex + 1) % words.length;
-        typingSpeed = 500; // 切換到下一句時的暫停
+    // 打第二行
+    function typeLine2() {
+        if (charIndex <= line2.length) {
+            const typed = line2.substring(0, charIndex);
+            const ghost = line2.substring(charIndex);
+            
+            heroText.innerHTML = `<span>${line1}</span><br><span>${typed}</span><span class="cursor"></span><span class="ghost">${ghost}</span>`;
+            
+            charIndex++;
+            setTimeout(typeLine2, 60);
+        } else {
+            finishTyping();
+        }
     }
 
-    setTimeout(typeEffect, typingSpeed);
-}
+    function finishTyping() {
+        // 結束後移除游標保留文字
+        heroText.innerHTML = `<span>${line1}</span><br><span>${line2}</span>`;
+        
+        // 按鈕浮現
+        setTimeout(() => {
+            button.classList.add("show");
+        }, 500);
+    }
 
-document.addEventListener("DOMContentLoaded", typeEffect);
+    // 平滑捲動
+    button.addEventListener("click", () => {
+        const nextSection = document.querySelector(".projects-section"); 
+        if (nextSection) {
+            nextSection.scrollIntoView({ behavior: "smooth" });
+        }
+    });
+});
+
     // 卡片數據
 const cardData = [
     {
