@@ -21,49 +21,44 @@ checkMode();
     // 打字機效果
 document.addEventListener("DOMContentLoaded", () => {
     const heroText = document.getElementById("heroText");
-    const button = document.getElementById("cta-button");
+    const ctaGroup = document.getElementById("cta-group");
+    const seeMoreBtn = document.getElementById("cta-button");
+    const aboutBtn = document.getElementById("about-button");
 
     const line1 = "Turning Complex Challenges into Simple";
     const line2 = "Elegant Experiences";
-    
     let charIndex = 0;
 
     // 放入第一行透明佔位，讓光標在左側
-    heroText.innerHTML = `<span class="cursor"></span><span class="ghost">${line1}</span>`;
+    if (heroText) {
+        heroText.innerHTML = `<span class="cursor"></span><span class="ghost">${line1}</span>`;
+    }
 
     // 等待 2 秒 (CSS動畫處理閃爍)
     setTimeout(() => {
-        typeLine1();
+        if (heroText) typeLine1();
     }, 2000);
 
-    // 打第一行
     function typeLine1() {
         if (charIndex <= line1.length) {
             const typed = line1.substring(0, charIndex);
             const ghost = line1.substring(charIndex);
-            
-            // 已打字 + 游標 + 剩餘透明字
             heroText.innerHTML = `<span>${typed}</span><span class="cursor"></span><span class="ghost">${ghost}</span>`;
-            
             charIndex++;
             setTimeout(typeLine1, 60);
         } else {
-            // 第一行打完，切換到第二行
             charIndex = 0;
-            // 換行並放入第二行的透明佔位
+            // 換行時，先準備好第二行的透明佔位
             heroText.innerHTML = `<span>${line1}</span><br><span class="cursor"></span><span class="ghost">${line2}</span>`;
             setTimeout(typeLine2, 200);
         }
     }
 
-    // 打第二行
     function typeLine2() {
         if (charIndex <= line2.length) {
             const typed = line2.substring(0, charIndex);
             const ghost = line2.substring(charIndex);
-            
             heroText.innerHTML = `<span>${line1}</span><br><span>${typed}</span><span class="cursor"></span><span class="ghost">${ghost}</span>`;
-            
             charIndex++;
             setTimeout(typeLine2, 60);
         } else {
@@ -72,22 +67,29 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function finishTyping() {
-        // 結束後移除游標保留文字
+        // 打完後移除游標與 ghost 標籤，回復純文字
         heroText.innerHTML = `<span>${line1}</span><br><span>${line2}</span>`;
-        
-        // 按鈕浮現
         setTimeout(() => {
-            button.classList.add("show");
+            if (ctaGroup) ctaGroup.classList.add("show");
         }, 500);
     }
 
-    // 平滑捲動
-    button.addEventListener("click", () => {
-        const nextSection = document.querySelector(".projects-section"); 
-        if (nextSection) {
-            nextSection.scrollIntoView({ behavior: "smooth" });
-        }
-    });
+    // Overview 按鈕跳轉
+    if (aboutBtn) {
+        aboutBtn.addEventListener("click", () => {
+            window.location.href = "https://liwei-ji.github.io/about.html";
+        });
+    }
+
+    // Learn More 平滑捲動
+    if (seeMoreBtn) {
+        seeMoreBtn.addEventListener("click", () => {
+            const nextSection = document.querySelector(".projects-section"); 
+            if (nextSection) {
+                nextSection.scrollIntoView({ behavior: "smooth" });
+            }
+        });
+    }
 });
 
     // 卡片數據
