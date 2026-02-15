@@ -220,44 +220,37 @@ body.page-hero-image-only .hero-text {
     display: none;
 }
 
-.hero-container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 2rem;
-    text-align: center; /* 讓文字與按鈕置中 */
-}
-
+/* Hero section settings */
+/* Hero section text */
 .hero-text {
     font-family: 'Poppins', sans-serif;
-    font-size: 3.5rem;
+    font-size: 3.5rem; 
     font-weight: 700;
     line-height: 1.2;
     margin: 0 auto 20px;
-    text-align: center;    /* 始終置中 */
-    min-height: 2.8em;     /* 預留兩行高度 */
-    color: #FFFFFF;
+    text-align: center;
+    min-height: 2.8em; /* 預留兩行高度防止抖動 */
+    color: #FFFFFF; /* 暗黑模式預設白色 */
     display: block;
+    transition: color 0.3s ease;
 }
 
+/* 光亮模式顏色 */
 body.light-mode .hero-text,
-body.light-mode .hero-text span {
-    color: #1E1E1E;
+body.light-mode .hero-text span:not(.cursor) {
+    color: #1E1E1E; /* 文字變黑 */
 }
 
-body.light-mode .cursor {
-    background-color: #1E1E1E; 
-}
-
-/* 打字機效果 */
+/* 打字光標 */
 .cursor {
-    display: inline-block; 
-    width: 6px; /* 寬度 */
-    height: 1.1em; 
-    vertical-align: middle; /* 與文字對齊 */
-    background-color: #4CAF50 !important; /*Green*/
+    display: inline-block;
+    width: 6px;
+    height: 1.1em;
+    background-color: #4CAF50 !important;
+    vertical-align: middle;
     border-radius: 10px;
     margin-left: 2px;
-    animation: blink 0.8s infinite;
+    animation: blink-cursor 0.8s infinite;
 }
 
 @keyframes blink-cursor {
@@ -265,23 +258,35 @@ body.light-mode .cursor {
     50% { opacity: 0; }
 }
 
-/* 用於透明文字樣式 */
+/* 透明佔位文字 */
 .ghost {
     opacity: 0;
     visibility: hidden;
 }
-/* 當打字時，游標跟隨模式 */
-.hero-text.typing .cursor {
-    position: static; 
-    margin-left: 8px;
-    left: auto;
+
+/* 按鈕群組容器 */
+.hero-btns {
+    margin-top: 50px;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1);
 }
 
-/* See more 按鈕樣式 */
+/* 顯示 Class */
+.hero-btns.show {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) !important;
+}
+
+/* 主按鈕 (Learn More) */
 .cta-button {
-    margin-top: 50px;
-    padding: 15px 40px;
-    font-size: 1.2rem;
+    padding: 10px 40px;
+    font-size: 1rem;
     font-weight: 600;
     color: #FFFFFF;
     background-color: #4CAF50;
@@ -289,33 +294,30 @@ body.light-mode .cursor {
     border-radius: 50px;
     cursor: pointer;
     box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
-    
-    /* 初始隱藏狀態 */
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(30px);
-    transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1); /* 浮現效果 */
+    transition: transform 0.3s;
 }
 
-/* 顯示按鈕Class */
-.cta-button.show {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
+/* 副按鈕 (Overview) */
+.secondary-btn {
+    padding: 10px 40px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #4CAF50;
+    background-color: transparent;
+    border: 1px solid #4CAF50;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
-.cta-button:hover {
-    background-color: #45a049;
+.cta-button:hover, .secondary-btn:hover {
     transform: scale(1.05);
 }
 
-/* 行動裝置縮小文字 */
+/* 行動裝置適應 */
 @media (max-width: 768px) {
-    .hero-text {
-        font-size: 2.5rem;
-    }
+    .hero-text { font-size: 2.2rem; }
 }
-
 
 /* Projects */
 .projects-section {
