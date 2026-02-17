@@ -27,7 +27,7 @@ body.light-mode {
     backdrop-filter: blur(10px); /* 背景上模糊效果 */
     transition: background-color 0.3s, color 0.3s;
     border-radius: 40px; /* 圓角半徑 */
-    max-width: 600px; /* 原來寬度 800px */
+    max-width: 200px; /* 原來寬度 800px */
     width: 90%; /* 設定寬度 */
     margin: 0 auto;
 }
