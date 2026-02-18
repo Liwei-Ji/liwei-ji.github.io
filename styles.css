@@ -349,7 +349,7 @@ body.light-mode .hero-text span:not(.cursor) {
 /* Projects */
 .projects-section {
     min-height: 100vh;
-    padding: 80px 2rem; 200px; /* 增加底部padding */
+    padding: 80px 2rem 200px; /* 增加底部padding */
 }
 
 #card-container {
