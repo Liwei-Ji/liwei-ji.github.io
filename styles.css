@@ -17,17 +17,44 @@ body.light-mode {
 
 /* Navbar */
 .navbar {
-    padding: 20px; /* 內邊距*/
+    padding: 12px 25px; /* 內邊距*/
     position: fixed; /* 設定為固定定位 */
     top: 30px;  /* 離視窗頂部 */
     left: 0; /* 離視窗左邊緣 */
     right: 0; /* 離視窗右邊緣 */
     z-index: 1000;  /* 設定堆疊順序，確保其他元素之上 */
-    background-color: rgba(30, 30, 30, 0.8); /* 背景顏色半透明深灰色 */
-    backdrop-filter: blur(10px); /* 背景上模糊效果 */
+  
+    /* 流體玻璃：帶角度的漸層，模擬光線折射 */
+    background: rgba(255, 255, 255, 0.01);
+  
+    /* 強化模糊與飽和度：液態玻璃通常會讓後方顏色更鮮豔 */
+    /* 套用背景濾鏡效果：
+    - blur(4px) → 背景模糊 4px
+    - saturate(100%) → 飽和度維持原本顏色
+    - brightness(1.2) → 提高亮度 20%
+    */
+    backdrop-filter: blur(4px) saturate(100%) brightness(1.2);
+    /* 
+   給 Safari / iOS 使用的相容寫法（WebKit前綴）
+   效果較強：
+    - blur(20px) → 背景模糊 20px（更明顯）
+    - saturate(500%) → 飽和度大幅提升
+    - brightness(1.1) → 提高亮度 10%
+    */
+    -webkit-backdrop-filter: blur(20px) saturate(500%) brightness(1.1);
+    /* backdrop-filter: blur(4px) saturate(160%);
+    -webkit-backdrop-filter: blur(4px) saturate(160%);*/
+
+    /* 邊緣高光 */
+    border: 0.5px solid rgba(255, 255, 255, 0.2);
+    border-top: 1px solid rgba(255, 255, 255, 0.4); /* 頂部亮邊 */
+    border-left: 1px solid rgba(255, 255, 255, 0.4); /* 左側亮邊 */
+  
     transition: background-color 0.3s, color 0.3s;
     border-radius: 40px; /* 圓角半徑 */
-    max-width: 200px; /* 原來寬度 800px */
+    box-shadow: 0 4px 32px rgba(0, 0, 0, 0.15); 
+
+    max-width: 260px; /* 最大寬度 */
     width: 90%; /* 設定寬度 */
     margin: 0 auto;
 }
