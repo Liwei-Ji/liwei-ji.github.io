@@ -208,7 +208,7 @@ input:checked + .slider:before {
     }
 }
 
-    /* Hero Section */
+/* Hero Section */
 .hero-section {
     display: flex;
     align-items: center;
@@ -224,7 +224,7 @@ input:checked + .slider:before {
     background-repeat: no-repeat;
 }
 
-    /* 背景圖根據模式切換 */
+/* 背景圖根據模式切換 */
 body.dark-mode .hero-section {
     --hero-overlay: linear-gradient(
         to bottom,
@@ -427,7 +427,7 @@ body.light-mode .card-subtitle {
     color: #1E1E1E;
 }
 
-/*  Card Banner */
+/* Card Banner */
 .image-wrapper {
     position: relative;
     overflow: hidden;
