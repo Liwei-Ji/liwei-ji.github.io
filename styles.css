@@ -108,7 +108,7 @@ body.light-mode .navbar a {
     color: #4CAF50; /*Green*/
 }
 
-/* 日夜切換開關 */
+/* 光亮/暗黑切換開關 */
 .switch {
     position: relative;
     display: inline-block;
@@ -546,4 +546,243 @@ body.light-mode .info {
 /* Smooth Scrolling */
 html {
     scroll-behavior: smooth;
+}
+
+
+/* CTA外層容器 */
+.cta-section {
+  padding: 20px 20px 10px; /* 與上面卡片間距 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* CTA內層容器 */
+.cta-container.glass-box {
+  width: 100%;
+  max-width: 1100px; /* 最大寬度 */
+  padding: 10px 40px;
+  border-radius: 20px; /* 圓角 */
+  line-height: 0.6;
+
+  display: flex;
+  justify-content: space-between; /* 文字在左，圖標在右 */
+  align-items: center; /* 垂直置中 */
+  text-align: left; /* 文字靠左 */
+
+  /* 暗黑模式預設 */
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover時輕微上浮 */
+.cta-container.glass-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+}
+
+/* 文字樣式 */
+.cta-title {
+  font-size: 6rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+/* 強調色文字樣式 */
+.cta-title .highlight {
+  color: #4caf50;
+  position: relative;
+  display: inline-block;
+}
+
+.cta-container.glass-box:hover .cta-icon {
+  /* 觸發對象父容器 */
+  animation: icon-move-horizontal 1.2s ease-in-out infinite;
+  color: #81c784; /* 亮綠色 */
+}
+
+/* 圖標樣式 */
+.cta-icon {
+  font-size: 5rem; /* 圖標大小 */
+  color: #4caf50; /* 綠色 */
+}
+
+/* hover在圖標觸發動畫 */
+.cta-icon:hover {
+  /* - 動畫名稱: icon-move-horizontal
+     - 持續時間: 1s (一秒完成一次)
+     - 速度曲線: ease-in-out (起步和結束時慢，中間快)
+     - 播放次數: infinite (無限循環播放)
+    */
+  animation: icon-move-horizontal 1s ease-in-out infinite;
+}
+
+/* 定義移動動畫 */
+@keyframes icon-move-horizontal {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(30px);
+  } /* 移動距離 */
+}
+
+
+/* --- CTA 光暗模式 --- */
+/* 光亮模式設定 */
+body.light-mode .cta-container.glass-box {
+  background: rgba(255, 255, 255, 0.25); /* 變亮 */
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+}
+
+/* 文字顏色設定 */
+body.light-mode .cta-title {
+  color: #1e1e1e; /* 深黑色 */
+}
+
+body.light-mode .cta-subtitle {
+  color: rgba(0, 0, 0, 0.6); /* 深灰色 */
+}
+
+/* 行動裝置設定 */
+@media (max-width: 768px) {
+  .cta-container.glass-box {
+    padding: 40px 25px;
+    border-radius: 30px;
+  }
+  .cta-title {
+    font-size: 2rem;
+  }
+  .cta-subtitle {
+    font-size: 1rem;
+  }
+  .cta-button {
+    width: 80%; /* 手機按鈕寬點 */
+    padding: 15px 20px;
+  }
+}
+
+/* Footer外層容器 */
+.footer-section {
+  padding: 40px 20px 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+}
+
+/* Footer內層容器 */
+.footer-container.glass-box {
+  width: 100%;
+  max-width: 1100px;
+  padding: 30px 50px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  /* 內部所有元素靠左 */
+  align-items: flex-start;
+  /* 文字對齊靠左 */
+  text-align: left;
+  gap: 6px;
+}
+
+/* Footer 文字設定 */
+.footer-connect-title {
+  font-size: 6rem;
+  font-weight: 800; /* 粗體字 */
+  color: #ffffff;
+  line-height: 1; /* 大字體建議 */
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: -3px; /* 緊縮字距 */
+}
+
+/* 社群圖標設定 */
+.social-links {
+  display: flex;
+  gap: 25px;
+  /* 圖標佈局靠左 */
+  justify-content: flex-start;
+  padding-left: 10px;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.social-icon {
+  font-size: 2rem;
+  color: rgba(255, 255, 255, 0.8);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  text-decoration: none;
+}
+
+.social-icon:hover {
+  color: #4caf50;
+  transform: translateY(-5px) scale(1.1);
+  text-shadow: 0 0 5px rgba(76, 175, 80, 0.6);
+}
+
+/* 版權文字設定 */
+.footer-copyright {
+  font-size: 6rem;
+  font-weight: 800; /* 粗體字 */
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 60px; /* 與圖標間距 */
+  margin-bottom: 0px;
+}
+
+/* --- Footer 光暗模式 --- */
+/* 標題深色 */
+body.light-mode .footer-connect-title {
+  color: #1e1e1e;
+  /* 增加文字陰影，防止純白背景邊緣模糊 */
+  text-shadow: none;
+}
+
+/* 社群圖標深色 */
+body.light-mode .social-icon {
+  color: #1e1e1e;
+}
+
+/* 版權文字深色 */
+body.light-mode .footer-copyright {
+  color: #1e1e1e;
+}
+
+/* 懸停效果綠色 */
+body.light-mode .social-icon:hover {
+  color: #4caf50;
+  text-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
+}
+
+/* 頁尾水平線樣式 */
+.footer-divider {
+  border: none; /* 移除預設的陰影邊框 */
+  height: 2px; /* 線條厚度 */
+  width: 100%; /* 寬度填滿方塊 */
+  margin-top: 15px; /* 與版權文字間距 */
+  margin-bottom: 5px; /* 線條與方塊底邊間距 */
+  border-radius: 10px; /* 圓角 */
+
+  /* 使用線性漸層：讓線條從左邊亮白色，向右邊漸漸透明消失 */
+  background: linear-gradient(
+    to right,
+    rgba(76, 175, 80, 0.3) 0%,
+    /* 綠色 */ rgba(76, 175, 80, 0.2) 50%,
+    /* 綠色 */ transparent 100%
+  );
+}
+
+/* --- 頁尾水平線光暗模式 --- */
+body.light-mode .footer-divider {
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.2) 50%,
+    transparent 100%
+  );
 }
