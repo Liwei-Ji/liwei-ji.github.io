@@ -695,7 +695,7 @@ body.light-mode .cta-subtitle {
   gap: 6px;
 }
 
-/* Footer 文字設定 */
+/* Footer 文字 */
 .footer-connect-title {
   font-size: 6rem;
   font-weight: 800; /* 粗體字 */
@@ -743,6 +743,12 @@ body.light-mode .social-icon {
   color: #1e1e1e;
 }
 
+/* 懸停效果綠色 */
+body.light-mode .social-icon:hover {
+  color: #4caf50;
+  text-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
+}
+
 /* --- Footer 響應式 --- */
 @media (max-width: 768px) {
     .footer-connect-title {
@@ -758,7 +764,7 @@ body.light-mode .social-icon {
     }
 }
 
-/* 版權文字設定 */
+/* 版權文字 */
 .footer-copyright {
   font-size: 6rem;
   font-weight: 800; /* 粗體字 */
@@ -772,10 +778,19 @@ body.light-mode .footer-copyright {
   color: #1e1e1e;
 }
 
-/* 懸停效果綠色 */
-body.light-mode .social-icon:hover {
-  color: #4caf50;
-  text-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
+/* --- 版權文字響應式 --- */
+@media (max-width: 768px) {
+  .footer-copyright {
+    font-size: 10vw !important; 
+    margin-top: 60px !important;
+    margin-bottom: 60px !important;
+    display: block !important;
+    width: 100% !important;
+    white-space: normal !important; 
+    word-break: break-all !important;
+    line-height: 1.1 !important;
+    text-align: center !important;
+  }
 }
 
 /* 頁尾水平線樣式 */
