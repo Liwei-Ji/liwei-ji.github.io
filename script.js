@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // 卡片數據
 const cardData = [
     {
-        imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/45ddd2220712515.695bcbd04ca9a.png",
+        imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/fs/de20e0220712515.6999e02704179.png",
         title: "Input UX",
         subtitle: "Guides users on how to interact with the AI model.",
         isLarge: true,
