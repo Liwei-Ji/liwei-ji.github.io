@@ -98,21 +98,21 @@ const cardData = [
         imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/45ddd2220712515.695bcbd04ca9a.png",
         title: "Input UX",
         subtitle: "Guides users on how to interact with the AI model.",
-        tags: ["AI Agent", "UIUX", "Interactive behavior", "Logic", "Input"],
+        tags: ["AI Agent", "UIUX", "Interactive behavior", "Input"],
         url: "https://liwei-ji.github.io/ai-agent-input",
     },
     {
         imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/45ddd2220712515.695bcbd04ca9a.png",
         title: "DISE AI Agent",
         subtitle: "DISE AI is a medical AI agent combining U-Net based image recognition, LLMs and retrieval-augmented generation RAG.",
-        tags: ["AI Agent", "Model Training", "LLM", "RAG", "DISE", "UIUX"],
+        tags: ["AI Agent", "Model Training", "LLM", "RAG", ],
         url: "https://liwei-ji.github.io/DISE-AI",
         banner: "Contact me to use"
     },
     {
         imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/464ea3220712515.67c82815e2868.png",
         title: "Review of OSIM Work",
-        subtitle: "Creating a connected OSIM health ecosystem through cross-product integration and intelligent control, delivering a seamless and personalized full-body massage experience.",
+        subtitle: "Creating a connected OSIM health ecosystem through cross product integration and intelligent control, delivering a seamless and personalized full body massage experience.",
         tags: ["English", "UI/UX", "Website", "APP", "Research"],
         url: "https://liwei-ji.github.io/projects/review-of-osim-work"
     },
@@ -133,7 +133,7 @@ const cardData = [
     {
         imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/e51e2b220712515.67c81f448fc61.png",
         title: "Designing the mmWave Testing Tool GUI",
-        subtitle: "Users can perform beam control experiments and verify test results through the intuitive TMXLAB Kit (TLK) graphical interface.",
+        subtitle: "Users can perform beam control experiments and verify test results through the intuitive TMXLAB Kit graphical interface.",
         tags: ["English", "Website", "Research"],
         url: "https://liwei-ji.github.io/projects/mmwave"
     },
@@ -147,14 +147,14 @@ const cardData = [
     {
         imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/d66ace220712515.67c825cfd1d87.png",
         title: "Toyota New RAV4 In Car System",
-        subtitle: "Comprehensively optimized in-car system interfaces leveraging intuitive design, dynamic information, and feature integration to enhance driving convenience and safety.",
+        subtitle: "Comprehensively optimized in car system interfaces leveraging intuitive design, dynamic information, and feature integration to enhance driving convenience and safety.",
         tags: ["Japanese", "Toyota", "NewRav4", "Research"],
         url: "https://liwei-ji.github.io/projects/toyota-rav4"
     },
     {
         imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/b6296d220712515.67c8012021a2c.png",
         title: "Toyota New RAV4 In Car App",
-        subtitle: "Smart app integrating real-time vehicle data and interactive workflows, focused on driver experience and user behavior–driven design.",
+        subtitle: "Smart app integrating real time vehicle data and interactive workflows, focused on driver experience and user behavior driven design.",
         tags: ["Japanese", "Toyota", "NewRav4", "Research", "APP"],
         url: "https://liwei-ji.github.io/projects/toyota-app"
     }
