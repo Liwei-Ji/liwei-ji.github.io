@@ -51,10 +51,10 @@ body.light-mode {
     border-left: 1px solid rgba(255, 255, 255, 0.4); /* 左側亮邊 */
   
     transition: background-color 0.3s, color 0.3s;
-    border-radius: 40px; /* 圓角半徑 */
+    border-radius: 40px; /* Navbar圓角半徑 */
     box-shadow: 0 4px 32px rgba(0, 0, 0, 0.15); 
 
-    max-width: 260px; /* 最大寬度 */
+    max-width: 60px; /* Navbar寬度 */
     width: 90%; /* 設定寬度 */
     margin: 0 auto;
 }
