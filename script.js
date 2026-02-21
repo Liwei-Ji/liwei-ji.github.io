@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const line2 = "Elegant Experiences";
     let charIndex = 0;
 
-    // 放入第一行透明佔位，讓光標在左側
+    // 放入透明佔位，讓光標在左側
     if (heroText) {
         heroText.innerHTML = `<span class="cursor"></span><span class="ghost">${line1}</span>`;
     }
@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function finishTyping() {
-        // 打完後移除游標與 ghost 標籤，回復純文字
+        // 打完後移除游標與 ghost 標籤，恢復文字展示
         heroText.innerHTML = `<span>${line1}</span><br><span>${line2}</span>`;
         setTimeout(() => {
             if (ctaGroup) ctaGroup.classList.add("show");
@@ -100,6 +100,7 @@ const cardData = [
         subtitle: "Guides users on how to interact with the AI model.",
         tags: ["AI Agent", "UIUX", "Interactive behavior", "Input"],
         url: "https://liwei-ji.github.io/ai-agent-input",
+        isLarge: true,
     },
     {
         imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/45ddd2220712515.695bcbd04ca9a.png",
