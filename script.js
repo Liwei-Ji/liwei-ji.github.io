@@ -98,9 +98,9 @@ const cardData = [
         imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/45ddd2220712515.695bcbd04ca9a.png",
         title: "Input UX",
         subtitle: "Guides users on how to interact with the AI model.",
+        isLarge: true,
         tags: ["AI Agent", "UIUX", "Interactive behavior", "Input"],
         url: "https://liwei-ji.github.io/ai-agent-input",
-        isLarge: true,
     },
     {
         imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/45ddd2220712515.695bcbd04ca9a.png",
@@ -165,6 +165,12 @@ const cardData = [
 function createCard(card) {
     const cardElement = document.createElement('div');
     cardElement.classList.add('card');
+
+      // Add Large card
+    if (card.isLarge) {
+        cardElement.classList.add('card-large');
+    }
+
     cardElement.innerHTML = `
     <div class="image-wrapper">
         <img src="${card.imgSrc}" alt="${card.title}" class="card-image">
