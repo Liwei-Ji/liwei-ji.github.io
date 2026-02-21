@@ -653,7 +653,7 @@ body.light-mode .cta-subtitle {
   color: rgba(0, 0, 0, 0.6); /* 深灰色 */
 }
 
-/* 行動裝置設定 */
+/* --- CTA 響應式 --- */
 @media (max-width: 768px) {
   .cta-container.glass-box {
     padding: 40px 25px;
@@ -671,7 +671,7 @@ body.light-mode .cta-subtitle {
   }
 }
 
-/* Footer外層容器 */
+/* Footer */
 .footer-section {
   padding: 40px 20px 60px;
   display: flex;
@@ -730,15 +730,6 @@ body.light-mode .cta-subtitle {
   text-shadow: 0 0 5px rgba(76, 175, 80, 0.6);
 }
 
-/* 版權文字設定 */
-.footer-copyright {
-  font-size: 6rem;
-  font-weight: 800; /* 粗體字 */
-  color: rgba(255, 255, 255, 0.8);
-  margin-top: 60px; /* 與圖標間距 */
-  margin-bottom: 0px;
-}
-
 /* --- Footer 光暗模式 --- */
 /* 標題深色 */
 body.light-mode .footer-connect-title {
@@ -750,6 +741,30 @@ body.light-mode .footer-connect-title {
 /* 社群圖標深色 */
 body.light-mode .social-icon {
   color: #1e1e1e;
+}
+
+/* --- Footer 響應式 --- */
+@media (max-width: 768px) {
+    .footer-connect-title {
+        font-size: 13vw !important; 
+        letter-spacing: -1px !important; 
+        white-space: normal !important;
+        display: block !important;
+        width: 100% !important;
+        word-break: keep-all !important; /* 避免文字被拆開 */
+        overflow-wrap: normal !important;
+        text-align: center !important;
+        line-height: 1.2 !important;
+    }
+}
+
+/* 版權文字設定 */
+.footer-copyright {
+  font-size: 6rem;
+  font-weight: 800; /* 粗體字 */
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 60px; /* 與圖標間距 */
+  margin-bottom: 0px;
 }
 
 /* 版權文字深色 */
