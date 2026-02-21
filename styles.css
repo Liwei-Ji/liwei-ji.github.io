@@ -333,7 +333,7 @@ body.light-mode .card {
 }
 
 .card:hover {
-    transform: scale(1.05);
+    transform: scale(1.02); /* Hocer card 放大 1.02 倍（102%）*/
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.08);
 }
 
