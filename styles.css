@@ -173,6 +173,7 @@ input:checked + .slider:before {
   }
 }
 
+/* Hero Section Settings */
 /* Hero Section */
 .hero-section {
     display: flex;
@@ -201,7 +202,7 @@ body.page-hero-image-only .hero-text {
     display: none;
 }
 
-/* 根據模式切換 */
+/* 根據模式切換(閃爍Bug) */
 /* 暗黑模式背景圖 */
 body.dark-mode .hero-section {
     --hero-overlay: linear-gradient(
@@ -224,8 +225,6 @@ body.light-mode .hero-section {
     --hero-image: url('https://mir-s3-cdn-cf.behance.net/project_modules/fs/5ff813220712515.6999d9da2d91b.jpg');
 }
 
-
-/* Hero section settings */
 /* Hero section text */
 .hero-text {
     font-family: 'Poppins', sans-serif;
@@ -319,7 +318,7 @@ body.light-mode .hero-text span:not(.cursor) {
     transform: scale(1.05);
 }
 
-/* --- Hero section 響應式 --- */
+/* --- Hero Section 響應式 --- */
 @media (max-width: 768px) {
     .hero-text { font-size: 2.2rem; }
 }
@@ -335,7 +334,7 @@ body.light-mode .hero-text span:not(.cursor) {
     /* auto-fit, minmax(300px, 1fr) 3個卡片一排 */
     grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
 }
 
@@ -577,7 +576,7 @@ html {
 /* CTA內層容器 */
 .cta-container.glass-box {
   width: 100%;
-  max-width: 1100px; /* 最大寬度 */
+  max-width: 1400px; /* 最大寬度 */
   padding: 10px 40px;
   border-radius: 20px; /* 圓角 */
   line-height: 0.6;
