@@ -434,6 +434,82 @@ body.light-mode .card-banner {
     color: #1E1E1E;
 }
 
+/* Hero Intro */
+.hero-intro {
+  padding: 100px 0; /* 稍微縮減高度 */
+  min-height: 100vh;
+  background: #1e1e1e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  transition: background-color 0.3s ease !important;
+}
+
+.hero-intro-container {
+  max-width: 1000px;
+  width: 90%;
+  text-align: left; /* 左對齊 */
+}
+
+.hero-intro-headline {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  color: #ffffff;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 30px;
+}
+
+/* 漸層關鍵字 (Liquid Touch) */
+.hero-intro-headline span {
+  background: linear-gradient(135deg, #2ecc71, #27ae60);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-intro-desc {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.6); /* 降低透明度，增加視覺深度 */
+  max-width: 1000px;
+  line-height: 1.7;
+}
+
+/* 光亮模式顏色 */
+body.light-mode .hero-intro {
+  background-color: #f7f7f7 !important;
+}
+
+body.light-mode .hero-intro-headline {
+  color: #1e1e1e !important;
+}
+
+body.light-mode .hero-intro-desc {
+  color: rgba(0, 0, 0, 0.7) !important; /* 副標題深灰色 */
+}
+
+/* 漸層關鍵字在白底上可以稍微加深顏色，讓它更突出 */
+body.light-mode .hero-intro-headline span {
+  background: linear-gradient(135deg, #27ae60, #219150);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* --- Hero Intro 響應式 --- */
+@media (max-width: 768px) {
+  .hero-intro {
+    padding: 80px 20px;
+  }
+
+  .hero-intro-container {
+    text-align: left; /* 左對齊*/
+  }
+
+  .hero-intro-headline {
+    font-size: 2.2rem; /* 防止在極窄螢幕穿版 */
+  }
+}
+
+
 /* 大卡片樣式 */
 .card.card-large {
   /* 網格橫跨兩列 */
