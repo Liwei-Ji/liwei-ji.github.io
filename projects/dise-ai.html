@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Discover how the DISE AI Agent transforms medical video analysis by integrating AI-assisted detection, visualization, and conversational workflow to improve diagnostic efficiency in sleep endoscopy." />
+  <title>DISE AI Agent | AI-Assisted Medical Video Analysis Interface</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8WMNR1T1KL"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+  gtag('config', 'G-8WMNR1T1KL');
+</script>
+
+<body>
+  <!-- 返回按鍵 -->
+  <a href="https://liwei-ji.github.io/" class="back-button" aria-label="Go back">
+    <i class="fas fa-xmark"></i>
+  </a>
+  <!-- 進度條容器 -->
+  <div id="progress-bar"></div>
+
+  <div class="article">
+
+    <p>December 31,2025</p>
+
+    <h1>DISE AI Agent</h1>
+
+    <img src="" class="inline-image">
+
+    <h2>Background</h2>
+
+    <p>Drug-Induced Sleep Endoscopy (DISE) is a widely used diagnostic procedure for evaluating airway obstruction in patients with Obstructive Sleep Apnea (OSA). During the examination, physicians analyze endoscopic videos to determine the location and severity of airway collapse.</p>
+
+    <p>However, current DISE analysis workflows present several challenges:</p>
+
+    <h3>Long Video Review Process</h3>
+
+    <p>DISE recordings can last several minutes, and physicians often need to manually review the entire video to identify key frames showing airway obstruction. This manual process is time-consuming and inefficient.</p>
+
+    <h3>Difficulty Identifying Critical Frames</h3>
+
+    <p>In many cases, the most severe obstruction occurs only for a brief moment. Without automated assistance, physicians must carefully scrub through the video frame by frame, making it difficult to quickly locate the most critical moments.</p>
+
+    <h3>Lack of Visualization and Annotation Tools</h3>
+
+    <p>Most existing systems provide only basic video playback functionality without integrated annotation or measurement tools. As a result, physicians often rely on external software to capture screenshots and perform measurements.</p>
+
+    <h3>Inefficient Report Generation</h3>
+
+    <p>After identifying key frames, physicians still need to manually compile reports that include screenshots, measurements, and analysis results. This adds extra workload and increases the risk of inconsistency.</p>
+
+    <h2>My Impact</h2>
+
+    <p><span class="highlight-purple">By analyzing these challenges, I designed an AI-assisted DISE analysis interface that integrates video processing, annotation, and report generation into a unified workflow.</span></p>
+
+    <p>The system introduces an AI Agent interaction model, allowing physicians to analyze medical videos through a guided conversational interface. Instead of navigating complex menus, users can simply upload a video, define the analysis range, and allow AI to identify key moments automatically.</p>
+
+    <p>The interface combines:</p>
+
+    <ul>
+      <li>AI video analysis</li>
+      <li>visual annotation tools</li>
+      <li>conversational interaction</li>
+      <li>automated report generation</li>
+    </ul>
+
+    <p>This design significantly reduces the cognitive load for physicians and improves the efficiency of medical video analysis.</p>
+
+    <h2>What Did I Do?</h2>
+
+    <h3>Conceptualization</h3>
+
+    <p>The core idea behind the system was to create an AI-assisted diagnostic workflow that bridges the gap between machine analysis and human expertise.</p>
+
+    <p>Rather than replacing physicians, the AI functions as an intelligent assistant that highlights key frames and provides analytical insights.</p>
+
+    <h3>AI Video Analysis</h3>
+
+    <p>In traditional workflows, physicians manually search for frames showing the most severe airway collapse.</p>
+
+    <p><span class="highlight-purple">The AI automatically detects the most critical frames within the selected time segment</span>, including:</p>
+
+    <ul>
+      <li>the most obstructed airway moment</li>
+      <li>the most open airway moment</li>
+    </ul>
+
+    <p>This dramatically reduces the time needed for manual inspection.</p>
+
+    <h3>Interactive Chat-Based Workflow</h3>
+
+    <p>Instead of traditional complex medical software interfaces, the system introduces a chat-driven interaction model.</p>
+
+    <p>The workflow guides users step by step:</p>
+
+    <ul>
+      <li>Upload video or paste a video link</li>
+      <li>Select the time segment for analysis</li>
+      <li>Choose the anatomical site</li>
+      <li>AI performs analysis and presents results</li>
+    </ul>
+
+    <p>This conversational interface lowers the learning curve for first-time users.</p>
+
+    <h3>Visual Annotation and Measurement</h3>
+
+    <p>For each detected frame, the system provides:</p>
+
+    <ul>
+      <li>polygon segmentation</li>
+      <li>airway area measurement</li>
+      <li>obstruction percentage</li>
+    </ul>
+
+    <p><span class="highlight-purple">Physicians can manually adjust annotations to refine the AI results</span>, ensuring that the final diagnosis remains under expert control.</p>
+
+    <h3>Automated Report Generation</h3>
+
+    <p>Once the analysis is completed, physicians can generate a diagnostic report with a single action.</p>
+
+    <p>The system automatically compiles:</p>
+
+    <ul>
+      <li>key screenshots</li>
+      <li>obstruction measurements</li>
+      <li>analysis summaries</li>
+    </ul>
+
+    <p>This feature simplifies documentation and improves workflow efficiency.</p>
+
+    <h2>Research Methods and Insights</h2>
+
+    <p>Survey Collection</p>
+
+    <p>To better understand the workflow challenges faced by clinicians, I conducted surveys and interviews with medical professionals.</p>
+
+    <p>Participants were asked questions such as:</p>
+
+    <blockquote>
+      “What is the most time-consuming part of DISE video analysis?”
+    </blockquote>
+
+    <p>Common responses included:</p>
+
+    <ul>
+      <li>locating critical frames</li>
+      <li>capturing screenshots</li>
+      <li>compiling reports</li>
+    </ul>
+
+    <h3>User Research</h3>
+
+    <p>Through discussions with physicians, several key insights emerged:</p>
+
+    <ul>
+      <li>Manual frame searching significantly slows down diagnosis</li>
+      <li>Many clinicians prefer simple tools over complex medical software</li>
+      <li>Visualization and annotation tools are essential for accurate evaluation</li>
+    </ul>
+
+    <p>These insights guided the design of the AI-assisted workflow.</p>
+
+    <h3>Low-Fidelity Prototypes</h3>
+
+    <p>During the early design phase, low-fidelity wireframes were used to validate the interaction model.</p>
+
+    <p>The prototypes focused on:</p>
+
+    <ul>
+      <li>user workflow logic</li>
+      <li>chat interaction structure</li>
+      <li>analysis result presentation</li>
+    </ul>
+
+    <h2>Data Analysis</h2>
+
+    <blockquote>
+      「Due to the confidentiality agreement, the process will not be disclosed」
+    </blockquote>
+
+    <h2>Low-Fidelity Prototypes</h2>
+
+    <p>Low-fidelity prototypes were used to explore different interface structures and test the feasibility of the AI-guided workflow.</p>
+
+    <ul>
+      <li>validating user interaction logic</li>
+      <li>identifying potential usability issues</li>
+      <li>ensuring compatibility with the AI analysis pipeline</li>
+    </ul>
+
+    <h3>Construction</h3>
+
+    <p>Initial interface concepts were created using simple sketches and interface simulations.</p>
+
+    <p>These prototypes demonstrated:</p>
+
+    <ul>
+      <li>video upload workflow</li>
+      <li>analysis parameter selection</li>
+      <li>result visualization layout</li>
+    </ul>
+
+    <h3>Testing</h3>
+
+    <p>Prototype testing sessions were conducted with potential users to observe interaction behavior.</p>
+
+    <p>The main points of observation included:</p>
+
+    <ul>
+      <li>Is the workflow intuitive for first-time users?</li>
+      <li>Can users easily understand the analysis results?</li>
+      <li>Are there any confusing interface elements?</li>
+    </ul>
+
+    <h2>Prototype Iteration Process</h2>
+
+    <p>One key design challenge during the iteration process was determining how to present AI analysis results clearly and effectively.</p>
+
+    <p>The central question guiding the design was:</p>
+
+    <p><strong>How can AI results be presented in a way that physicians can immediately understand and trust?</strong></p>
+
+    <h3>Static Frame Display</h3>
+
+    <p>Initially, the interface simply presented screenshots of key frames identified by the AI.</p>
+
+    <p>Although this approach allowed users to quickly view the frames, it lacked sufficient analytical context.</p>
+
+    <h3>AI Segmentation Overlay</h3>
+
+    <p><span class="highlight-purple">This visualization helps physicians instantly recognize airway shape and obstruction severity.</span></p>
+
+    <p>The overlay significantly improved the interpretability of AI results.</p>
+
+    <h3>Interactive Annotation Editing</h3>
+
+    <p>To ensure medical reliability, the interface allows physicians to manually adjust segmentation boundaries.</p>
+
+    <p>This feature transforms the AI output into a collaborative diagnostic tool, combining machine intelligence with human expertise.</p>
+
+    <h2>Results</h2>
+
+    <p><span class="highlight-purple">Physicians were able to identify critical airway obstruction frames much faster compared to traditional manual review.</span></p>
+
+    <h3>Data</h3>
+
+    <ul>
+      <li><span class="highlight-purple">AI frame detection reduced video review time by approximately 60%</span></li>
+      <li><span class="highlight-purple">Integrated annotation tools reduced manual screenshot processing time</span></li>
+    </ul>
+
+    <h2>Conclusion</h2>
+
+    <p>The DISE AI Agent successfully integrates AI video analysis, visualization, and conversational interaction into a unified medical interface.</p>
+
+    <p>By simplifying complex workflows and providing intelligent assistance, the system enhances both diagnostic efficiency and user experience.</p>
+
+    <p>This project demonstrates how human-centered AI design can support medical professionals while maintaining full expert control over the final diagnosis.</p>
+
+    <p>Thank you for reading until the end.</p>
+
+    <hr>
+
+  </div>
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>
