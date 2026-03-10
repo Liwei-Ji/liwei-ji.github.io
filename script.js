@@ -103,6 +103,13 @@ const cardData = [
         url: "https://liwei-ji.github.io/ai-agent-input",
     },
     {
+        imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/fs/de20e0220712515.6999e02704179.png",
+        title: "DISE AI",
+        subtitle: "Simplifying DISE video evaluation with real-time AI insights.",
+        tags: ["AI Agent", "UIUX"],
+        url: "https://liwei-ji.github.io/projects/dise-ai",
+    },
+    {
         imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/45ddd2220712515.695bcbd04ca9a.png",
         title: "DISE AI Agent",
         subtitle: "DISE AI is a medical AI agent combining U-Net based image recognition, LLMs and retrieval augmented generation RAG.",
