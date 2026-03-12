@@ -103,7 +103,7 @@ const cardData = [
         url: "https://liwei-ji.github.io/ai-agent-input",
     },
     {
-        imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/fs/de20e0220712515.6999e02704179.png",
+        imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/e069e4220712515.69b2ca7aeb9a0.png",
         title: "DISE AI",
         subtitle: "Simplifying DISE video evaluation with real-time AI insights.",
         tags: ["AI Agent", "UIUX"],
