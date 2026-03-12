@@ -153,7 +153,7 @@ const cardData = [
         url: "https://liwei-ji.github.io/projects/optex-app"
     },
     {
-        imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/d66ace220712515.67c825cfd1d87.png",
+        imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/6f5fbe220712515.69b2cc7c19b28.png",
         title: "Toyota New RAV4 In Car System",
         subtitle: "Comprehensively optimized in car system interfaces leveraging intuitive design, dynamic information, and feature integration to enhance driving convenience and safety.",
         tags: ["Japanese", "Toyota", "NewRav4", "Research"],
