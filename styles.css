@@ -211,7 +211,7 @@ body.dark-mode .hero-section {
         rgba(0, 0, 0, 0.6) 60%,
         #1e1e1e 100%
     );
-    --hero-image: url('https://mir-s3-cdn-cf.behance.net/project_modules/fs/f3fbbd220712515.684ac5d08670c.jpg');
+    --hero-image: url('https://mir-s3-cdn-cf.behance.net/project_modules/fs/47b05c220712515.699d0acc612e8.png');
 }
 
 /* 光亮模式背景圖 */
@@ -222,7 +222,7 @@ body.light-mode .hero-section {
         rgba(255, 255, 255, 0.3) 60%, 
         #f7f7f7 100% 
     );
-    --hero-image: url('https://mir-s3-cdn-cf.behance.net/project_modules/fs/5ff813220712515.6999d9da2d91b.jpg');
+    --hero-image: url('https://mir-s3-cdn-cf.behance.net/project_modules/fs/60fe58220712515.699d092bb8547.png');
 }
 
 /* Hero section text */
