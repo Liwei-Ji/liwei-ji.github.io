@@ -426,24 +426,106 @@ blockquote {
     100% { transform: translateX(0); } 
 } 
    
-/* 甩動動畫定義 */ 
-@keyframes swing-curve { 
-    0% { 
-      transform: rotate(0deg) translate(0, 0); 
-    } 
-    20% { 
-      transform: rotate(-15deg) translate(-5px, -5px); 
-    } 
-    40% { 
-      transform: rotate(10deg) translate(5px, 5px); 
-    } 
-    60% { 
-      transform: rotate(-10deg) translate(-4px, -4px); 
-    } 
-    80% { 
-      transform: rotate(5deg) translate(2px, 2px); 
-    } 
-    100% { 
-      transform: rotate(0deg) translate(0, 0); 
-    }   
+/* 甩動動畫定義 */
+@keyframes swing-curve {
+    0% {
+      transform: rotate(0deg) translate(0, 0);
+    }
+    20% {
+      transform: rotate(-15deg) translate(-5px, -5px);
+    }
+    40% {
+      transform: rotate(10deg) translate(5px, 5px);
+    }
+    60% {
+      transform: rotate(-10deg) translate(-4px, -4px);
+    }
+    80% {
+      transform: rotate(5deg) translate(2px, 2px);
+    }
+    100% {
+      transform: rotate(0deg) translate(0, 0);
+    }
+}
+
+/* 延伸閱讀 */
+.related-reading {
+    margin-top: 60px;
+    padding-bottom: 80px;
+}
+
+.related-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #999;
+    margin-bottom: 20px;
+}
+
+.related-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.related-card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #efefef;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.related-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.related-card img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+}
+
+.related-card-body {
+    padding: 14px 18px 18px;
+}
+
+.related-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+}
+
+.related-tags span {
+    font-size: 0.68rem;
+    font-weight: 600;
+    padding: 2px 8px;
+    background: #e0e0e0;
+    border-radius: 999px;
+    color: #555;
+}
+
+.related-card h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0 0 6px;
+}
+
+.related-card p {
+    font-size: 0.875rem;
+    color: #666;
+    margin: 0;
+    line-height: 1.5;
+}
+
+@media (max-width: 600px) {
+    .related-grid {
+        grid-template-columns: 1fr;
+    }
 }
