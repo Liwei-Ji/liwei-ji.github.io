@@ -173,7 +173,6 @@ input:checked + .slider:before {
   }
 }
 
-/* Hero Section Settings */
 /* Hero Section */
 .hero-section {
     display: flex;
@@ -182,47 +181,51 @@ input:checked + .slider:before {
     min-height: 100vh;
     padding: 2rem;
     box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+}
 
-    /* 以變數控制背景（第一層遮罩、第二層圖片） */
-    background-image: var(--hero-overlay, none), var(--hero-image, none);
+/* 確保內容顯示在背景圖層之上 */
+.hero-container {
+    position: relative;
+    z-index: 1;
+}
+
+/* 暗黑／亮色背景圖層，用 opacity crossfade 切換 */
+.hero-section::before,
+.hero-section::after {
+    content: '';
+    position: absolute;
+    inset: 0;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    transition: opacity 0.3s ease;
+    z-index: 0;
 }
 
-/* Labs：只顯示圖片，不加遮罩、不顯示文字
-   在新頁 <body> 加上 .page-hero-image-only
-   並提供 --hero-image */
-body.page-hero-image-only .hero-section {
-    --hero-overlay: none; /* 移除遮罩 */
+/* 暗黑模式背景 */
+.hero-section::before {
+    background-image:
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.6) 60%, rgba(30, 30, 30, 1) 100%),
+        url('https://mir-s3-cdn-cf.behance.net/project_modules/fs/47b05c220712515.699d0acc612e8.png');
+    opacity: 1;
 }
+
+/* 光亮模式背景 */
+.hero-section::after {
+    background-image:
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.3) 60%, rgba(247, 247, 247, 1) 100%),
+        url('https://mir-s3-cdn-cf.behance.net/project_modules/fs/60fe58220712515.699d092bb8547.png');
+    opacity: 0;
+}
+
+body.light-mode .hero-section::before { opacity: 0; }
+body.light-mode .hero-section::after  { opacity: 1; }
 
 /* Labs：隱藏主標文字（不影響主頁） */
 body.page-hero-image-only .hero-text {
     display: none;
-}
-
-/* 根據模式切換(閃爍Bug) */
-/* 暗黑模式背景圖 */
-body.dark-mode .hero-section {
-    --hero-overlay: linear-gradient(
-        to bottom,
-        rgba(0, 0, 0, 0.3) 0%,
-        rgba(0, 0, 0, 0.6) 60%,
-        #1e1e1e 100%
-    );
-    --hero-image: url('https://mir-s3-cdn-cf.behance.net/project_modules/fs/47b05c220712515.699d0acc612e8.png');
-}
-
-/* 光亮模式背景圖 */
-body.light-mode .hero-section {
-    --hero-overlay: linear-gradient(
-        to bottom,
-        rgba(255, 255, 255, 0.1) 0%,  
-        rgba(255, 255, 255, 0.3) 60%, 
-        #f7f7f7 100% 
-    );
-    --hero-image: url('https://mir-s3-cdn-cf.behance.net/project_modules/fs/60fe58220712515.699d092bb8547.png');
 }
 
 /* Hero section text */
