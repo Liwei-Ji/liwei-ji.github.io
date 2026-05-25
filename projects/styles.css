@@ -54,10 +54,16 @@ body {
 
 /* 內文區域 */
 .article {
-    max-width: 1200px;  /* 限制最大寬度， */
-    margin: 0 auto;  /* 內文居中 */
-    padding: 30px;  /* 內邊距 */
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 30px 24px;
     z-index: 1;
+}
+
+@media (min-width: 768px) {
+    .article {
+        padding: 40px 48px;
+    }
 }
 
 /* 標題 */
