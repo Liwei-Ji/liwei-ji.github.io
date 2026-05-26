@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Progress-Slides is an AI skill that converts structured work progress data into professional, self-contained HTML presentations with six visual styles." />
+  <title>Progress-Slides | AI Skill for Progress Presentations</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8WMNR1T1KL"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'G-8WMNR1T1KL');
+</script>
+
+<body>
+  <a href="https://liwei-ji.github.io/" class="back-button" aria-label="Go back">
+    <i class="fas fa-xmark"></i>
+  </a>
+  <div id="progress-bar"></div>
+
+  <div class="skill-article">
+
+    <p class="skill-date">// May 2025</p>
+
+    <h1 class="skill-title">Progress-Slides</h1>
+
+    <p class="skill-platform-tags">
+      <span class="skill-tag">Gemini</span>
+      <span class="skill-tag">Claude</span>
+      <span class="skill-tag">Cursor</span>
+      <span class="skill-tag">Prompt Engineering</span>
+    </p>
+
+    <img src="images/cover.jpg" alt="Progress-Slides" class="skill-image">
+
+    <!-- What It Does -->
+    <div class="skill-section">
+      <p class="skill-section-label">What It Does</p>
+      <p>Progress-Slides converts structured work progress data into professional, self-contained HTML presentations — no design tools, no external dependencies, no setup required. You provide a YAML data file; the AI returns a complete, ready-to-share HTML file.</p>
+      <p>The output runs entirely in the browser as a single file, making it easy to share via email, Slack, or any file transfer without worrying about broken links or missing assets.</p>
+      <p>Six visual styles to choose from:</p>
+      <ul>
+        <li><span class="skill-highlight">Minimalist</span> — clean white background, maximum readability</li>
+        <li><span class="skill-highlight">Dark Signal</span> — tech-forward dark aesthetic</li>
+        <li><span class="skill-highlight">Swiss Modern</span> — bold contrast, grid-driven layout</li>
+        <li><span class="skill-highlight">Botanical</span> — soft greens, calm and approachable</li>
+        <li><span class="skill-highlight">Cyber Terminal</span> — retro CRT / command-line aesthetic</li>
+        <li><span class="skill-highlight">Editorial</span> — magazine-style layout with typographic hierarchy</li>
+      </ul>
+    </div>
+
+    <!-- Why I Built It -->
+    <div class="skill-section">
+      <p class="skill-section-label">Why I Built It</p>
+      <p>Progress updates are one of the most repetitive parts of any project. Every sprint, every week, someone has to take raw status data and turn it into something presentable — whether it's a Notion page, a deck, or a doc dropped in Slack.</p>
+      <p>The problem is that "presentable" usually requires a designer's time or an hour in Keynote. Most teams don't have that, so progress reports end up as bullet-point walls that nobody reads.</p>
+      <p><span class="skill-highlight">Progress-Slides separates the data from the presentation layer.</span> You maintain your progress in a structured YAML format — which is fast to update — and the skill handles the visual translation. The output is a stable, predictable HTML file that looks intentional without requiring design effort.</p>
+      <p>I also wanted to prove that prompt engineering could replace an entire category of templated tooling. No Figma. No PowerPoint. Just a well-designed skill and structured input.</p>
+    </div>
+
+    <!-- How to Use It -->
+    <div class="skill-section">
+      <p class="skill-section-label">How to Use It</p>
+      <div class="skill-steps">
+
+        <div class="skill-step">
+          <p class="skill-step-num">$ step_01</p>
+          <h3>Get the Skill</h3>
+          <p>Go to the <a href="https://github.com/Liwei-Ji/progress-slides" target="_blank">progress-slides GitHub repository</a> and copy the content of <code>SKILL.md</code>. Also download <code>input.yaml</code> as your data template.</p>
+        </div>
+
+        <div class="skill-step">
+          <p class="skill-step-num">$ step_02</p>
+          <h3>Load into Your AI</h3>
+          <p>Paste <code>SKILL.md</code> as a system prompt or custom instruction in:</p>
+          <ul>
+            <li>Gemini — Gems or system prompt</li>
+            <li>Claude — Project Instructions or system prompt</li>
+            <li>Cursor / Windsurf — reference the skill directory</li>
+          </ul>
+        </div>
+
+        <div class="skill-step">
+          <p class="skill-step-num">$ step_03</p>
+          <h3>Choose a Style</h3>
+          <p>Start the session and the AI will present the six visual styles. Pick one that fits your audience — Dark Signal for engineering teams, Botanical for stakeholder updates, Editorial for executive reviews.</p>
+        </div>
+
+        <div class="skill-step">
+          <p class="skill-step-num">$ step_04</p>
+          <h3>Provide Your Data</h3>
+          <p>Fill in <code>input.yaml</code> with your project name, status, milestones, blockers, and next steps. Paste it into the session — the AI generates a complete, self-contained HTML file ready to share.</p>
+        </div>
+
+      </div>
+
+      <div class="skill-cta">
+        <a href="https://github.com/Liwei-Ji/progress-slides" target="_blank" class="skill-cta-primary">
+          <i class="fab fa-github"></i> Get Progress-Slides
+        </a>
+        <a href="https://raw.githubusercontent.com/Liwei-Ji/progress-slides/main/SKILL.md" target="_blank" class="skill-cta-secondary">
+          View SKILL.md
+        </a>
+      </div>
+    </div>
+
+    <hr class="skill-divider">
+
+    <!-- 延伸閱讀 -->
+    <p class="skill-related-label">Continue Exploring</p>
+    <div class="skill-related-grid">
+
+      <a href="https://liwei-ji.github.io/skills/skillprd/" class="skill-related-card">
+        <img src="../skillprd/images/cover.jpg" alt="SkillPRD" loading="lazy">
+        <div class="skill-related-card-body">
+          <h3>SkillPRD</h3>
+          <p>Transforms product ideas into professional PRDs — the structured thinking behind Progress-Slides.</p>
+        </div>
+      </a>
+
+      <a href="https://liwei-ji.github.io/projects/dise-ai" class="skill-related-card">
+        <img src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/e069e4220712515.69b2ca7aeb9a0.png" alt="DISE AI" loading="lazy">
+        <div class="skill-related-card-body">
+          <h3>DISE AI</h3>
+          <p>Simplifying complex workflows with AI — a case study in structured information design.</p>
+        </div>
+      </a>
+
+    </div>
+
+  </div>
+
+  <script src="../../projects/script.js"></script>
+
+</body>
+</html>
