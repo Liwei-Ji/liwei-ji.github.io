@@ -326,6 +326,130 @@ body.light-mode .hero-text span:not(.cursor) {
     .hero-text { font-size: 2.2rem; }
 }
 
+/* AI Skills Section */
+.skills-section {
+    padding: 80px 2rem 60px;
+    display: flex;
+    justify-content: center;
+}
+
+.skills-container {
+    width: 100%;
+    max-width: 1400px;
+}
+
+.skills-headline {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.1;
+    margin-bottom: 32px;
+}
+
+body.light-mode .skills-headline {
+    color: #1e1e1e;
+}
+
+.skills-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #4CAF50;
+    margin-bottom: 24px;
+}
+
+.skills-grid {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.skill-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 24px 28px;
+    border-radius: 16px;
+    border: 1px solid rgba(76, 175, 80, 0.2);
+    background: rgba(76, 175, 80, 0.04);
+    text-decoration: none;
+    color: inherit;
+    width: 280px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    cursor: pointer;
+}
+
+.skill-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(76, 175, 80, 0.5);
+    box-shadow: 0 8px 24px rgba(76, 175, 80, 0.1);
+}
+
+.skill-card-icon {
+    font-size: 1.5rem;
+}
+
+.skill-card-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin: 0;
+}
+
+body.light-mode .skill-card-title {
+    color: #1e1e1e;
+}
+
+.skill-card-desc {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0;
+    line-height: 1.5;
+}
+
+body.light-mode .skill-card-desc {
+    color: rgba(0, 0, 0, 0.55);
+}
+
+.skill-card-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.skill-card-tag {
+    font-size: 0.68rem;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: rgba(76, 175, 80, 0.15);
+    color: #4CAF50;
+}
+
+/* skill-tag 用於 skillprd.html 頁面 */
+.skill-platform-tags {
+    margin: -8px 0 24px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.skill-tag {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(76, 175, 80, 0.4);
+    color: #4CAF50;
+}
+
+@media (max-width: 768px) {
+    .skill-card {
+        width: 100%;
+    }
+}
+
 /* Projects */
 .projects-section {
     min-height: 100vh;
