@@ -207,6 +207,47 @@ body {
   line-height: 1.65;
 }
 
+/* Values */
+.values-intro {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  margin-bottom: 32px;
+}
+
+.values-list {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.value-item {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 20px;
+}
+
+.value-num {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent);
+  padding-top: 3px;
+  letter-spacing: 0.04em;
+}
+
+.value-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.value-body p {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.75;
+}
+
 /* Tools */
 .about-tools {
   display: grid;
