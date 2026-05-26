@@ -371,19 +371,18 @@ body.light-mode .skills-headline {
     gap: 12px;
     padding: 24px 28px;
     border-radius: 16px;
-    border: 1px solid rgba(76, 175, 80, 0.2);
-    background: rgba(76, 175, 80, 0.04);
+    border: 1px solid rgba(76, 175, 80, 0.5);
+    background: transparent;
     text-decoration: none;
     color: inherit;
     width: 280px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    transition: transform 0.2s ease, border-color 0.2s ease;
     cursor: pointer;
 }
 
 .skill-card:hover {
     transform: translateY(-4px);
-    border-color: rgba(76, 175, 80, 0.5);
-    box-shadow: 0 8px 24px rgba(76, 175, 80, 0.1);
+    border-color: #4CAF50;
 }
 
 .skill-card-icon {
