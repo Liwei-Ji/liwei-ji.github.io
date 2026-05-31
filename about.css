@@ -270,6 +270,38 @@ body {
   line-height: 1.6;
 }
 
+/* Behind This Site */
+.behind-body {
+  font-size: 1rem;
+  color: var(--text-primary);
+  line-height: 1.75;
+  margin-bottom: 24px;
+}
+
+.behind-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+.behind-link:hover {
+  border-bottom-color: var(--accent);
+}
+
+.behind-arrow {
+  transition: transform 0.2s ease;
+}
+
+.behind-link:hover .behind-arrow {
+  transform: translateX(4px);
+}
+
 /* Connect */
 .connect-intro {
   font-size: 1rem;
