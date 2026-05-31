@@ -8,8 +8,8 @@
 
 :root {
   --bg: #1e1e1e;
-  --text-primary: #f0f0f0;
-  --text-secondary: rgba(240, 240, 240, 0.55);
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.6);
   --border: rgba(255, 255, 255, 0.1);
   --accent: #4CAF50;
 }
@@ -26,7 +26,7 @@ body {
   background: var(--bg);
   color: var(--text-primary);
   font-family: 'Inter', sans-serif;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1.7;
   transition: background 0.3s ease, color 0.3s ease;
 }
@@ -101,7 +101,7 @@ body {
 
 .about-bio-text p {
   font-size: 1rem;
-  color: var(--text-secondary);
+  color: var(--text-primary);
   margin-bottom: 14px;
   line-height: 1.75;
 }
@@ -195,7 +195,7 @@ body {
 }
 
 .timeline-content h3 {
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 700;
   color: var(--text-primary);
   margin-bottom: 6px;
@@ -209,7 +209,7 @@ body {
 
 /* Values */
 .values-intro {
-  font-size: 0.95rem;
+  font-size: 1rem;
   color: var(--text-secondary);
   line-height: 1.75;
   margin-bottom: 32px;
@@ -236,7 +236,7 @@ body {
 }
 
 .value-title {
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 700;
   color: var(--text-primary);
   margin-bottom: 8px;
