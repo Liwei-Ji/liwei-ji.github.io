@@ -271,6 +271,20 @@ body {
 }
 
 /* Connect */
+.connect-intro {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+}
+
+.connect-sub {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 28px;
+}
+
 .about-connect .social-links {
   display: flex;
   gap: 20px;
