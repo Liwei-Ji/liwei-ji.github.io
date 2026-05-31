@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design System | Liwei Ji</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="spec.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <a href="https://liwei-ji.github.io/" class="back-button" aria-label="Go back">
+    <i class="fas fa-xmark"></i>
+  </a>
+
+  <div class="spec-wrapper">
+
+    <!-- Header -->
+    <header class="spec-header">
+      <h1 class="spec-header-title">Design System</h1>
+      <p class="spec-header-desc">The foundation of every design decision made on this site. A single source of truth for color, typography, components, and spacing built to ensure visual consistency across all pages.</p>
+    </header>
+
+    <!-- ── 1. Colors ── -->
+    <section class="spec-section">
+      <h2 class="spec-section-title">Colors</h2>
+
+      <p class="spec-subsection">Dark Mode</p>
+      <div class="color-grid">
+        <div class="color-swatch">
+          <div class="swatch-block" style="background:#1e1e1e"></div>
+          <div class="swatch-info">
+            <span class="swatch-name">Background</span>
+            <span class="swatch-hex">#1e1e1e</span>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="swatch-block" style="background:#0d1117"></div>
+          <div class="swatch-info">
+            <span class="swatch-name">Surface — Skill</span>
+            <span class="swatch-hex">#0d1117</span>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="swatch-block" style="background:#161b22"></div>
+          <div class="swatch-info">
+            <span class="swatch-name">Card Surface</span>
+            <span class="swatch-hex">#161b22</span>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="swatch-block" style="background:#21262d"></div>
+          <div class="swatch-info">
+            <span class="swatch-name">UI Element</span>
+            <span class="swatch-hex">#21262d</span>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="swatch-block" style="background:#ffffff; border-bottom:1px solid #30363d"></div>
+          <div class="swatch-info">
+            <span class="swatch-name">Text Primary</span>
+            <span class="swatch-hex">#ffffff</span>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="swatch-block" style="background:rgba(255,255,255,0.6)"></div>
+          <div class="swatch-info">
+            <span class="swatch-name">Text Secondary</span>
+            <span class="swatch-hex">rgba(255,255,255,0.6)</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="spec-subsection">Light Mode</p>
+      <div class="color-grid">
+        <div class="color-swatch">
+          <div class="swatch-block" style="background:#f7f7f7; border-bottom:1px solid #e0e0e0"></div>
+          <div class="swatch-info">
+            <span class="swatch-name">Background</span>
+            <span class="swatch-hex">#f7f7f7</span>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="swatch-block" style="background:#1e1e1e"></div>
+          <div class="swatch-info">
+            <span class="swatch-name">Text Primary</span>
+            <span class="swatch-hex">#1e1e1e</span>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="swatch-block" style="background:rgba(30,30,30,0.55); border-bottom:1px solid #e0e0e0"></div>
+          <div class="swatch-info">
+            <span class="swatch-name">Text Secondary</span>
+            <span class="swatch-hex">rgba(30,30,30,0.55)</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="spec-subsection">Accent</p>
+      <div class="color-grid">
+        <div class="color-swatch">
+          <div class="swatch-block" style="background:#4CAF50"></div>
+          <div class="swatch-info">
+            <span class="swatch-name">Accent</span>
+            <span class="swatch-hex">#4CAF50</span>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="swatch-block" style="background:#66bb6a"></div>
+          <div class="swatch-info">
+            <span class="swatch-name">Accent Hover</span>
+            <span class="swatch-hex">#66bb6a</span>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="swatch-block" style="background:rgba(76,175,80,0.5)"></div>
+          <div class="swatch-info">
+            <span class="swatch-name">Accent Border</span>
+            <span class="swatch-hex">rgba(76,175,80,0.5)</span>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="swatch-block" style="background:#2e7d32"></div>
+          <div class="swatch-info">
+            <span class="swatch-name">Accent — Light</span>
+            <span class="swatch-hex">#2e7d32</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 2. Typography ── -->
+    <section class="spec-section">
+      <h2 class="spec-section-title">Typography</h2>
+
+      <div class="type-entry">
+        <div class="type-example" style="font-family:'Poppins',sans-serif; font-size:clamp(2.5rem,6vw,4.5rem); font-weight:700; line-height:1.1; color:#ffffff">
+          Liwei Ji
+        </div>
+        <div class="type-spec-bar">
+          <span class="type-spec-name">Display</span>
+          <span class="type-spec-dot">·</span>
+          <span class="type-spec-detail">Poppins 700</span>
+          <span class="type-spec-dot">·</span>
+          <span class="type-spec-detail">clamp(2.5rem, 6vw, 4.5rem)</span>
+          <span class="type-spec-dot">·</span>
+          <span class="type-spec-detail">line-height 1.1</span>
+          <span class="type-spec-dot">·</span>
+          <span class="type-spec-detail">Hero heading only</span>
+        </div>
+      </div>
+
+      <div class="type-entry">
+        <div class="type-example" style="font-size:clamp(2.5rem,5vw,4rem); font-weight:800; line-height:1.1; color:#ffffff">
+          First Principles
+        </div>
+        <div class="type-spec-bar">
+          <span class="type-spec-name">H1 — Page Title</span>
+          <span class="type-spec-dot">·</span>
+          <span class="type-spec-detail">Inter 800</span>
+          <span class="type-spec-dot">·</span>
+          <span class="type-spec-detail">clamp(2.5rem, 5vw, 4rem)</span>
+          <span class="type-spec-dot">·</span>
+          <span class="type-spec-detail">line-height 1.1</span>
+          <span class="type-spec-dot">·</span>
+          <span class="type-spec-detail">Skill &amp; About page titles</span>
+        </div>
+      </div>
+
+      <div class="type-entry">
+        <div class="type-example" style="font-size:1.2rem; line-height:1.7; color:rgba(255,255,255,0.85)">
+          Behind every complex challenge lies an opportunity to simplify and refine.
+        </div>
+        <div class="type-spec-bar">
+          <span class="type-spec-name">Body Large</span>
+          <span class="type-spec-dot">·</span>
+          <span class="type-spec-detail">Inter 400</span>
+          <span class="type-spec-dot">·</span>
+          <span class="type-spec-detail">1.2rem</span>
+          <span class="type-spec-dot">·</span>
+          <span class="type-spec-detail">line-height 1.7</span>
+          <span class="type-spec-dot">·</span>
+          <span class="type-spec-detail">Homepage intro paragraphs</span>
+        </div>
+      </div>
+
+      <div class="type-entry">
+        <div class="type-example" style="font-size:1rem; line-height:1.75; color:rgba(255,255,255,0.85)">
+          I design thoughtful digital experiences at the intersection of product, interaction, and intelligence. With a strong foundation in UI/UX, I turn complexity into clarity.
+        </div>
+        <div class="type-spec-bar">
+          <span class="type-spec-name">Body Base</span>
+          <span class="type-spec-dot">·</span>
+          <span class="type-spec-detail">Inter 400</span>
+          <span class="type-spec-dot">·</span>
+          <span class="type-spec-detail">1rem (base 18px)</span>
+          <span class="type-spec-dot">·</span>
+          <span class="type-spec-detail">line-height 1.6–1.75</span>
+          <span class="type-spec-dot">·</span>
+          <span class="type-spec-detail">Main body content</span>
+        </div>
+      </div>
+
+      <div class="type-entry">
+        <div class="type-example" style="font-size:0.875rem; line-height:1.5; color:rgba(255,255,255,0.6)">
+          Transforms product ideas into professional PRDs — four output formats for different audiences.
+        </div>
+        <div class="type-spec-bar">
+          <span class="type-spec-name">Body Small</span>
+          <span class="type-spec-dot">·</span>
+          <span class="type-spec-detail">Inter 400</span>
+          <span class="type-spec-dot">·</span>
+          <span class="type-spec-detail">0.875rem</span>
+          <span class="type-spec-dot">·</span>
+          <span class="type-spec-detail">line-height 1.5</span>
+          <span class="type-spec-dot">·</span>
+          <span class="type-spec-detail">Card descriptions, captions</span>
+        </div>
+      </div>
+
+      <div class="type-entry">
+        <div class="type-example" style="font-size:0.78rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:#4CAF50">
+          What It Does
+        </div>
+        <div class="type-spec-bar">
+          <span class="type-spec-name">Label</span>
+          <span class="type-spec-dot">·</span>
+          <span class="type-spec-detail">Inter 700</span>
+          <span class="type-spec-dot">·</span>
+          <span class="type-spec-detail">0.78rem</span>
+          <span class="type-spec-dot">·</span>
+          <span class="type-spec-detail">letter-spacing 0.12em · UPPERCASE</span>
+          <span class="type-spec-dot">·</span>
+          <span class="type-spec-detail">Section labels, tags</span>
+        </div>
+      </div>
+
+      <div class="type-entry">
+        <div class="type-example" style="font-family:'JetBrains Mono',monospace; font-size:0.72rem; font-weight:600; color:#4CAF50">
+          // Mar 21, 2026 &nbsp;&nbsp;&nbsp; $ step_01 &nbsp;&nbsp;&nbsp; #4CAF50
+        </div>
+        <div class="type-spec-bar">
+          <span class="type-spec-name">Mono</span>
+          <span class="type-spec-dot">·</span>
+          <span class="type-spec-detail">JetBrains Mono 600</span>
+          <span class="type-spec-dot">·</span>
+          <span class="type-spec-detail">0.72rem</span>
+          <span class="type-spec-dot">·</span>
+          <span class="type-spec-detail">Dates, step numbers, hex values, code</span>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ── 3. Components ── -->
+    <section class="spec-section">
+      <h2 class="spec-section-title">Components</h2>
+
+      <div class="component-group">
+        <p class="component-label">Buttons — Homepage</p>
+        <div class="component-row">
+          <span class="demo-btn-primary">Learn More</span>
+          <span class="demo-btn-secondary">Overview</span>
+        </div>
+      </div>
+
+      <div class="component-group">
+        <p class="component-label">Buttons — Skill Pages</p>
+        <div class="component-row">
+          <span class="demo-cta-primary"><i class="fab fa-github"></i> Get SkillPRD</span>
+          <span class="demo-cta-secondary">View SKILL.md</span>
+        </div>
+      </div>
+
+      <div class="component-group">
+        <p class="component-label">Navigation</p>
+        <div class="component-row">
+          <span class="demo-back"><i class="fas fa-xmark"></i></span>
+          <span style="font-size:0.8rem; color:rgba(255,255,255,0.35)">Back button — fixed top-right on all inner pages</span>
+        </div>
+      </div>
+
+      <div class="component-group">
+        <p class="component-label">Reading Progress Bar</p>
+        <div class="demo-progress-bar" style="width:55%"></div>
+      </div>
+
+      <div class="component-group">
+        <p class="component-label">Section Label Pattern</p>
+        <div class="demo-section-label">What It Does</div>
+      </div>
+
+      <div class="component-group">
+        <p class="component-label">Skill Card</p>
+        <div class="component-row">
+          <div class="demo-skill-card">
+            <div class="demo-skill-card-title">SkillPRD</div>
+            <div class="demo-skill-card-desc">Transforms product ideas into professional PRDs.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="component-group">
+        <p class="component-label">Project Card</p>
+        <div class="component-row">
+          <div class="demo-project-card">
+            <div class="demo-project-card-img">cover image</div>
+            <div class="demo-project-card-body">
+              <div class="demo-project-card-title">DISE AI Agent</div>
+              <div class="demo-project-card-sub">AI · Medical · UX</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="component-group">
+        <p class="component-label">Tags</p>
+        <div class="component-row">
+          <span class="demo-tag-skill">Claude</span>
+          <span class="demo-tag-skill">Prompt Engineering</span>
+          <span class="demo-tag-project">AI</span>
+          <span class="demo-tag-project">UX</span>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ── 4. Layout ── -->
+    <section class="spec-section">
+      <h2 class="spec-section-title">Layout & Spacing</h2>
+
+      <div class="layout-row">
+        <div class="layout-key">Max-width</div>
+        <div class="layout-value">
+          Homepage cards container — 1400px<br>
+          Project pages — 800px<br>
+          Skill pages — 720px<br>
+          About page — 760px
+        </div>
+      </div>
+
+      <div class="layout-row">
+        <div class="layout-key">Breakpoints</div>
+        <div class="layout-value">
+          900px — Navbar hidden on mobile<br>
+          768px — Cards reflow, hero text shrinks<br>
+          600px — Single column layout
+        </div>
+      </div>
+
+      <div class="layout-row">
+        <div class="layout-key">Page padding</div>
+        <div class="layout-value">
+          Top: 80–100px &nbsp; Bottom: 120px<br>
+          Horizontal: 24px mobile · 48px tablet+
+        </div>
+      </div>
+
+      <div class="layout-row">
+        <div class="layout-key">Section spacing</div>
+        <div class="layout-value">
+          Between sections: 48–80px<br>
+          Section title margin-bottom: 20–36px
+        </div>
+      </div>
+
+      <div class="layout-row">
+        <div class="layout-key">Border radius</div>
+        <div class="layout-value">
+          Project / Related cards: 8–12px<br>
+          Skill cards: 16px<br>
+          Pill buttons: 50px<br>
+          Rect buttons: 6px
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+</body>
+</html>
