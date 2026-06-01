@@ -30,6 +30,11 @@
 </script>
 
 <body class="dark-mode">
+  <script>
+    if (localStorage.getItem('colorMode') === 'light') {
+      document.body.classList.replace('dark-mode', 'light-mode');
+    }
+  </script>
 
   <a href="https://liwei-ji.github.io/" class="back-button" aria-label="Go back">
     <i class="fas fa-xmark"></i>
@@ -181,11 +186,6 @@
 
   </div>
 
-  <script>
-    if (localStorage.getItem('colorMode') === 'light') {
-      document.body.classList.replace('dark-mode', 'light-mode');
-    }
-  </script>
 
 </body>
 </html>
