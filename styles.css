@@ -449,6 +449,91 @@ body.light-mode .skill-card-desc {
     }
 }
 
+/* Writing Section */
+.writing-section {
+    padding: 0 2rem 80px;
+    display: flex;
+    justify-content: center;
+}
+
+.writing-container {
+    width: 100%;
+    max-width: 1400px;
+}
+
+.writing-headline {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.1;
+    margin-bottom: 32px;
+}
+
+body.light-mode .writing-headline {
+    color: #1e1e1e;
+}
+
+.writing-grid {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+}
+
+.writing-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 24px 28px;
+    border-radius: 16px;
+    border: 1px solid rgba(76, 175, 80, 0.5);
+    background: transparent;
+    text-decoration: none;
+    color: inherit;
+    width: 360px;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.writing-card:hover {
+    transform: translateY(-4px);
+    border-color: #4CAF50;
+}
+
+.writing-card-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+    line-height: 1.4;
+}
+
+body.light-mode .writing-card-title {
+    color: #1e1e1e;
+}
+
+.writing-card-desc {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0;
+    line-height: 1.55;
+    flex: 1;
+}
+
+body.light-mode .writing-card-desc {
+    color: rgba(0, 0, 0, 0.55);
+}
+
+.writing-card-date {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.35);
+    margin-top: 4px;
+}
+
+body.light-mode .writing-card-date {
+    color: rgba(0, 0, 0, 0.35);
+}
+
+
 /* Projects */
 .projects-section {
     min-height: 100vh;
