@@ -6,16 +6,23 @@ function checkMode() {
     if (modeToggle.checked) {
         document.body.classList.remove('dark-mode');
         document.body.classList.add('light-mode');
+        localStorage.setItem('colorMode', 'light');
     } else {
         document.body.classList.remove('light-mode');
         document.body.classList.add('dark-mode');
+        localStorage.setItem('colorMode', 'dark');
     }
+}
+
+    // 頁面加載時從 localStorage 恢復模式
+if (localStorage.getItem('colorMode') === 'light') {
+    modeToggle.checked = true;
 }
 
     // 監聽切換事件
 modeToggle.addEventListener('change', checkMode);
 
-    // 頁面加載時檢查顏色模式
+    // 套用初始模式
 checkMode();
 
     // 打字機效果
