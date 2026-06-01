@@ -1,146 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="LiWei Ji's portfolio, web development journey, and professional projects.">
-    <meta name="keywords" content="LiWei Ji, web development, portfolio, design, GitHub, professional projects, tech journey, personal website, coding progress">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Relaunch</title>
-    <link rel="stylesheet" href="../projects/styles.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="The story behind rebuilding Liwei Ji's portfolio from scratch — why Behance and Notion weren't enough, and what came next.">
+  <title>Relaunch | Liwei Ji</title>
+  <link rel="icon" href="../favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../about.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    .relaunch-list {
+      padding-left: 20px;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 2;
+    }
+    .relaunch-list li {
+      margin-bottom: 4px;
+    }
+    .relaunch-list ul {
+      padding-left: 20px;
+      margin-top: 4px;
+    }
+    .relaunch-img {
+      width: 100%;
+      border-radius: 8px;
+      margin-top: 8px;
+    }
+    .charts-row {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+    .chart-container {
+      flex: 1;
+      min-width: 240px;
+    }
+    .chart-note {
+      width: 100%;
+      background: rgba(255, 193, 7, 0.08);
+      border-left: 3px solid rgba(255, 193, 7, 0.5);
+      padding: 12px 16px;
+      border-radius: 4px;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      margin-top: 16px;
+    }
+  </style>
 </head>
-    <!-- Google tag (gtag.js) -->
+
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-8WMNR1T1KL"></script>
-    <!-- Chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
+  function gtag() { dataLayer.push(arguments); }
   gtag('js', new Date());
-
   gtag('config', 'G-8WMNR1T1KL');
 </script>
-<body>
-        <div class="article">      
-          <h1>The Journey to Rebuild My Portfolio</h1>
-        <div class="left-text-right-image">
-        <div class="left-text">
-          <div class="text fade-in">
-            <p class="fade-in"><strong>👋 I'm Liwei Ji</strong>  For years, I searched for the best way to showcase my work but realized it was time for a change</p>
-            <p class="fade-in">I started with Behance simple, easy to use, and great for uploading designs. But as my needs grew, its lack of flexibility limited how I could present my work</p>
-            <p class="fade-in">Next, I turned to Notion. It’s excellent for organizing ideas but lacks interactivity and a professional feel. That’s when I realized I needed a personalized online presence</p>
-            <p class="fade-in">I wanted a platform to unify my content across LinkedIn, Medium, and beyond. These platforms work well individually but fail to present a complete professional image. A dedicated website would give visitors a deeper understanding of me</p>
-            <p class="fade-in">More importantly, my website should evolve with me not just as a static portfolio, but as a reflection of my growth. Every update marks another step forward</p>
-            <p class="fade-in">This rebuild isn’t just technical it’s an investment in self improvement, a <strong>journey toward excellence</strong></p>  
-          </div>
+
+<body class="dark-mode">
+  <script>
+    if (localStorage.getItem('colorMode') === 'light') {
+      document.body.classList.replace('dark-mode', 'light-mode');
+    }
+  </script>
+
+  <a href="https://liwei-ji.github.io/" class="back-button" aria-label="Go back">
+    <i class="fas fa-xmark"></i>
+  </a>
+
+  <div class="about-wrapper">
+
+    <!-- Hero -->
+    <section class="about-hero">
+      <h1 class="about-name">The Journey to Rebuild My Portfolio</h1>
+    </section>
+
+    <!-- Story + Image -->
+    <section class="about-bio">
+      <div class="about-bio-text">
+        <p><strong>👋 I'm Liwei Ji</strong>  For years, I searched for the best way to showcase my work but realized it was time for a change</p>
+        <p>I started with Behance simple, easy to use, and great for uploading designs. But as my needs grew, its lack of flexibility limited how I could present my work</p>
+        <p>Next, I turned to Notion. It's excellent for organizing ideas but lacks interactivity and a professional feel. That's when I realized I needed a personalized online presence</p>
+        <p>I wanted a platform to unify my content across LinkedIn, Medium, and beyond. These platforms work well individually but fail to present a complete professional image. A dedicated website would give visitors a deeper understanding of me</p>
+        <p>More importantly, my website should evolve with me not just as a static portfolio, but as a reflection of my growth. Every update marks another step forward</p>
+        <p>This rebuild isn't just technical it's an investment in self improvement, a <strong>journey toward excellence</strong></p>
+      </div>
+      <div class="about-photo">
+        <img src="https://images.unsplash.com/photo-1729710877235-28d1e82d0442?q=80&w=2070&auto=format&fit=crop" alt="Rebuilding the portfolio">
+      </div>
+    </section>
+
+    <!-- How I Did It -->
+    <section class="about-section">
+      <h2 class="about-section-title">How I Did It</h2>
+      <ol class="relaunch-list">
+        <li>Website low-fidelity design</li>
+        <li>Early development tasks
+          <ul>
+            <li>Register GitHub account</li>
+            <li>Set up the development environment</li>
+          </ul>
+        </li>
+        <li>Front-end development
+          <ul>
+            <li>Write HTML, CSS, JavaScript</li>
+          </ul>
+        </li>
+        <li>Testing and optimization
+          <ul>
+            <li>Test responsive design</li>
+            <li>SEO optimization</li>
+            <li>Performance optimization</li>
+          </ul>
+        </li>
+        <li>Website deployment</li>
+        <li>Maintenance and updates</li>
+      </ol>
+    </section>
+
+    <!-- Sitemap -->
+    <section class="about-section">
+      <h2 class="about-section-title">Sitemap</h2>
+      <img src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/07b65a221320463.67d2663a7cbe0.png" alt="Sitemap" class="relaunch-img">
+    </section>
+
+    <!-- Progress -->
+    <section class="about-section">
+      <h2 class="about-section-title">Progress</h2>
+      <div class="charts-row">
+        <div class="chart-container">
+          <canvas id="totalProgressChart"></canvas>
         </div>
-        <div class="right-image" style="background-image: url('https://images.unsplash.com/photo-1729710877235-28d1e82d0442?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
+        <div class="chart-container">
+          <canvas id="featureProgressChart"></canvas>
         </div>
-        
+        <p class="chart-note">💡 I'm fixing bugs, improving, and adding features, tracking progress with a donut chart, so the timeline may change.</p>
+      </div>
+    </section>
 
-           <!-- How -->
-    <div class="text fade-in">
-    <h3 class="title">How I Did It...</h3>
-    <ol>
-    <li>Website low-fidelity design</li>
-    <li>Early development tasks
-    <ul>
-    <li>Register GitHub account</li>
-    <li>Set up the development environment</li>
-    </ul>
-    </li>
-    <li>Front-end development
-    <ul>
-    <li>Write HTML, CSS, JavaScript</li>
-    </ul>
-    </li>
-    <li>Testing and optimization
-    <ul>
-    <li>Test responsive design</li>
-    <li>SEO optimization</li>
-    <li>Performance optimization</li>
-    </ul>
-    </li>
-    <li>Website deployment</li>
-    <li>Maintenance and updates</li>
-    </ol>
+    <!-- Disclaimer -->
+    <section class="about-section">
+      <h2 class="about-section-title">Disclaimer</h2>
+      <p class="behind-body">Thank you for visiting my personal portfolio website! I just want to take a moment to share a few things about it.</p>
+      <p class="behind-body">First, I'm not a professional front-end developer, but I'm passionate about learning and growing in web development. This website is a product of that journey built to practice and improve my skills. So, please keep in mind that I'm still learning as I go.</p>
+      <p class="behind-body">I decided not to use any pre-made templates for this site. I wanted to challenge myself and create everything from scratch, showcasing my own work and creativity.</p>
+      <p class="behind-body">As I continue learning, this website will keep evolving and improving. Some sections may not be perfect, but I'm actively making changes and fixing things. I'm always open to feedback, and your input means a lot to me.</p>
+      <p class="behind-body">Thank you so much for your support! I really appreciate your interest in my portfolio, and if you have any questions or suggestions, please don't hesitate to reach out. This website isn't just a place to showcase my work it's also where I'm learning and growing. Thanks again for your understanding!</p>
+    </section>
+
+    <!-- Visit -->
+    <section class="about-section about-connect">
+      <h2 class="about-section-title">Visit</h2>
+      <div class="social-links">
+        <a href="https://liwei-ji.github.io/" aria-label="Website" class="social-icon">
+          <i class="fas fa-globe"></i>
+        </a>
+        <a href="https://liwei-ji.github.io/#projects" aria-label="Portfolio" class="social-icon">
+          <i class="fas fa-wand-magic-sparkles"></i>
+        </a>
+        <a href="https://www.behance.net/jpw0616380b" target="_blank" aria-label="Behance" class="social-icon">
+          <i class="fab fa-behance"></i>
+        </a>
+        <a href="mailto:jpw0616@gmail.com" aria-label="Email" class="social-icon">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </div>
+    </section>
+
+    <!-- Changelog -->
+    <section class="about-section">
+      <a href="https://liwei-ji.github.io/changelog" class="behind-link">View Changelog <span class="behind-arrow">→</span></a>
+    </section>
+
   </div>
 
-  <!-- Sitemap -->
-  <div class="text fade-in">
-    <h3 class="title">Sitemap</h3>
-    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/07b65a221320463.67d2663a7cbe0.png" alt="Sitemap" class="inline-image">    
-  </div>
-
-<!-- Progress -->
-  <div class="text fade-in">
-    <h3 class="title">Progress</h3>
-     </div>
-    <div class="block"> 
-    <div class="charts-row">
-<!-- 圖表 -->
-  <div class="chart-container">
-    <canvas id="totalProgressChart" width="400" height="400"></canvas>
-    </div>
-<!-- 長條圖 -->
-  <div class="chart-container">
-    <canvas id="featureProgressChart" width="400" height="400"></canvas>
-    </div>
-    <!-- Note -->
-    <div class="note">
-      <p>💡 I’m fixing bugs, improving, and adding features, tracking progress with a donut chart, so the timeline may change.</p>
-        </div>
-  </div>
-</div>    
-
-
-    <div class="text fade-in">
-      <h3 class="title">Disclaimer</h3>
-      <p>Thank you for visiting my personal portfolio website! I just want to take a moment to share a few things about it.</p>
-      <p>First, I'm not a professional front-end developer, but I’m passionate about learning and growing in web development. This website is a product of that journey built to practice and improve my skills. So, please keep in mind that I’m still learning as I go.</p>
-      <p>I decided not to use any pre-made templates for this site. I wanted to challenge myself and create everything from scratch, showcasing my own work and creativity.</p>
-      <p>As I continue learning, this website will keep evolving and improving. Some sections may not be perfect, but I’m actively making changes and fixing things. I’m always open to feedback, and your input means a lot to me.</p>
-      <p>Thank you so much for your support! I really appreciate your interest in my portfolio, and if you have any questions or suggestions, please don’t hesitate to reach out. This website isn’t just a place to showcase my work it’s also where I’m learning and growing. Thanks again for your understanding!</p>
-
-<!-- Link -->
-    <h3 class="title">Building Something Special!</h3>
-    <p>Still under construction, but it's going to be worth the wait,If you only want to see the portfolio or feedback.</p>
-     <div class="card-container">
-      <a href="https://liwei-ji.github.io" class="card" target="_blank" aria-label="Websit Card">
-  <div class="card-icon">
-    <i class="fas fa-globe portfolio-icon"></i>
-  </div>
-  <div class="card-text">Website</div>
-</a>
-<a href="https://liwei-ji.github.io/oops" class="card" target="_blank" aria-label="Portfolio Card">
-  <div class="card-icon">
-   <i class="fas fa-wand-magic-sparkles portfolio-icon"></i>
-  </div>
-  <div class="card-text">Portfolio</div>
-</a>
-<a href="https://www.behance.net/jpw0616380b" class="card" target="_blank" aria-label="Behance Card">
-  <div class="card-icon">
-   <i class="fab fa-behance portfolio-icon"></i>
-  </div>
-  <div class="card-text">Behance</div>
-</a>
-<a href="mailto:jpw0616@gmail.com" class="card" target="_blank" aria-label="Email Card">
-  <div class="card-icon">
-     <i class="fas fa-envelope email-icon"></i>
-  </div>
-  <div class="card-text">Email</div>
-</a>  
-</div>
-</div>
-      
-<!-- Changelog -->
- <p><a href="https://liwei-ji.github.io/changelog">View Changelog</a></p> 
-    </div>
-
-  </section>
   <script src="script.js"></script>
-  <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="liweiji" data-description="Support me on Buy me a coffee!" data-message="" data-color="#26B0A1" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+  <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="liweiji" data-description="Support me on Buy me a coffee!" data-message="" data-color="#4CAF50" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
 
 </body>
-  </html>
+</html>
