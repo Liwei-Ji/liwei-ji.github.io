@@ -55,6 +55,16 @@ body {
   background-color: #30363d;
 }
 
+body.light-mode .back-button {
+  background-color: #e8e8e8;
+  color: #1e1e1e;
+  border-color: rgba(0, 0, 0, 0.15);
+}
+
+body.light-mode .back-button:hover {
+  background-color: #d4d4d4;
+}
+
 /* Wrapper */
 .about-wrapper {
   max-width: 760px;
