@@ -483,20 +483,49 @@ body.light-mode .writing-headline {
 .writing-card {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    padding: 24px 28px;
     border-radius: 16px;
-    border: 1px solid rgba(76, 175, 80, 0.5);
-    background: transparent;
+    background: #2a2a2a;
     text-decoration: none;
     color: inherit;
     width: 360px;
-    transition: transform 0.2s ease, border-color 0.2s ease;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .writing-card:hover {
-    transform: translateY(-4px);
-    border-color: #4CAF50;
+    transform: scale(1.02);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.08);
+}
+
+body.light-mode .writing-card {
+    background: #ffffff;
+}
+
+.writing-card-img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+}
+
+.writing-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.writing-card:hover .writing-card-img img {
+    transform: scale(1.04);
+}
+
+.writing-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 20px 24px;
+    flex: 1;
 }
 
 .writing-card-title {
@@ -531,6 +560,31 @@ body.light-mode .writing-card-desc {
 
 body.light-mode .writing-card-date {
     color: rgba(0, 0, 0, 0.35);
+}
+
+.writing-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #4CAF50;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s ease;
+    margin-top: 4px;
+}
+
+.writing-more:hover {
+    border-bottom-color: #4CAF50;
+}
+
+.writing-more-arrow {
+    transition: transform 0.2s ease;
+}
+
+.writing-more:hover .writing-more-arrow {
+    transform: translateX(4px);
 }
 
 
