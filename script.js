@@ -1,3 +1,6 @@
+    // 啟用捲動動畫
+document.body.classList.add('js-animate');
+
     // 模式切換
 const modeToggle = document.getElementById('modeToggle');
 
@@ -206,11 +209,34 @@ function createCard(card) {
     return cardElement;
 }
 
+    // 捲動進場動畫
+function setupScrollAnimations() {
+    const observer = new IntersectionObserver((entries) => {
+        const visible = entries.filter(e => e.isIntersecting);
+        visible.forEach((entry, i) => {
+            const delay = i * 100;
+            entry.target.style.transitionDelay = `${delay}ms`;
+            entry.target.classList.add('in-view');
+            setTimeout(() => {
+                entry.target.style.transitionDelay = '';
+            }, 550 + delay);
+            observer.unobserve(entry.target);
+        });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('.card, .skill-card, .writing-card').forEach(el => {
+        observer.observe(el);
+    });
+}
+
     // 初始化卡片容器
 const cardContainer = document.getElementById('card-container');
 cardData.forEach(card => {
     cardContainer.appendChild(createCard(card));
 });
+
+setupScrollAnimations();
+
 cardContainer.appendChild(createDashedCard());
 
     // 平滑滾動
