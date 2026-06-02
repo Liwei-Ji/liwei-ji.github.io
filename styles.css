@@ -452,13 +452,11 @@ body.light-mode .skill-card-desc {
 /* Writing Section */
 .writing-section {
     padding: 0 2rem 80px;
-    display: flex;
-    justify-content: center;
 }
 
 .writing-container {
-    width: 100%;
     max-width: 1400px;
+    margin: 0 auto;
 }
 
 .writing-headline {
@@ -474,9 +472,9 @@ body.light-mode .writing-headline {
 }
 
 .writing-grid {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
     margin-bottom: 28px;
 }
 
@@ -487,7 +485,6 @@ body.light-mode .writing-headline {
     background: #2a2a2a;
     text-decoration: none;
     color: inherit;
-    width: 360px;
     overflow: hidden;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
     transition: transform 0.3s, box-shadow 0.3s;
@@ -587,6 +584,11 @@ body.light-mode .writing-card-date {
     transform: translateX(4px);
 }
 
+@media (max-width: 768px) {
+    .writing-grid {
+        grid-template-columns: 1fr;
+    }
+}
 
 /* Projects */
 .projects-section {
