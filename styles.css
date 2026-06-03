@@ -952,6 +952,146 @@ html {
     scroll-behavior: smooth;
 }
 
+/* ========================================
+   Testimonials Section
+   ======================================== */
+
+/* 外層容器 */
+.testimonials-section {
+    padding: 80px 2rem;
+    background: transparent;
+}
+
+.testimonials-container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.testimonials-header {
+    margin-bottom: 48px;
+}
+
+.testimonials-headline {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.1;
+    margin-bottom: 12px;
+}
+
+.testimonials-subheading {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.5);
+    max-width: 600px;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* 卡片網格 */
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+/* 卡片樣式 — 與 .skill-card 同系統 */
+.testimonial-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 32px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.02);
+    transition: transform 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.04);
+}
+
+/* 引言內容 */
+.testimonial-content p {
+    font-size: 1.05rem;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0 0 24px 0;
+    font-style: italic;
+}
+
+/* 作者資訊 */
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.author-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.author-name {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.author-title {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.45);
+    margin-top: 2px;
+}
+
+/* --- Testimonials 光暗模式 --- */
+body.light-mode .testimonials-headline {
+    color: #1d1d1f;
+}
+
+body.light-mode .testimonials-subheading {
+    color: rgba(0, 0, 0, 0.55);
+}
+
+body.light-mode .testimonial-card {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0.01);
+}
+
+body.light-mode .testimonial-card:hover {
+    border-color: rgba(0, 0, 0, 0.25);
+    background: rgba(0, 0, 0, 0.02);
+}
+
+body.light-mode .testimonial-content p {
+    color: rgba(29, 29, 31, 0.85);
+}
+
+body.light-mode .author-name {
+    color: #1d1d1f;
+}
+
+body.light-mode .author-title {
+    color: rgba(0, 0, 0, 0.45);
+}
+
+/* --- Testimonials 響應式 --- */
+@media (max-width: 1024px) {
+    .testimonials-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+    }
+    .testimonials-section {
+        padding: 60px 1.5rem;
+    }
+}
+
 /* CTA外層容器 */
 .cta-section {
   padding: 20px 20px 10px; /* 與上面卡片間距 */
