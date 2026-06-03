@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 放入透明佔位，讓光標在左側
     if (heroText) {
-        heroText.innerHTML = `<span class="cursor"></span><span class="ghost">${line1}</span>`;
+        heroText.innerHTML = `<span class="cursor entrance"></span><span class="ghost">${line1}</span>`;
     }
 
     // 等待 2 秒 (CSS動畫處理閃爍)
