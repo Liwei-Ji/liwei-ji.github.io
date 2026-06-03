@@ -2,7 +2,7 @@
 body {
     font-family: 'Inter', 'Noto Sans JP', 'Noto Sans TC', 'Yu Gothic', 'Meiryo', sans-serif;
     line-height: 1.6; /* 文字行間距 */
-    background-color: #1e1e1e; /* 背景色 */
+    background-color: #1d1d1f; /* 背景色 */
     color: #FFFFFF;
     margin: 0;
     padding: 0;
@@ -12,7 +12,7 @@ body {
 
 body.light-mode {
     background-color: #f7f7f7; /* 背景色 */
-    color: #1E1E1E;
+    color: #1d1d1f;
 }
 
 /* Navbar */
@@ -100,7 +100,7 @@ body.light-mode .navbar {
 }
 
 body.light-mode .navbar a {
-    color: #1E1E1E;
+    color: #1d1d1f;
 }
 
 /* Mouse hover color*/
@@ -245,7 +245,7 @@ body.page-hero-image-only .hero-text {
 /* 光亮模式顏色 */
 body.light-mode .hero-text,
 body.light-mode .hero-text span:not(.cursor) {
-    color: #1E1E1E; /* 文字變黑 */
+    color: #1d1d1f; /* 文字變黑 */
 }
 
 /* 打字光標 */
@@ -347,7 +347,7 @@ body.light-mode .hero-text span:not(.cursor) {
 }
 
 body.light-mode .skills-headline {
-    color: #1e1e1e;
+    color: #1d1d1f;
 }
 
 .skills-label {
@@ -371,7 +371,7 @@ body.light-mode .skills-headline {
     gap: 12px;
     padding: 24px 28px;
     border-radius: 16px;
-    border: 1px solid rgba(76, 175, 80, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     background: transparent;
     text-decoration: none;
     color: inherit;
@@ -382,7 +382,15 @@ body.light-mode .skills-headline {
 
 .skill-card:hover {
     transform: translateY(-4px);
-    border-color: #4CAF50;
+    border-color: rgba(255, 255, 255, 0.35);
+}
+
+body.light-mode .skill-card {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode .skill-card:hover {
+    border-color: rgba(0, 0, 0, 0.25);
 }
 
 .skill-card-icon {
@@ -397,7 +405,7 @@ body.light-mode .skills-headline {
 }
 
 body.light-mode .skill-card-title {
-    color: #1e1e1e;
+    color: #1d1d1f;
 }
 
 .skill-card-desc {
@@ -468,7 +476,7 @@ body.light-mode .skill-card-desc {
 }
 
 body.light-mode .writing-headline {
-    color: #1e1e1e;
+    color: #1d1d1f;
 }
 
 .writing-grid {
@@ -534,7 +542,7 @@ body.light-mode .writing-card {
 }
 
 body.light-mode .writing-card-title {
-    color: #1e1e1e;
+    color: #1d1d1f;
 }
 
 .writing-card-desc {
@@ -642,7 +650,7 @@ body.light-mode .card {
 }
 
 body.light-mode .card-title {
-    color: #1E1E1E;
+    color: #1d1d1f;
 }
 
 .card-tag {
@@ -670,7 +678,7 @@ body.dark-mode .card-tag {
 }
 
 body.light-mode .card-subtitle {
-    color: #1E1E1E;
+    color: #1d1d1f;
 }
 
 /* Card Banner */
@@ -698,14 +706,14 @@ body.light-mode .card-subtitle {
 /* Light mode banner */
 body.light-mode .card-banner {
     background: rgba(255, 255, 255, 0.9);
-    color: #1E1E1E;
+    color: #1d1d1f;
 }
 
 /* Hero Intro */
 .hero-intro {
   padding: 100px 0; /* 稍微縮減高度 */
   min-height: 100vh;
-  background: #1e1e1e;
+  background: #1d1d1f;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -747,7 +755,7 @@ body.light-mode .hero-intro {
 }
 
 body.light-mode .hero-intro-headline {
-  color: #1e1e1e !important;
+  color: #1d1d1f !important;
 }
 
 body.light-mode .hero-intro-desc {
@@ -1001,7 +1009,7 @@ body.light-mode .cta-container.glass-box {
 
 /* 文字顏色設定 */
 body.light-mode .cta-title {
-  color: #1e1e1e; /* 深黑色 */
+  color: #1d1d1f; /* 深黑色 */
 }
 
 body.light-mode .cta-subtitle {
@@ -1088,14 +1096,14 @@ body.light-mode .cta-subtitle {
 /* --- Footer 光暗模式 --- */
 /* 標題深色 */
 body.light-mode .footer-connect-title {
-  color: #1e1e1e;
+  color: #1d1d1f;
   /* 增加文字陰影，防止純白背景邊緣模糊 */
   text-shadow: none;
 }
 
 /* 社群圖標深色 */
 body.light-mode .social-icon {
-  color: #1e1e1e;
+  color: #1d1d1f;
 }
 
 /* 懸停效果綠色 */
@@ -1130,7 +1138,7 @@ body.light-mode .social-icon:hover {
 
 /* 版權文字深色 */
 body.light-mode .footer-copyright {
-  color: #1e1e1e;
+  color: #1d1d1f;
 }
 
 /* --- 版權文字響應式 --- */
