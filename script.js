@@ -1,10 +1,10 @@
-    // 啟用捲動動畫
+// 啟用捲動動畫
 document.body.classList.add('js-animate');
 
-    // 模式切換
+// 模式切換
 const modeToggle = document.getElementById('modeToggle');
 
-    // 檢查顏色模式
+// 檢查顏色模式
 function checkMode() {
     if (modeToggle.checked) {
         document.body.classList.remove('dark-mode');
@@ -17,18 +17,18 @@ function checkMode() {
     }
 }
 
-    // 頁面加載時從 localStorage 恢復模式
+// 頁面加載時從 localStorage 恢復模式
 if (localStorage.getItem('colorMode') === 'light') {
     modeToggle.checked = true;
 }
 
-    // 監聽切換事件
+// 監聽切換事件
 modeToggle.addEventListener('change', checkMode);
 
-    // 套用初始模式
+// 套用初始模式
 checkMode();
 
-    // 打字機效果
+// 打字機效果
 document.addEventListener("DOMContentLoaded", () => {
     const heroText = document.getElementById("heroText");
     const ctaGroup = document.getElementById("cta-group");
@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Learn More 平滑捲動
     if (seeMoreBtn) {
         seeMoreBtn.addEventListener("click", () => {
-            const nextSection = document.querySelector(".projects-section"); 
+            const nextSection = document.querySelector(".projects-section");
             if (nextSection) {
                 nextSection.scrollIntoView({ behavior: "smooth" });
             }
@@ -102,8 +102,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-    // 卡片數據
+// 卡片數據
 const cardData = [
+    {
+        imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/e069e4220712515.69b2ca7aeb9a0.png",
+        title: "GMP AI Agent",
+        subtitle: "Interprets FDA, EMA, and ICH regulations to help R&D and regulatory teams quickly identify compliance pathways, supported by built-in risk prediction models for proactive quality management.",
+        tags: ["AI Agent", "LLM", "RAG",],
+        url: "https://github.com/Liwei-Ji/GMP-AI-Agent",
+        banner: "Contact me to use"
+    },
     {
         imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/fs/de20e0220712515.6999e02704179.png",
         title: "Input UX",
@@ -123,7 +131,7 @@ const cardData = [
         imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/45ddd2220712515.695bcbd04ca9a.png",
         title: "DISE AI Agent",
         subtitle: "DISE AI is a medical AI agent combining U-Net based image recognition, LLMs and retrieval augmented generation RAG.",
-        tags: ["AI Agent", "Model Training", "LLM", "RAG", ],
+        tags: ["AI Agent", "Model Training", "LLM", "RAG",],
         url: "https://liwei-ji.github.io/DISE-AI",
         banner: "Contact me to use"
     },
@@ -178,12 +186,12 @@ const cardData = [
     }
 ];
 
-    // 創建卡片
+// 創建卡片
 function createCard(card) {
     const cardElement = document.createElement('div');
     cardElement.classList.add('card');
 
-      // Add Large card
+    // Add Large card
     if (card.isLarge) {
         cardElement.classList.add('card-large');
     }
@@ -202,14 +210,14 @@ function createCard(card) {
     `;
 
     cardElement.addEventListener('click', () => {
-    // 點擊卡片時開啟指定的 URL
+        // 點擊卡片時開啟指定的 URL
         window.open(card.url, "_self");  // 當前標籤頁中打開
     });
 
     return cardElement;
 }
 
-    // 捲動進場動畫
+// 捲動進場動畫
 function setupScrollAnimations() {
     const observer = new IntersectionObserver((entries) => {
         const visible = entries.filter(e => e.isIntersecting);
@@ -229,7 +237,7 @@ function setupScrollAnimations() {
     });
 }
 
-    // 初始化卡片容器
+// 初始化卡片容器
 const cardContainer = document.getElementById('card-container');
 cardData.forEach(card => {
     cardContainer.appendChild(createCard(card));
@@ -239,7 +247,7 @@ setupScrollAnimations();
 
 cardContainer.appendChild(createDashedCard());
 
-    // 平滑滾動
+// 平滑滾動
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
