@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // 卡片數據
 const cardData = [
     {
-        imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/e069e4220712515.69b2ca7aeb9a0.png",
+        imgSrc: "images/gmp_ai_cover.webp",
         title: "GMP AI Agent",
         subtitle: "Interprets FDA, EMA, and ICH regulations to help R&D and regulatory teams quickly identify compliance pathways, supported by built-in risk prediction models for proactive quality management.",
         tags: ["AI Agent", "LLM", "RAG",],
@@ -128,7 +128,7 @@ const cardData = [
         url: "https://liwei-ji.github.io/projects/dise-ai",
     },
     {
-        imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/45ddd2220712515.695bcbd04ca9a.png",
+        imgSrc: "images/dise_ai_cover.webp",
         title: "DISE AI Agent",
         subtitle: "DISE AI is a medical AI agent combining U-Net based image recognition, LLMs and retrieval augmented generation RAG.",
         tags: ["AI Agent", "Model Training", "LLM", "RAG",],
