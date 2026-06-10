@@ -125,7 +125,7 @@ const cardData = [
         title: "DISE AI",
         subtitle: "Simplifying DISE video evaluation with real-time AI insights.",
         tags: ["AI Agent", "UIUX"],
-        url: "https://liwei-ji.github.io/projects/dise-ai",
+        url: "projects/dise-ai/",
     },
     {
         imgSrc: "images/dise_ai_cover.webp",
@@ -140,49 +140,49 @@ const cardData = [
         title: "Review of OSIM Work",
         subtitle: "Creating a connected OSIM health ecosystem through cross product integration and intelligent control, delivering a seamless and personalized full body massage experience.",
         tags: ["English", "UI/UX", "Website", "APP", "Research"],
-        url: "https://liwei-ji.github.io/projects/review-of-osim-work"
+        url: "projects/review-of-osim-work/"
     },
     {
         imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/293901220712515.67c8224364822.png",
         title: "OSIM Well Being App",
         subtitle: "Reflecting on Challenges, Achievements, and Lessons Learned Along the Way.",
         tags: ["English", "APP", "Research"],
-        url: "https://liwei-ji.github.io/projects/osim-well-being-app"
+        url: "projects/osim-well-being-app/"
     },
     {
         imgSrc: "https://sg.osim.com/partners-program/img/servicedonewell-min.jpg",
         title: "How I Helped the CS Team Increase Efficiency",
         subtitle: "From workflow design to prototype validation, crafting tools that accelerate issue resolution and deliver actionable user insights.",
         tags: ["English", "Website", "Research"],
-        url: "https://liwei-ji.github.io/projects/osim-onecrm"
+        url: "projects/osim-onecrm/"
     },
     {
         imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/e51e2b220712515.67c81f448fc61.png",
         title: "Designing the mmWave Testing Tool GUI",
         subtitle: "Users can perform beam control experiments and verify test results through the intuitive TMXLAB Kit graphical interface.",
         tags: ["English", "Website", "Research"],
-        url: "https://liwei-ji.github.io/projects/mmwave"
+        url: "projects/mmwave/"
     },
     {
         imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/e4659a220712515.67c82775b7f34.png",
         title: "OPTEX Vision App",
         subtitle: "Focused on minimalist design and brand consistency, enhancing operational efficiency and meeting user needs in Japanese and European markets.",
         tags: ["English", "APP", "Research"],
-        url: "https://liwei-ji.github.io/projects/optex-app"
+        url: "projects/optex-app/"
     },
     {
         imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/6f5fbe220712515.69b2cc7c19b28.png",
         title: "Toyota New RAV4 In Car System",
         subtitle: "Comprehensively optimized in car system interfaces leveraging intuitive design, dynamic information, and feature integration to enhance driving convenience and safety.",
         tags: ["Japanese", "Toyota", "NewRav4", "Research"],
-        url: "https://liwei-ji.github.io/projects/toyota-rav4"
+        url: "projects/toyota-rav4/"
     },
     {
         imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/b6296d220712515.67c8012021a2c.png",
         title: "Toyota New RAV4 In Car App",
         subtitle: "Smart app integrating real time vehicle data and interactive workflows, focused on driver experience and user behavior driven design.",
         tags: ["Japanese", "Toyota", "NewRav4", "Research", "APP"],
-        url: "https://liwei-ji.github.io/projects/toyota-app"
+        url: "projects/toyota-app/"
     }
 ];
 
