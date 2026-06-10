@@ -186,6 +186,73 @@ const cardData = [
     }
 ];
 
+// 文章數據
+const writingData = [
+    {
+        url: "https://medium.com/@jpw0616/openai-didnt-just-release-gpt-rosalind-it-changed-the-battlefield-a7bae74ac719",
+        imgSrc: "https://miro.medium.com/v2/resize:fit:1400/format:webp/1*eeGNuYOK5TiWYRoyfYh0RA.png",
+        title: "OpenAI Didn’t Just Release GPT Rosalind. It Changed the Battlefield.",
+        desc: "While the world is still distracted by the AGI narrative and the chatbot arms race, OpenAI quietly did something far more consequential: it released GPT Rosalind.",
+        date: "Jun 7, 2026",
+        target: "_blank"
+    },
+    {
+        url: "https://medium.com/@jpw0616/the-endgame-of-medical-ai-f9465f16e6f5",
+        imgSrc: "https://miro.medium.com/v2/resize:fit:1400/format:webp/1*dF3hOw3gGJ8XRAEONFFVMA.jpeg",
+        title: "When Medical AI Is Right But No One Understands Why",
+        desc: "What happens when correctness exceeds human comprehension?",
+        date: "Jun 5, 2026",
+        target: "_blank"
+    },
+    {
+        url: "https://medium.com/@jpw0616/where-are-ui-ux-designers-headed-in-2026-403d2d70b259",
+        imgSrc: "https://miro.medium.com/v2/resize:fit:720/format:webp/1*1L_mpreZRrfuaoQcWrOZuA.jpeg",
+        title: "Where Are UI/UX Designers Headed in 2026?",
+        desc: "The floor dropped. The ceiling is moving. An honest midyear look at where designers actually stand.",
+        date: "Jun 2, 2026",
+        target: "_blank"
+    },
+    {
+        url: "https://medium.com/@jpw0616/is-ux-skills-for-business-strategy-worth-reading-40cdfbac0315",
+        imgSrc: "https://miro.medium.com/v2/resize:fit:1400/format:webp/1*JMIBVNwywgkUghJisvAMOg.png",
+        title: "Is UX Skills for Business Strategy Worth Reading?",
+        desc: "How UX designers can reframe their skills as strategic tools aligned with organizational goals.",
+        date: "May 10, 2026",
+        target: "_blank"
+    },
+    {
+        url: "https://liwei-ji.github.io/relaunch/",
+        imgSrc: "https://images.unsplash.com/photo-1729710877235-28d1e82d0442?q=80&w=800&auto=format&fit=crop",
+        title: "The Journey to Rebuild My Portfolio",
+        desc: "Why I stopped using Behance and Notion and built this portfolio from scratch.",
+        date: "Mar 2025"
+    },
+    {
+        url: "https://medium.com/@jpw0616/a-coffee-is-all-it-takes-to-level-up-cbe5f6e4941f",
+        imgSrc: "https://miro.medium.com/v2/resize:fit:720/format:webp/1*uwZJcOAsuXZl40ZidloBVw.jpeg",
+        title: "A Coffee is All It Takes to Level Up",
+        desc: "Why real conversations matter more than any course, article, or tutorial you'll ever consume.",
+        date: "Mar 24, 2025",
+        target: "_blank"
+    },
+    {
+        url: "https://medium.com/@jpw0616/ux-for-business-designing-a-valuable-digital-company-02e279fa9fbd",
+        imgSrc: "https://miro.medium.com/v2/resize:fit:720/format:webp/1*4Zlw-dG2QM3Dk8xmDDIXIA.png",
+        title: "Is UX for Business worth reading?",
+        desc: "Before reading this book I thought UX was about meeting user needs. Joel Marsh's take completely changed my perspective.",
+        date: "Dec 27, 2024",
+        target: "_blank"
+    },
+    {
+        url: "https://medium.com/@jpw0616/where-are-ui-ux-designers-headed-in-2025-e0628c15060d",
+        imgSrc: "https://miro.medium.com/v2/resize:fit:1400/format:webp/1*GypnKm9nUvBookhOSEyDLg.jpeg",
+        title: "Where Are UI/UX Designers Headed in 2025?",
+        desc: "From UI/UX to Business Design how AI is restructuring roles and redefining what designer value actually means.",
+        date: "Dec 25, 2024",
+        target: "_blank"
+    }
+];
+
 // 創建卡片
 function createCard(card) {
     const cardElement = document.createElement('div');
@@ -217,6 +284,33 @@ function createCard(card) {
     return cardElement;
 }
 
+// 動態渲染文章卡片
+function renderWritings() {
+    const writingGrid = document.getElementById('writing-grid');
+    if (!writingGrid) return;
+
+    writingData.forEach(post => {
+        const postElement = document.createElement('a');
+        postElement.href = post.url;
+        if (post.target) {
+            postElement.target = post.target;
+        }
+        postElement.classList.add('writing-card');
+
+        postElement.innerHTML = `
+            <div class="writing-card-img">
+                <img src="${post.imgSrc}" alt="${post.title}">
+            </div>
+            <div class="writing-card-body">
+                <h3 class="writing-card-title">${post.title}</h3>
+                <p class="writing-card-desc">${post.desc}</p>
+                <span class="writing-card-date">${post.date}</span>
+            </div>
+        `;
+        writingGrid.appendChild(postElement);
+    });
+}
+
 // 捲動進場動畫
 function setupScrollAnimations() {
     const observer = new IntersectionObserver((entries) => {
@@ -243,6 +337,10 @@ cardData.forEach(card => {
     cardContainer.appendChild(createCard(card));
 });
 
+// 渲染文章
+renderWritings();
+
+// 啟動滾動動畫
 setupScrollAnimations();
 
 cardContainer.appendChild(createDashedCard());
