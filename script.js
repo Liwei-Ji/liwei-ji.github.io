@@ -158,7 +158,7 @@ const cardData = [
         url: "projects/osim-well-being-app/"
     },
     {
-        imgSrc: "https://sg.osim.com/partners-program/img/servicedonewell-min.jpg",
+        imgSrc: "projects/osim-onecrm/cover.webp",
         title: "How I Helped the CS Team Increase Efficiency",
         subtitle: "From workflow design to prototype validation, crafting tools that accelerate issue resolution and deliver actionable user insights.",
         tags: ["English", "Website", "Research"],
