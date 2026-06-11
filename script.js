@@ -144,7 +144,7 @@ const cardData = [
         banner: "Contact me to use"
     },
     {
-        imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/464ea3220712515.67c82815e2868.png",
+        imgSrc: "projects/review-of-osim-work/cover.webp",
         title: "Review of OSIM Work",
         subtitle: "Creating a connected OSIM health ecosystem through cross product integration and intelligent control, delivering a seamless and personalized full body massage experience.",
         tags: ["English", "UI/UX", "Website", "APP", "Research"],
