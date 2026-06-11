@@ -136,6 +136,14 @@ const cardData = [
         banner: "Contact me to use"
     },
     {
+        imgSrc: "images/agent_flow_studio_cover.webp",
+        title: "Agent Flow Studio",
+        subtitle: "An AI agent orchestration platform combining visual workflow design, multi-agent coordination, and production-grade deployment.",
+        tags: ["AI Agent", "Flow", "LLM", "RAG",],
+        url: "https://liwei-ji.github.io/agent-flow-studio/",
+        banner: "Contact me to use"
+    },
+    {
         imgSrc: "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/464ea3220712515.67c82815e2868.png",
         title: "Review of OSIM Work",
         subtitle: "Creating a connected OSIM health ecosystem through cross product integration and intelligent control, delivering a seamless and personalized full body massage experience.",
