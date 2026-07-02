@@ -119,6 +119,7 @@ const cardData = [
         isLarge: true,
         tags: ["AI Agent", "UIUX", "Interactive behavior", "Input"],
         url: "https://liwei-ji.github.io/ai-agent-input",
+        banner: "Contact me to use"
     },
     {
         imgSrc: "projects/dise-ai/cover.webp",
