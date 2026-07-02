@@ -784,6 +784,12 @@ body.light-mode .card-subtitle {
   z-index: 2;
 }
 
+.card-large .card-banner {
+    padding: 6px 14px;
+    font-size: 0.75rem;
+    line-height: 1.4;
+}
+
 /* Light mode banner */
 body.light-mode .card-banner {
   background: rgba(255, 255, 255, 0.9);
